@@ -247,7 +247,7 @@ function HomePage({ setPage, setEasterEgg }) {
           <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:36, letterSpacing:4, marginBottom:10 }}>JOIN THE COMMUNITY</div>
           <div style={{ fontSize:13, color:MUTED, lineHeight:1.8, maxWidth:480 }}>Thousands of players are already in the Booger Client Discord. Get updates, report bugs, and hang out.</div>
         </div>
-        <Btn onClick={()=>window.open('https://discord.gg/boogerclient','_blank')}>Join Discord →</Btn>
+        <Btn onClick={()=>window.open('https://discord.gg/AgmRBZY3bS','_blank')}>Join Discord →</Btn>
       </section>
 
       {/* Roadmap teaser */}
@@ -432,7 +432,7 @@ function ShopPage() {
             <span style={{ color:MUTED }}>{cart.length} item{cart.length!==1?'s':''} · </span>
             <span style={{ color:ACCENT, fontFamily:"'Bebas Neue',sans-serif", fontSize:20 }}>${total.toFixed(2)}</span>
           </div>
-          <Btn primary>Checkout →</Btn>
+          <Btn primary onClick={() => { const url = `https://www.paypal.me/BoogerClient/${total.toFixed(2)}`; window.open(url, '_blank'); }}>Checkout with PayPal →</Btn>
         </div>
       )}
     </div>
@@ -623,9 +623,11 @@ function FAQPage() {
 /* ─── STAFF ─────────────────────────────────────────────────── */
 function StaffPage() {
   const staff = [
-    { name:'Zackerie', role:'Founder & Lead Dev', tag:'FOUNDER', desc:'Building Booger Client from the ground up. Handles everything from the core client to the website.', color:ACCENT },
-    { name:'[Open]', role:'Backend Developer', tag:'HIRING', desc:'We are looking for a Node.js/backend developer to help build the shop and API infrastructure.', color:'#FF9955' },
-    { name:'[Open]', role:'UI/UX Designer', tag:'HIRING', desc:'Looking for someone to help design in-game menus and the client HUD.', color:'#5599FF' },
+    { name:'Snot2', role:'Founder & Lead Dev', tag:'FOUNDER', desc:'Building Booger Client from the ground up. Handles everything from the core client to the website.', color:ACCENT },
+    { name:'TRM', role:'Co-Founder & Server Manager', tag:'CO-FOUNDER', desc:'Co-founder of Booger Client and manages the community server. Keeps everything running smoothly.', color:'#CC88FF' },
+    { name:'descendant_of_time', role:'Executive', tag:'EXECUTIVE', desc:'One of the core executives helping drive the direction and growth of Booger Client.', color:'#FF9955' },
+    { name:'Vueril', role:'Executive', tag:'EXECUTIVE', desc:'One of the core executives helping drive the direction and growth of Booger Client.', color:'#FF9955' },
+    { name:'MES', role:'Internal Affairs Supervisor', tag:'INTERNAL AFFAIRS', desc:'Oversees internal operations and ensures everything runs properly behind the scenes at Booger Client.', color:'#55DDDD' },
     { name:'[Open]', role:'Community Manager', tag:'HIRING', desc:'Help us grow and moderate the Booger Client Discord community.', color:'#CC88FF' },
   ];
   return (
@@ -649,7 +651,7 @@ function StaffPage() {
       <div style={{ marginTop:48, border:`1px solid ${BORDER}`, padding:'28px 32px', textAlign:'center' }}>
         <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:28, letterSpacing:4, marginBottom:12 }}>WANT TO JOIN THE TEAM?</div>
         <p style={{ color:MUTED, fontSize:13, marginBottom:24, lineHeight:1.8 }}>We're always looking for passionate people. Reach out to us on Discord and tell us what you can bring to the project.</p>
-        <Btn onClick={()=>window.open('https://discord.gg/boogerclient','_blank')}>Apply on Discord →</Btn>
+        <Btn onClick={()=>window.open('https://discord.gg/AgmRBZY3bS','_blank')}>Apply on Discord →</Btn>
       </div>
     </div>
   );
@@ -758,7 +760,7 @@ function Footer({ setPage }) {
             <div style={{ fontSize:10, letterSpacing:3, color:MUTED, textTransform:'uppercase', marginBottom:16 }}>{col.title}</div>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
               {col.links.map(l=>(
-                <button key={l} onClick={()=>setPage&&setPage(l)} style={{ background:'none', border:'none', textAlign:'left', fontSize:13, color:MUTED, cursor:'pointer', letterSpacing:.5, fontFamily:"'DM Mono',monospace", transition:'color .2s' }}
+                <button key={l} onClick={()=>{ if(l==='Discord') window.open('https://discord.gg/AgmRBZY3bS','_blank'); else if(l==='GitHub') window.open('https://github.com/rylofficalacc-prog/booger-client-site','_blank'); else setPage&&setPage(l); }} style={{ background:'none', border:'none', textAlign:'left', fontSize:13, color:MUTED, cursor:'pointer', letterSpacing:.5, fontFamily:"'DM Mono',monospace", transition:'color .2s' }}
                   onMouseEnter={e=>e.target.style.color=TEXT}
                   onMouseLeave={e=>e.target.style.color=MUTED}
                 >{l}</button>
