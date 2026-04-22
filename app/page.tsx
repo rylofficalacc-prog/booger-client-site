@@ -173,8 +173,8 @@ function HomePage({ setPage }) {
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))', gap:20, marginTop:56 }}>
           {[
             {icon:'⚡',title:'Sprint Module',desc:'Auto-sprint without holding the key. Smooth and always-on.'},
-            {icon:'🛡️',title:'Combat Suite',desc:'Reach, AimAssist, Velocity — stay competitive in any fight.'},
-            {icon:'👁️',title:'ESP & Visuals',desc:'Player ESP, item trackers, fullbright, and more visual aids.'},
+            {icon:'🎨',title:'Custom HUD',desc:'Armor display, FPS counter, coords, potion timers. Fully styled.'},
+            {icon:'🌍',title:'World Tools',desc:'Light levels, chunk borders, biome display, time changer and more.'},
             {icon:'🎨',title:'Custom HUD',desc:'Watermark, armor display, FPS counter. Fully styled to match.'},
           ].map(f=>(
             <div key={f.title} className="fcard" style={{ border:`1px solid ${BORDER}`, padding:'32px 28px' }}>
@@ -216,12 +216,12 @@ function HomePage({ setPage }) {
 /* ─── FEATURES ────────────────────────────────────────────── */
 function FeaturesPage() {
   const cats = [
-    { name:'COMBAT',   color:'#FF5555', modules:['KillAura','Reach','Velocity','AimAssist','AntiKnockback','Criticals','BowAimBot','AutoClicker'] },
-    { name:'MOVEMENT', color:ACCENT,    modules:['Sprint','Fly','Speed','NoFall','Step','Jesus','Strafe','SafeWalk'] },
-    { name:'RENDER',   color:'#5599FF', modules:['ESP','Fullbright','Tracers','Chams','Nametags','HUD','Crosshair','ViewModel'] },
-    { name:'PLAYER',   color:'#FF9955', modules:['AntiAFK','AutoEat','FastPlace','NoSlow','Scaffold','Timer','Blink','InvMove'] },
-    { name:'HUD',      color:'#CC88FF', modules:['Watermark','FPS Display','CPS Counter','Armor Status','Ping','Coords','Clock'] },
-    { name:'MISC',     color:'#55DDDD', modules:['ChatFilter','DiscordRPC','FPS Boost','Language','Notifications','AutoRespawn'] },
+    { name:'MOVEMENT', color:ACCENT,    modules:['Auto Sprint','Sneak Toggle','SafeWalk','Step Assist','Zoom','Path Display'] },
+    { name:'RENDER',   color:'#5599FF', modules:['Fullbright','Custom Crosshair','Block Overlay','Nametags','Held Item Info','ViewModel Tweaks'] },
+    { name:'PLAYER',   color:'#FF9955', modules:['Anti AFK','Auto Eat','Fast Place','Inventory HUD','Screenshot Manager','Zoom'] },
+    { name:'HUD',      color:'#CC88FF', modules:['Watermark','FPS Display','CPS Counter','Armor Status','Ping','Coords','Clock','Potion HUD'] },
+    { name:'WORLD',    color:'#55DDDD', modules:['Time Changer','Chunk Borders','Light Level','Block Info','Biome Display','Weather Display'] },
+    { name:'MISC',     color:'#FF9955', modules:['Chat Filter','Discord RPC','FPS Boost','Notifications','Auto Respawn','Language'] },
   ];
 
   return (
@@ -388,7 +388,6 @@ function DonatePage() {
     if (finalAmount <= 0) return;
     const url = `https://www.paypal.me/BoogerClient/${finalAmount.toFixed(2)}`;
     window.open(url, '_blank');
-    setSuccess(true);
   };
 
   if (success) return (
