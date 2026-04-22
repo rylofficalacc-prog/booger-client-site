@@ -156,6 +156,50 @@ function Nav({ page, setPage, menuOpen, setMenuOpen }) {
   );
 }
 
+/* ─── COUNTDOWN ────────────────────────────────────────────── */
+function CountdownTimer() {
+  const target = new Date('2026-06-22T00:00:00');
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+
+  function getTimeLeft() {
+    const diff = target - new Date();
+    if (diff <= 0) return { days:0, hours:0, minutes:0, seconds:0 };
+    return {
+      days: Math.floor(diff / (1000*60*60*24)),
+      hours: Math.floor((diff / (1000*60*60)) % 24),
+      minutes: Math.floor((diff / (1000*60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    };
+  }
+
+  useEffect(() => {
+    const t = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="fu3" style={{ marginBottom:32, textAlign:'center' }}>
+      <div style={{ fontSize:10, letterSpacing:4, color:MUTED, textTransform:'uppercase', marginBottom:16 }}>
+        Server Launch Countdown
+      </div>
+      <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap' }}>
+        {[['DAYS',timeLeft.days],['HOURS',timeLeft.hours],['MINS',timeLeft.minutes],['SECS',timeLeft.seconds]].map(([label,val])=>(
+          <div key={label} style={{ textAlign:'center', minWidth:70 }}>
+            <div style={{
+              fontFamily:"'Bebas Neue',sans-serif", fontSize:48, lineHeight:1,
+              color:ACCENT, letterSpacing:2,
+              textShadow:'0 0 20px rgba(124,255,80,0.4)',
+            }}>
+              {String(val).padStart(2,'0')}
+            </div>
+            <div style={{ fontSize:9, color:MUTED, letterSpacing:3, marginTop:4 }}>{label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ─── HOME ────────────────────────────────────────────────── */
 function HomePage({ setPage, setEasterEgg }) {
   return (
@@ -187,6 +231,9 @@ function HomePage({ setPage, setEasterEgg }) {
             A sleek, lightweight Minecraft client.<br/>
             Modules. HUD. Authentication. Built different.
           </p>
+          {/* Countdown */}
+          <CountdownTimer />
+
           <div className="fu4" style={{ display:'flex', gap:14, justifyContent:'center', flexWrap:'wrap', alignItems:'center' }}>
             <Btn primary onClick={() => setPage('Download')}>↓ Download Free</Btn>
             <button onClick={() => setEasterEgg(true)} style={{
@@ -623,11 +670,12 @@ function FAQPage() {
 /* ─── STAFF ─────────────────────────────────────────────────── */
 function StaffPage() {
   const staff = [
-    { name:'Snot2', role:'Founder & Lead Dev', tag:'FOUNDER', desc:'Building Booger Client from the ground up. Handles everything from the core client to the website.', color:ACCENT },
-    { name:'TRM', role:'Co-Founder & Server Manager', tag:'CO-FOUNDER', desc:'Co-founder of Booger Client and manages the community server. Keeps everything running smoothly.', color:'#CC88FF' },
-    { name:'descendant_of_time', role:'Executive', tag:'EXECUTIVE', desc:'One of the core executives helping drive the direction and growth of Booger Client.', color:'#FF9955' },
-    { name:'Vueril', role:'Executive', tag:'EXECUTIVE', desc:'One of the core executives helping drive the direction and growth of Booger Client.', color:'#FF9955' },
-    { name:'MES', role:'Internal Affairs Supervisor', tag:'INTERNAL AFFAIRS', desc:'Oversees internal operations and ensures everything runs properly behind the scenes at Booger Client.', color:'#55DDDD' },
+    { name:'Snot2', role:'Founder & Lead Dev', tag:'FOUNDER', desc:'Building Booger Client from the ground up. Handles everything from the core client to the website.', color:ACCENT, img:'/snot2.jpg' },
+    { name:'TRM', role:'Co-Founder & Server Manager', tag:'CO-FOUNDER', desc:'Co-founder of Booger Client and manages the community server. Keeps everything running smoothly.', color:'#CC88FF', img:'/trm.jpg' },
+    { name:'descendant_of_time', role:'Executive', tag:'EXECUTIVE', desc:'One of the core executives helping drive the direction and growth of Booger Client.', color:'#FF9955', img:'/descendant.jpg' },
+    { name:'Vueril', role:'Executive', tag:'EXECUTIVE', desc:'One of the core executives helping drive the direction and growth of Booger Client.', color:'#FF9955', img:'/vueril.jpg' },
+    { name:'MES', role:'Internal Affairs Supervisor', tag:'INTERNAL AFFAIRS', desc:'Oversees internal operations and ensures everything runs properly behind the scenes at Booger Client.', color:'#55DDDD', img:'/mes.jpg' },
+    { name:'HLUCK', role:'Logistics Chief', tag:'LOGISTICS', desc:'Manages logistics and coordination across the Booger Client team to keep everything on track.', color:'#5599FF', img:'/hluck.jpg' },
     { name:'[Open]', role:'Community Manager', tag:'HIRING', desc:'Help us grow and moderate the Booger Client Discord community.', color:'#CC88FF' },
   ];
   return (
@@ -639,8 +687,8 @@ function StaffPage() {
         {staff.map((s,i)=>(
           <div key={i} className="staffcard" style={{ border:`1px solid ${BORDER}`, padding:'28px 24px', position:'relative' }}>
             <div style={{ position:'absolute', top:16, right:16, fontSize:9, letterSpacing:2, border:`1px solid ${s.color}`, padding:'3px 8px', color:s.color }}>{s.tag}</div>
-            <div style={{ width:48, height:48, background:`rgba(${s.color==='#7CFF50'?'124,255,80':s.color==='#FF9955'?'255,153,85':s.color==='#5599FF'?'85,153,255':'204,136,255'},.12)`, border:`1px solid ${s.color}`, display:'flex', alignItems:'center', justifyContent:'center', marginBottom:16, fontSize:20 }}>
-              {i===0?'👾':'❓'}
+            <div style={{ width:64, height:64, borderRadius:'50%', border:`2px solid ${s.color}`, marginBottom:16, overflow:'hidden', flexShrink:0 }}>
+              <img src={s.img} alt={s.name} style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
             </div>
             <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:22, letterSpacing:2, marginBottom:4 }}>{s.name}</div>
             <div style={{ fontSize:11, color:s.color, letterSpacing:1, marginBottom:16, textTransform:'uppercase' }}>{s.role}</div>
