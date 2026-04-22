@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        PASTE_YOUR_META_TAG_HERE
+        <meta name="google-site-verification" content="mk0kIb21rU6E6veTOk0r-sIrC7d1ZD9qfurJob4401c" />
       </head>
       <body>{children}</body>
     </html>
