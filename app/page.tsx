@@ -126,7 +126,7 @@ function HomePage({ setPage }) {
 
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div className="fu1" style={{ fontSize: 10, letterSpacing: 6, color: ACCENT, textTransform: 'uppercase', marginBottom: 28 }}>
-            Fabric 1.21.4 · Free & Open Source
+            All Versions · Free & Open Source
           </div>
           <h1 className="fu2" style={{
             fontFamily: "'Bebas Neue',sans-serif",
@@ -139,7 +139,7 @@ function HomePage({ setPage }) {
             fontSize: 13, color: MUTED, marginTop: 32, marginBottom: 48,
             letterSpacing: .5, lineHeight: 1.9, maxWidth: 460,
           }}>
-            A sleek, lightweight Minecraft utility mod.<br />
+            A sleek, lightweight Minecraft client.<br />
             Modules. HUD. Authentication. Built different.
           </p>
           <div className="fu4" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -158,7 +158,7 @@ function HomePage({ setPage }) {
         borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`,
         padding: '36px 40px', display: 'flex', justifyContent: 'center', gap: 80, flexWrap: 'wrap',
       }}>
-        {[['1.21.4','MC Version'],['20+','Modules'],['Free','Always'],['Open Source','GitHub']].map(([v,l])=>(
+        {[['All Versions','MC Support'],['20+','Modules'],['Free','Always'],['Open Source','GitHub']].map(([v,l])=>(
           <div key={l} style={{ textAlign: 'center' }}>
             <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:38, color:ACCENT, letterSpacing:2 }}>{v}</div>
             <div style={{ fontSize:10, color:MUTED, letterSpacing:2, textTransform:'uppercase', marginTop:4 }}>{l}</div>
@@ -274,7 +274,7 @@ function DownloadPage() {
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:24 }}>
           <div>
             <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:42, letterSpacing:4, marginBottom:8 }}>v0.1.0-beta</div>
-            <div style={{ fontSize:12, color:MUTED, letterSpacing:1 }}>Minecraft 1.21.4 · Fabric Loader 0.16.x</div>
+            <div style={{ fontSize:12, color:MUTED, letterSpacing:1 }}>All Minecraft Versions · Fabric Support</div>
             <div style={{ fontSize:11, color:MUTED, marginTop:6 }}>Released January 2025 · 1,204 downloads</div>
           </div>
           <Btn primary style={{ alignSelf:'center' }}>↓ Download .jar</Btn>
@@ -284,7 +284,7 @@ function DownloadPage() {
       {/* Requirements */}
       <div style={{ border:`1px solid ${BORDER}`, padding:32, marginBottom:40 }}>
         <SectionLabel>Requirements</SectionLabel>
-        {[['Minecraft','1.21.4'],['Fabric Loader','0.16.0 or newer'],['Fabric API','Latest (from Modrinth)'],['Java','21 or newer']].map(([k,v])=>(
+        {[['Minecraft','All Versions'],['Fabric Loader','0.16.0 or newer'],['Fabric API','Latest (from Modrinth)'],['Java','21 or newer']].map(([k,v])=>(
           <div key={k} style={{ display:'flex', justifyContent:'space-between', padding:'12px 0', borderBottom:`1px solid ${BORDER}`, fontSize:13 }}>
             <span style={{ color:MUTED }}>{k}</span>
             <span style={{ color:TEXT }}>{v}</span>
@@ -295,7 +295,7 @@ function DownloadPage() {
       {/* Install steps */}
       <SectionLabel>Installation</SectionLabel>
       {[
-        'Install Fabric Loader for Minecraft 1.21.4 from fabricmc.net',
+        'Install Fabric Loader for your Minecraft version from fabricmc.net',
         'Download Fabric API and drop it into your /mods folder',
         'Download BoogerClient.jar from the button above',
         'Place BoogerClient.jar into your /mods folder',
@@ -595,8 +595,8 @@ function Footer({ setPage }) {
           BOOGER<span style={{color:TEXT}}>CLIENT</span>
         </div>
         <div style={{ fontSize:11, color:MUTED, lineHeight:1.9 }}>
-          Free & open source Minecraft utility mod.<br />
-          Fabric 1.21.4
+          Free & open source Minecraft client.<br />
+          All Versions
         </div>
       </div>
       <div style={{ display:'flex', gap:56, flexWrap:'wrap' }}>
