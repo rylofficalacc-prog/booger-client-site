@@ -9,7 +9,7 @@ const BORDER = '#1E1E1E';
 const TEXT = '#F0F0F0';
 const MUTED = '#555555';
 
-const NAV_ITEMS = ['Home','Features','Download','Shop','Donate','Account','Roadmap','FAQ','Staff','Terms','Changelog'];
+const NAV_ITEMS = ['Home','Features','Download','Shop','Donate','Account','Roadmap','FAQ','Staff','Creators','Terms','Changelog'];
 
 const CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
@@ -36,6 +36,12 @@ const CSS = `
   .staffcard{transition:all .2s ease;}
   .faqitem{transition:border-color .2s;}
   .faqitem:hover{border-color:#333 !important;}
+  .creatorcard{transition:all .25s ease;cursor:pointer;}
+  .creatorcard:hover{border-color:#7CFF50 !important;transform:translateY(-4px);box-shadow:0 12px 40px rgba(124,255,80,0.08);}
+  .creatorcard:hover .cardarrow{color:#7CFF50 !important;transform:translateX(4px);}
+  .linkbtn{transition:all .2s ease;}
+  .linkbtn:hover{opacity:0.8;transform:translateY(-2px);}
+  .closebtn:hover{background:#7CFF50 !important;color:#080808 !important;border-color:#7CFF50 !important;}
 `;
 
 export default function BoogerClientSite() {
@@ -80,6 +86,7 @@ export default function BoogerClientSite() {
         {page === 'Roadmap'   && <RoadmapPage   />}
         {page === 'FAQ'       && <FAQPage       />}
         {page === 'Staff'     && <StaffPage     />}
+        {page === 'Creators'  && <CreatorsPage  />}
         {page === 'Terms'     && <TermsPage     />}
         {page === 'Changelog' && <ChangelogPage />}
       </main>
@@ -98,7 +105,7 @@ function Nav({ page, setPage, menuOpen, setMenuOpen }) {
   }, []);
 
   const primary = ['Home','Features','Download','Shop','Donate'];
-  const secondary = ['Account','Roadmap','FAQ','Staff','Terms','Changelog'];
+  const secondary = ['Account','Roadmap','FAQ','Staff','Creators','Terms','Changelog'];
 
   return (
     <nav style={{
@@ -162,7 +169,7 @@ function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
 
   function getTimeLeft() {
-    const diff = target - new Date();
+    const diff = target.getTime() - new Date().getTime();
     if (diff <= 0) return { days:0, hours:0, minutes:0, seconds:0 };
     return {
       days: Math.floor(diff / (1000*60*60*24)),
@@ -231,9 +238,7 @@ function HomePage({ setPage, setEasterEgg }) {
             A sleek, lightweight Minecraft client.<br/>
             Modules. HUD. Authentication. Built different.
           </p>
-          {/* Countdown */}
           <CountdownTimer />
-
           <div className="fu4" style={{ display:'flex', gap:14, justifyContent:'center', flexWrap:'wrap', alignItems:'center' }}>
             <Btn primary onClick={() => setPage('Download')}>↓ Download Free</Btn>
             <button onClick={() => setEasterEgg(true)} style={{
@@ -450,8 +455,8 @@ function ShopPage() {
     {id:4,name:'Supporter Icon',desc:'Permanent supporter icon on your in-client profile.',          price:3.99,tag:'BADGE'},
     {id:5,name:'Premium Bundle',desc:'Everything above plus all future cosmetic drops. Best value.', price:9.99,tag:'BUNDLE'},
   ];
-  const inCart = id => cart.includes(id);
-  const toggle = id => setCart(c => c.includes(id) ? c.filter(x=>x!==id) : [...c,id]);
+  const inCart = (id: number) => cart.includes(id);
+  const toggle = (id: number) => setCart((c: number[]) => c.includes(id) ? c.filter((x: number)=>x!==id) : [...c,id]);
   const total  = items.filter(i=>cart.includes(i.id)).reduce((s,i)=>s+i.price,0);
   return (
     <div style={{ padding:'80px 40px', maxWidth:1100, margin:'0 auto' }}>
@@ -543,7 +548,7 @@ function AccountPage() {
   const [tab, setTab] = useState('signup');
   const [form, setForm] = useState({ username:'', email:'', password:'', confirm:'' });
   const [done, setDone] = useState(false);
-  const update = k => e => setForm(f=>({...f,[k]:e.target.value}));
+  const update = (k: string) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f: typeof form)=>({...f,[k]:e.target.value}));
 
   if (done) return (
     <div style={{ padding:'80px 40px', maxWidth:500, margin:'0 auto', textAlign:'center' }}>
@@ -559,8 +564,6 @@ function AccountPage() {
       <Label>Community account</Label>
       <PageTitle>ACCOUNT</PageTitle>
       <p style={{ color:MUTED, fontSize:13, marginBottom:40, lineHeight:1.9 }}>Create a Booger Client community account to access the shop, track your cosmetics, and be ready for launch day.</p>
-
-      {/* Tabs */}
       <div style={{ display:'flex', borderBottom:`1px solid ${BORDER}`, marginBottom:40 }}>
         {['signup','login'].map(t=>(
           <button key={t} onClick={()=>setTab(t)} style={{ flex:1, padding:'14px 0', background:'none', border:'none', borderBottom:`2px solid ${tab===t?ACCENT:'transparent'}`, color:tab===t?ACCENT:MUTED, fontFamily:"'DM Mono',monospace", fontSize:11, letterSpacing:2, textTransform:'uppercase', cursor:'pointer', transition:'all .2s' }}>
@@ -568,7 +571,6 @@ function AccountPage() {
           </button>
         ))}
       </div>
-
       {tab==='signup' ? (
         <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
           <Field label="Minecraft Username" placeholder="Steve" value={form.username} onChange={update('username')}/>
@@ -611,7 +613,7 @@ function RoadmapPage() {
       <PageTitle>ROADMAP</PageTitle>
       <p style={{ color:MUTED, fontSize:13, marginBottom:64, lineHeight:1.8 }}>Here's exactly what we're building and in what order. Updated as development progresses.</p>
       <div style={{ display:'flex', flexDirection:'column', gap:40 }}>
-        {phases.map((p,i)=>(
+        {phases.map((p)=>(
           <div key={p.phase} style={{ borderLeft:`2px solid ${p.color}`, paddingLeft:32 }}>
             <div style={{ display:'flex', alignItems:'center', gap:14, marginBottom:16, flexWrap:'wrap' }}>
               <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:28, letterSpacing:3 }}>{p.phase} — {p.title}</span>
@@ -620,8 +622,8 @@ function RoadmapPage() {
             <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
               {p.items.map((item,j)=>(
                 <div key={j} style={{ display:'flex', gap:12, alignItems:'center', fontSize:13, color:MUTED }}>
-                  <span style={{ color: i===0&&j<3 ? ACCENT : MUTED }}>{i===0&&j<3 ? '✓' : '○'}</span>
-                  <span style={{ color: i===0&&j<3 ? TEXT : MUTED }}>{item}</span>
+                  <span style={{ color: p.phase==='Phase 1'&&j<3 ? ACCENT : MUTED }}>{p.phase==='Phase 1'&&j<3 ? '✓' : '○'}</span>
+                  <span style={{ color: p.phase==='Phase 1'&&j<3 ? TEXT : MUTED }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -634,7 +636,7 @@ function RoadmapPage() {
 
 /* ─── FAQ ───────────────────────────────────────────────────── */
 function FAQPage() {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState<number|null>(null);
   const faqs = [
     { q:'Is Booger Client free?', a:'Yes. Booger Client is completely free to download and use, forever. Cosmetics in the shop are optional and never affect gameplay.' },
     { q:'Is this a hack client?', a:'No. Booger Client is a legitimate utility client. It adds quality-of-life features like auto sprint, fullbright, HUD improvements and world tools — nothing that gives unfair gameplay advantages.' },
@@ -705,6 +707,194 @@ function StaffPage() {
   );
 }
 
+/* ─── CREATORS ──────────────────────────────────────────────── */
+const CREATORS = [
+  {
+    id: 1,
+    name: 'PreptechMC',
+    tag: 'CONTENT CREATOR',
+    youtube: 'https://www.youtube.com/@PreptechMC',
+    tiktok: 'https://www.tiktok.com/@preptechmc',
+    discord: 'https://discord.gg/KJD7Yprtm2',
+    bio: "Hey, I'm Preptechmc! I make PvP gameplay, tutorials, and general Minecraft content. Whether you're trying to improve your game or just looking for something cool to watch, I got you.",
+  },
+  // Add more creators here:
+  // { id: 2, name: 'CreatorName', tag: 'CONTENT CREATOR', youtube: '...', tiktok: '...', discord: '...' },
+];
+
+function CreatorsPage() {
+  const [selected, setSelected] = useState<typeof CREATORS[0] | null>(null);
+
+  return (
+    <div style={{ padding:'80px 40px', maxWidth:1000, margin:'0 auto' }}>
+      <Label>Official partners</Label>
+      <PageTitle>CONTENT CREATORS</PageTitle>
+      <p style={{ color:MUTED, fontSize:13, marginBottom:64, letterSpacing:.5, lineHeight:1.8 }}>
+        These creators rep Booger Client. Click a card to find their socials.
+      </p>
+
+      {/* Creator grid */}
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(300px,1fr))', gap:20, marginBottom:80 }}>
+        {CREATORS.map(c => (
+          <button
+            key={c.id}
+            className="creatorcard"
+            onClick={() => setSelected(c)}
+            style={{
+              background:'transparent',
+              border:`1px solid ${BORDER}`,
+              padding:'28px 24px',
+              display:'flex',
+              alignItems:'center',
+              gap:20,
+              textAlign:'left',
+              width:'100%',
+              cursor:'pointer',
+            }}
+          >
+            {/* Avatar */}
+            <div style={{
+              width:60, height:60, borderRadius:'50%',
+              border:`2px solid ${ACCENT}`,
+              background:'#0e1a0e',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              flexShrink:0,
+            }}>
+              <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:26, color:ACCENT, lineHeight:1 }}>
+                {c.name[0]}
+              </span>
+            </div>
+
+            {/* Info */}
+            <div style={{ flex:1, minWidth:0 }}>
+              <div style={{ fontSize:9, letterSpacing:3, color:ACCENT, textTransform:'uppercase', marginBottom:4 }}>{c.tag}</div>
+              <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:24, letterSpacing:2, color:TEXT, marginBottom:10 }}>{c.name}</div>
+              <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
+                {c.youtube && <span style={{ fontSize:9, letterSpacing:1, color:'#ff6b6b', border:'1px solid #ff000030', padding:'2px 8px' }}>YOUTUBE</span>}
+                {c.tiktok  && <span style={{ fontSize:9, letterSpacing:1, color:'#5ce8e1', border:'1px solid #00f2ea30', padding:'2px 8px' }}>TIKTOK</span>}
+                {c.discord && <span style={{ fontSize:9, letterSpacing:1, color:'#8b95f5', border:'1px solid #5865f230', padding:'2px 8px' }}>DISCORD</span>}
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <span className="cardarrow" style={{ color:MUTED, fontSize:18, transition:'all .2s', flexShrink:0 }}>→</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Apply CTA */}
+      <div style={{ border:`1px solid ${BORDER}`, padding:'40px 48px', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:32 }}>
+        <div>
+          <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:28, letterSpacing:4, marginBottom:8 }}>WANT TO BE A CREATOR?</div>
+          <div style={{ fontSize:13, color:MUTED, lineHeight:1.8, maxWidth:400 }}>Apply to become an official Booger Client content creator. Reach out to us in the Discord.</div>
+        </div>
+        <Btn onClick={()=>window.open('https://discord.gg/AgmRBZY3bS','_blank')}>Apply on Discord →</Btn>
+      </div>
+
+      {/* Modal */}
+      {selected && (
+        <div
+          onClick={() => setSelected(null)}
+          style={{
+            position:'fixed', inset:0, zIndex:500,
+            background:'rgba(0,0,0,0.85)',
+            backdropFilter:'blur(8px)',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            padding:24,
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              background:'#0e0e0e',
+              border:`1px solid ${BORDER}`,
+              padding:'48px 40px 40px',
+              width:'100%', maxWidth:420,
+              textAlign:'center',
+              position:'relative',
+              boxShadow:`0 24px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(124,255,80,0.1)`,
+            }}
+          >
+            {/* Close */}
+            <button
+              className="closebtn"
+              onClick={() => setSelected(null)}
+              style={{
+                position:'absolute', top:16, right:16,
+                width:32, height:32,
+                background:'#1a1a1a', border:`1px solid ${BORDER}`,
+                color:MUTED, cursor:'pointer',
+                display:'flex', alignItems:'center', justifyContent:'center',
+                fontSize:16, transition:'all .2s',
+              }}
+            >✕</button>
+
+            {/* Avatar */}
+            <div style={{
+              width:80, height:80, borderRadius:'50%',
+              border:`2px solid ${ACCENT}`,
+              background:'#0e1a0e',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              margin:'0 auto 16px',
+            }}>
+              <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:34, color:ACCENT, lineHeight:1 }}>
+                {selected.name[0]}
+              </span>
+            </div>
+
+            <div style={{ fontSize:9, letterSpacing:3, color:ACCENT, textTransform:'uppercase', marginBottom:6 }}>{selected.tag}</div>
+            <div style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:40, letterSpacing:3, marginBottom:16 }}>{selected.name}</div>
+
+            {(selected as any).bio && (
+              <div style={{ fontSize:12, color:MUTED, lineHeight:1.9, marginBottom:28, padding:'0 8px' }}>
+                {(selected as any).bio}
+              </div>
+            )}
+
+
+            {/* Links */}
+            <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
+              {selected.youtube && (
+                <a href={selected.youtube} target="_blank" rel="noopener noreferrer" className="linkbtn" style={{
+                  display:'flex', alignItems:'center', justifyContent:'center', gap:10,
+                  padding:'14px 20px',
+                  background:'rgba(255,0,0,0.08)', border:'1px solid rgba(255,0,0,0.2)',
+                  color:'#ff6b6b', textDecoration:'none',
+                  fontFamily:"'DM Mono',monospace", fontSize:12, letterSpacing:2, textTransform:'uppercase',
+                }}>
+                  ▶ YouTube
+                </a>
+              )}
+              {selected.tiktok && (
+                <a href={selected.tiktok} target="_blank" rel="noopener noreferrer" className="linkbtn" style={{
+                  display:'flex', alignItems:'center', justifyContent:'center', gap:10,
+                  padding:'14px 20px',
+                  background:'rgba(0,242,234,0.06)', border:'1px solid rgba(0,242,234,0.2)',
+                  color:'#5ce8e1', textDecoration:'none',
+                  fontFamily:"'DM Mono',monospace", fontSize:12, letterSpacing:2, textTransform:'uppercase',
+                }}>
+                  ♪ TikTok
+                </a>
+              )}
+              {selected.discord && (
+                <a href={selected.discord} target="_blank" rel="noopener noreferrer" className="linkbtn" style={{
+                  display:'flex', alignItems:'center', justifyContent:'center', gap:10,
+                  padding:'14px 20px',
+                  background:'rgba(88,101,242,0.08)', border:'1px solid rgba(88,101,242,0.25)',
+                  color:'#8b95f5', textDecoration:'none',
+                  fontFamily:"'DM Mono',monospace", fontSize:12, letterSpacing:2, textTransform:'uppercase',
+                }}>
+                  ◈ Discord Server
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─── TERMS ─────────────────────────────────────────────────── */
 function TermsPage() {
   const sections = [
@@ -760,8 +950,8 @@ function ChangelogPage() {
       {type:'new',text:'GitHub repo & project structure set up'},
     ]},
   ];
-  const typeColor = {new:ACCENT, fix:'#FF5555', change:'#FF9955'};
-  const typeLabel = {new:'NEW', fix:'FIX', change:'CHG'};
+  const typeColor: Record<string,string> = {new:ACCENT, fix:'#FF5555', change:'#FF9955'};
+  const typeLabel: Record<string,string> = {new:'NEW', fix:'FIX', change:'CHG'};
   return (
     <div style={{ padding:'80px 40px', maxWidth:800, margin:'0 auto' }}>
       <Label>Release history</Label>
@@ -790,10 +980,10 @@ function ChangelogPage() {
 }
 
 /* ─── FOOTER ─────────────────────────────────────────────────── */
-function Footer({ setPage }) {
+function Footer({ setPage }: { setPage: (p: string) => void }) {
   const cols = [
     { title:'Navigate', links:['Home','Features','Download','Shop','Donate'] },
-    { title:'Info', links:['Roadmap','FAQ','Staff','Terms','Changelog'] },
+    { title:'Info', links:['Roadmap','FAQ','Staff','Creators','Terms','Changelog'] },
     { title:'Community', links:['Discord','GitHub','Modrinth'] },
   ];
   return (
@@ -808,9 +998,9 @@ function Footer({ setPage }) {
             <div style={{ fontSize:10, letterSpacing:3, color:MUTED, textTransform:'uppercase', marginBottom:16 }}>{col.title}</div>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
               {col.links.map(l=>(
-                <button key={l} onClick={()=>{ if(l==='Discord') window.open('https://discord.gg/AgmRBZY3bS','_blank'); else if(l==='GitHub') window.open('https://github.com/rylofficalacc-prog/booger-client-site','_blank'); else setPage&&setPage(l); }} style={{ background:'none', border:'none', textAlign:'left', fontSize:13, color:MUTED, cursor:'pointer', letterSpacing:.5, fontFamily:"'DM Mono',monospace", transition:'color .2s' }}
-                  onMouseEnter={e=>e.target.style.color=TEXT}
-                  onMouseLeave={e=>e.target.style.color=MUTED}
+                <button key={l} onClick={()=>{ if(l==='Discord') window.open('https://discord.gg/AgmRBZY3bS','_blank'); else if(l==='GitHub') window.open('https://github.com/rylofficalacc-prog/booger-client-site','_blank'); else setPage(l); }} style={{ background:'none', border:'none', textAlign:'left', fontSize:13, color:MUTED, cursor:'pointer', letterSpacing:.5, fontFamily:"'DM Mono',monospace", transition:'color .2s' }}
+                  onMouseEnter={e=>(e.target as HTMLElement).style.color=TEXT}
+                  onMouseLeave={e=>(e.target as HTMLElement).style.color=MUTED}
                 >{l}</button>
               ))}
             </div>
@@ -826,29 +1016,29 @@ function Footer({ setPage }) {
 }
 
 /* ─── SHARED COMPONENTS ─────────────────────────────────────── */
-function Btn({ children, primary, onClick }) {
+function Btn({ children, primary, onClick }: { children: React.ReactNode, primary?: boolean, onClick?: () => void }) {
   const [hov, setHov] = useState(false);
   return (
     <button onClick={onClick} className={primary?'glowbtn':''} style={{ background:primary?ACCENT:'transparent', color:primary?'#000':hov?ACCENT:TEXT, border:primary?'none':`1px solid ${hov?ACCENT:BORDER}`, padding:'14px 34px', fontFamily:"'DM Mono',monospace", fontSize:12, letterSpacing:2, textTransform:'uppercase', cursor:'pointer', fontWeight:primary?500:400, transition:'all .2s' }}
       onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>{children}</button>
   );
 }
-function Tag({ children, active }) {
+function Tag({ children, active }: { children: React.ReactNode, active?: boolean }) {
   return <div style={{ fontSize:9, letterSpacing:2, color:active?ACCENT:MUTED, border:`1px solid ${active?ACCENT:BORDER}`, padding:'3px 8px', textTransform:'uppercase' }}>{children}</div>;
 }
-function Label({ children }) {
+function Label({ children }: { children: React.ReactNode }) {
   return <div style={{ fontSize:10, letterSpacing:5, color:ACCENT, marginBottom:16, textTransform:'uppercase' }}>{children}</div>;
 }
-function SectionLabel({ children }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return <div style={{ fontSize:11, letterSpacing:3, color:MUTED, textTransform:'uppercase', marginBottom:16 }}>{children}</div>;
 }
-function PageTitle({ children }) {
+function PageTitle({ children }: { children: React.ReactNode }) {
   return <h1 style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:'clamp(48px,8vw,80px)', letterSpacing:6, marginBottom:8, lineHeight:1 }}>{children}</h1>;
 }
-function SectionTitle({ children }) {
+function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h2 style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:'clamp(36px,5vw,60px)', letterSpacing:4, lineHeight:1.1 }}>{children}</h2>;
 }
-function Field({ label, placeholder, type='text', value, onChange }) {
+function Field({ label, placeholder, type='text', value, onChange }: { label: string, placeholder: string, type?: string, value: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
   return (
     <div>
       <div style={{ fontSize:10, letterSpacing:2, color:MUTED, textTransform:'uppercase', marginBottom:8 }}>{label}</div>
