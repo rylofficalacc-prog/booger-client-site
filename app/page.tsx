@@ -717,6 +717,7 @@ const CREATORS = [
     tiktok: 'https://www.tiktok.com/@preptechmc',
     discord: 'https://discord.gg/KJD7Yprtm2',
     bio: "Hey, I'm Preptechmc! I make PvP gameplay, tutorials, and general Minecraft content. Whether you're trying to improve your game or just looking for something cool to watch, I got you.",
+    avatar: '/preptech.png',
   },
   // Add more creators here:
   // { id: 2, name: 'CreatorName', tag: 'CONTENT CREATOR', youtube: '...', tiktok: '...', discord: '...' },
@@ -758,11 +759,12 @@ function CreatorsPage() {
               border:`2px solid ${ACCENT}`,
               background:'#0e1a0e',
               display:'flex', alignItems:'center', justifyContent:'center',
-              flexShrink:0,
+              flexShrink:0, overflow:'hidden',
             }}>
-              <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:26, color:ACCENT, lineHeight:1 }}>
-                {c.name[0]}
-              </span>
+              {(c as any).avatar
+                ? <img src={(c as any).avatar} alt={c.name} style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+                : <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:26, color:ACCENT, lineHeight:1 }}>{c.name[0]}</span>
+              }
             </div>
 
             {/* Info */}
@@ -835,11 +837,12 @@ function CreatorsPage() {
               border:`2px solid ${ACCENT}`,
               background:'#0e1a0e',
               display:'flex', alignItems:'center', justifyContent:'center',
-              margin:'0 auto 16px',
+              margin:'0 auto 16px', overflow:'hidden',
             }}>
-              <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:34, color:ACCENT, lineHeight:1 }}>
-                {selected.name[0]}
-              </span>
+              {(selected as any).avatar
+                ? <img src={(selected as any).avatar} alt={selected.name} style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+                : <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:34, color:ACCENT, lineHeight:1 }}>{selected.name[0]}</span>
+              }
             </div>
 
             <div style={{ fontSize:9, letterSpacing:3, color:ACCENT, textTransform:'uppercase', marginBottom:6 }}>{selected.tag}</div>
