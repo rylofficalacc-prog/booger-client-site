@@ -32,7 +32,9 @@ const modules = [
 function getTimeLeft() {
   const distance = LAUNCH_DATE - Date.now();
 
-  if (distance <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  if (distance <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
 
   return {
     days: Math.floor(distance / (1000 * 60 * 60 * 24)),
@@ -71,6 +73,7 @@ export default function Home() {
           <a href="/shop">Shop</a>
           <a href="/staff">Staff</a>
           <a href="/faq">FAQ</a>
+          <a href="/terms">Terms</a>
         </div>
 
         <a className="discord" href={DISCORD} target="_blank">
@@ -187,8 +190,8 @@ export default function Home() {
           <span>Features</span>
           <h2>A real client site, not a basic landing page.</h2>
           <p>
-            Booger Client is being built with a clean product style, useful pages, and
-            room for updates, downloads, cosmetics, and announcements.
+            Booger Client is being built with a clean product style, useful pages, downloads,
+            cosmetics, announcements, and a real community.
           </p>
         </div>
 
@@ -242,6 +245,7 @@ export default function Home() {
             ["Shop", "/shop", "Preview cosmetics and supporter perks."],
             ["Staff", "/staff", "Meet the Booger Client team."],
             ["FAQ", "/faq", "Read common questions and answers."],
+            ["Terms", "/terms", "Read the Booger Client terms of service."],
           ].map(([title, link, desc]) => (
             <a className="pageCard" href={link} key={title}>
               <h3>{title}</h3>
@@ -269,7 +273,9 @@ export default function Home() {
           <strong>Booger Client</strong>
           <span>© 2026. All rights reserved.</span>
         </div>
-        <p>Not affiliated with Mojang, Microsoft, Lunar Client, or Feather Client.</p>
+        <p>
+          <a href="/terms">Terms</a> • Not affiliated with Mojang, Microsoft, Lunar Client, or Feather Client.
+        </p>
       </footer>
 
       <style jsx>{`
@@ -354,14 +360,14 @@ export default function Home() {
 
         .links {
           display: flex;
-          gap: 18px;
+          gap: 16px;
           flex-wrap: wrap;
           justify-content: center;
         }
 
         .links a {
           color: rgba(255, 255, 255, 0.66);
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 800;
         }
 
@@ -650,11 +656,21 @@ export default function Home() {
           top: 3px;
         }
 
-        .stats {
+        .stats,
+        .section,
+        .split,
+        .cta,
+        footer {
           position: relative;
-          z-index: 3;
+          z-index: 2;
           width: min(1360px, calc(100% - 36px));
-          margin: 28px auto 100px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .stats {
+          margin-top: 28px;
+          margin-bottom: 100px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 14px;
@@ -676,10 +692,7 @@ export default function Home() {
 
         .section,
         .split {
-          position: relative;
-          z-index: 2;
-          width: min(1360px, calc(100% - 36px));
-          margin: 0 auto 110px;
+          margin-bottom: 110px;
         }
 
         .sectionHead {
@@ -803,10 +816,7 @@ export default function Home() {
         }
 
         .cta {
-          position: relative;
-          z-index: 2;
-          width: min(1360px, calc(100% - 36px));
-          margin: 0 auto 90px;
+          margin-bottom: 90px;
           border-radius: 38px;
           padding: 58px 32px;
           text-align: center;
@@ -826,10 +836,6 @@ export default function Home() {
         }
 
         footer {
-          position: relative;
-          z-index: 2;
-          width: min(1360px, calc(100% - 36px));
-          margin: 0 auto;
           padding: 30px 0 46px;
           display: flex;
           justify-content: space-between;
@@ -850,6 +856,11 @@ export default function Home() {
 
         footer p {
           margin: 0;
+        }
+
+        footer a {
+          color: #65ff98;
+          font-weight: 900;
         }
 
         @media (max-width: 1050px) {
