@@ -2,63 +2,38 @@
 
 import { useEffect, useState } from "react";
 
+const DISCORD = "https://discord.gg/5HxHgKdfMu";
 const LAUNCH_DATE = new Date("2026-08-17T00:00:00").getTime();
 
 const features = [
-  {
-    title: "Smooth ClickGUI",
-    desc: "A clean, animated GUI built for fast toggling, searching, and customizing modules.",
-  },
-  {
-    title: "HUD Editor",
-    desc: "Drag, scale, snap, and customize HUD modules exactly how you want them.",
-  },
-  {
-    title: "1.21.11 Ready",
-    desc: "Built specifically around Minecraft 1.21.11 with modern client features.",
-  },
-  {
-    title: "Profiles",
-    desc: "Swap between PvP, Survival, Recording, and custom presets instantly.",
-  },
-  {
-    title: "Themes",
-    desc: "Choose clean accent colors, dark glass panels, and premium UI styles.",
-  },
-  {
-    title: "Discord RPC",
-    desc: "Show your Booger Client status on Discord while playing Minecraft.",
-  },
-  {
-    title: "FPS Tools",
-    desc: "Helpful visual and performance tools made for a smoother experience.",
-  },
-  {
-    title: "Notifications",
-    desc: "Clean slide-in alerts for modules, profiles, friends, updates, and more.",
-  },
+  ["Smooth ClickGUI", "A clean premium menu with categories, search, animations, settings, and blur."],
+  ["HUD Editor", "Move, scale, snap, and save HUD modules like CPS, armor, potion effects, and playtime."],
+  ["Profiles", "Switch between PvP, Survival, Recording, and custom presets instantly."],
+  ["Themes", "Choose clean accent colors, dark glass panels, glow effects, and saved presets."],
+  ["Discord RPC", "Show Booger Client activity on Discord while playing Minecraft."],
+  ["FPS Tools", "Performance-focused visuals and utility options for smoother gameplay."],
 ];
 
-const roadmap = [
-  "Core client systems",
-  "ClickGUI polish",
-  "HUD editor upgrades",
-  "Profiles and themes",
-  "Private beta testing",
-  "Public release",
+const modules = [
+  "Fullbright",
+  "CPS Counter",
+  "Armor HUD",
+  "Potion Effects",
+  "Zoom",
+  "Sprint",
+  "Playtime",
+  "Stopwatch",
+  "Crosshair",
+  "Motion Blur",
+  "Freelook",
+  "Notifications",
 ];
 
 function getTimeLeft() {
-  const now = new Date().getTime();
-  const distance = LAUNCH_DATE - now;
+  const distance = LAUNCH_DATE - Date.now();
 
   if (distance <= 0) {
-    return {
-      days: 0,
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-    };
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
   return {
@@ -73,55 +48,57 @@ export default function Home() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(getTimeLeft());
-    }, 1000);
-
+    const timer = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
     return () => clearInterval(timer);
   }, []);
 
   return (
     <main className="site">
-      <nav className="navbar">
-        <div className="brand">
-          <div className="logo">B</div>
-          <span>Booger Client</span>
+      <div className="bgGrid" />
+      <div className="glow glowOne" />
+      <div className="glow glowTwo" />
+
+      <nav className="nav">
+        <a className="brand" href="/">
+          <div className="brandIcon">B</div>
+          <div>
+            <strong>Booger Client</strong>
+            <span>Minecraft 1.21.11</span>
+          </div>
+        </a>
+
+        <div className="links">
+          <a href="/features">Features</a>
+          <a href="/download">Download</a>
+          <a href="/roadmap">Roadmap</a>
+          <a href="/changelog">Updates</a>
+          <a href="/shop">Shop</a>
         </div>
 
-        <div className="navLinks">
-          <a href="#features">Features</a>
-          <a href="#download">Download</a>
-          <a href="#roadmap">Roadmap</a>
-          <a href="#updates">Updates</a>
-          <a href="#support">Support</a>
-        </div>
-
-        <a className="navButton" href="https://discord.gg/YOUR_INVITE" target="_blank">
+        <a className="discord" href={DISCORD} target="_blank">
           Join Discord
         </a>
       </nav>
 
       <section className="hero">
-        <div className="heroGlow"></div>
-
-        <div className="heroContent">
-          <div className="statusPill">Minecraft 1.21.11 • In Development</div>
+        <div className="heroText">
+          <div className="pill">Minecraft 1.21.11 • In Development</div>
 
           <h1>
-            Booger Client
-            <span>built different.</span>
+            BOOGER CLIENT
+            <span>BUILT DIFFERENT.</span>
           </h1>
 
           <p>
             A clean Minecraft utility client with a smooth ClickGUI, custom HUD editor,
-            themes, profiles, Discord RPC, FPS tools, and premium visuals.
+            profiles, themes, Discord RPC, FPS tools, and premium visuals.
           </p>
 
-          <div className="heroButtons" id="download">
-            <a className="primaryButton" href="#">
+          <div className="buttons">
+            <a className="primary" href="/download">
               Download Soon
             </a>
-            <a className="secondaryButton" href="https://discord.gg/YOUR_INVITE" target="_blank">
+            <a className="secondary" href={DISCORD} target="_blank">
               Join Discord
             </a>
           </div>
@@ -142,6 +119,47 @@ export default function Home() {
             <div>
               <strong>{timeLeft.seconds}</strong>
               <span>Seconds</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="preview">
+          <div className="window">
+            <div className="windowTop">
+              <div className="dots">
+                <span />
+                <span />
+                <span />
+              </div>
+              <p>Booger Client Preview</p>
+            </div>
+
+            <div className="windowBody">
+              <aside>
+                <button className="active">Visual</button>
+                <button>Movement</button>
+                <button>HUD</button>
+                <button>Misc</button>
+              </aside>
+
+              <div className="panel">
+                <div className="panelHead">
+                  <h3>Visual Modules</h3>
+                  <span>Enabled</span>
+                </div>
+
+                {["Fullbright", "Armor HUD", "CPS Counter", "Motion Blur", "Crosshair"].map(
+                  (item) => (
+                    <div className="module" key={item}>
+                      <div>
+                        <strong>{item}</strong>
+                        <span>Ready</span>
+                      </div>
+                      <div className="toggle" />
+                    </div>
+                  )
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -166,531 +184,716 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" id="features">
-        <div className="sectionHeader">
-          <p>Features</p>
-          <h2>Everything you need in one clean client.</h2>
+      <section className="section">
+        <div className="sectionHead">
+          <span>Features</span>
+          <h2>A real client site, not a basic landing page.</h2>
+          <p>
+            Booger Client is being built with a clean product style, useful pages, and
+            room for updates, downloads, cosmetics, and announcements.
+          </p>
         </div>
 
         <div className="featureGrid">
-          {features.map((feature) => (
-            <div className="featureCard" key={feature.title}>
-              <div className="featureIcon">✦</div>
-              <h3>{feature.title}</h3>
-              <p>{feature.desc}</p>
+          {features.map(([title, desc]) => (
+            <div className="card" key={title}>
+              <div className="icon">✦</div>
+              <h3>{title}</h3>
+              <p>{desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="splitSection" id="updates">
-        <div className="announcementCard">
-          <p className="miniTitle">Latest Announcement</p>
+      <section className="split">
+        <div className="bigCard">
+          <span>Latest Announcement</span>
           <h2>Development is taking longer than expected.</h2>
           <p>
             Coding for Minecraft 1.21.11 is harder than earlier versions. We are also
-            currently underfunded and understaffed with developers, so progress is slower.
+            underfunded and understaffed with developers, so progress is slower than planned.
             The project is not cancelled — we are taking more time so the release feels
             polished, stable, and worth using.
           </p>
-          <a href="https://discord.gg/YOUR_INVITE" target="_blank">
-            Read updates on Discord →
-          </a>
+          <a href="/changelog">View updates →</a>
         </div>
 
-        <div className="shopCard">
-          <p className="miniTitle">Coming Soon</p>
-          <h2>Cosmetics & Supporter Perks</h2>
-          <div className="perkList">
-            <span>Capes</span>
-            <span>Badges</span>
-            <span>Name Colors</span>
-            <span>Emotes</span>
-            <span>Supporter Packs</span>
-            <span>Beta Access</span>
+        <div className="bigCard">
+          <span>Modules</span>
+          <h2>Clean utility features.</h2>
+          <div className="moduleCloud">
+            {modules.map((module) => (
+              <p key={module}>{module}</p>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section" id="roadmap">
-        <div className="sectionHeader">
-          <p>Roadmap</p>
-          <h2>What we are building next.</h2>
+      <section className="section">
+        <div className="sectionHead">
+          <span>Pages</span>
+          <h2>Explore the full site.</h2>
         </div>
 
-        <div className="roadmap">
-          {roadmap.map((item, index) => (
-            <div className="roadmapItem" key={item}>
-              <div className="roadmapNumber">{index + 1}</div>
-              <span>{item}</span>
-            </div>
+        <div className="pageGrid">
+          {[
+            ["Download", "/download", "View release status and beta information."],
+            ["Features", "/features", "See what Booger Client is being built with."],
+            ["Roadmap", "/roadmap", "Track the plan before public release."],
+            ["Updates", "/changelog", "Read development announcements and changelog posts."],
+            ["Shop", "/shop", "Preview cosmetics and supporter perks."],
+          ].map(([title, link, desc]) => (
+            <a className="pageCard" href={link} key={title}>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+              <span>Open →</span>
+            </a>
           ))}
         </div>
       </section>
 
-      <section className="cta" id="support">
-        <h2>Be here before release.</h2>
+      <section className="cta">
+        <span>Join before launch</span>
+        <h2>Booger Client is still cooking.</h2>
         <p>
-          Join the Discord for sneak peeks, testing info, announcements, and development
-          updates.
+          Join the Discord for sneak peeks, testing info, announcements, and developer
+          application info.
         </p>
-        <a href="https://discord.gg/YOUR_INVITE" target="_blank">
-          Join Booger Client Discord
+        <a href={DISCORD} target="_blank">
+          Join Discord
         </a>
       </section>
 
       <footer>
-        <span>Booger Client © 2026</span>
-        <span>Not affiliated with Mojang, Microsoft, Lunar Client, or Feather Client.</span>
+        <div>
+          <strong>Booger Client</strong>
+          <span>© 2026. All rights reserved.</span>
+        </div>
+        <p>Not affiliated with Mojang, Microsoft, Lunar Client, or Feather Client.</p>
       </footer>
 
       <style jsx>{`
-        .site {
-          min-height: 100vh;
-          background:
-            radial-gradient(circle at 20% 10%, rgba(0, 255, 120, 0.18), transparent 30%),
-            radial-gradient(circle at 80% 20%, rgba(0, 180, 255, 0.16), transparent 35%),
-            linear-gradient(180deg, #050806 0%, #080c0a 50%, #030403 100%);
-          color: white;
-          font-family:
-            Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-            sans-serif;
-          overflow-x: hidden;
+        * {
+          box-sizing: border-box;
         }
 
-        .navbar {
+        .site {
+          min-height: 100vh;
+          overflow: hidden;
+          color: white;
+          background:
+            radial-gradient(circle at 20% 0%, rgba(70, 255, 130, 0.22), transparent 32%),
+            radial-gradient(circle at 80% 10%, rgba(0, 180, 255, 0.16), transparent 30%),
+            linear-gradient(180deg, #030603 0%, #07100a 45%, #020302 100%);
+          font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+          position: relative;
+        }
+
+        .bgGrid {
+          position: fixed;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+          background-size: 48px 48px;
+          mask-image: linear-gradient(to bottom, black, transparent 80%);
+          pointer-events: none;
+        }
+
+        .glow {
+          position: fixed;
+          width: 420px;
+          height: 420px;
+          border-radius: 999px;
+          filter: blur(100px);
+          opacity: 0.35;
+          pointer-events: none;
+        }
+
+        .glowOne {
+          top: -100px;
+          left: -120px;
+          background: #40ff85;
+        }
+
+        .glowTwo {
+          right: -120px;
+          top: 120px;
+          background: #00b7ff;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        .nav {
           position: fixed;
           top: 18px;
           left: 50%;
           transform: translateX(-50%);
-          width: min(1120px, calc(100% - 32px));
-          height: 68px;
+          width: min(1180px, calc(100% - 28px));
+          height: 74px;
           padding: 0 18px;
+          border-radius: 24px;
+          background: rgba(5, 9, 6, 0.76);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 22px;
-          background: rgba(6, 10, 8, 0.72);
-          backdrop-filter: blur(20px);
+          backdrop-filter: blur(24px);
           display: flex;
           align-items: center;
           justify-content: space-between;
           z-index: 50;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+          box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
         }
 
         .brand {
           display: flex;
           align-items: center;
           gap: 12px;
-          font-weight: 900;
-          letter-spacing: -0.03em;
         }
 
-        .logo {
-          width: 38px;
-          height: 38px;
-          border-radius: 14px;
-          background: linear-gradient(135deg, #49ff87, #08a84f);
-          color: #041007;
+        .brandIcon {
+          width: 44px;
+          height: 44px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #70ff9b, #14bd5d);
+          color: #031006;
           display: grid;
           place-items: center;
           font-weight: 1000;
-          box-shadow: 0 0 28px rgba(73, 255, 135, 0.35);
+          box-shadow: 0 0 36px rgba(85, 255, 142, 0.3);
         }
 
-        .navLinks {
+        .brand strong {
+          display: block;
+          font-size: 15px;
+          line-height: 1;
+        }
+
+        .brand span {
+          display: block;
+          margin-top: 5px;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.48);
+        }
+
+        .links {
           display: flex;
-          gap: 22px;
+          gap: 24px;
         }
 
-        .navLinks a,
-        .navButton,
-        .heroButtons a,
-        .announcementCard a,
-        .cta a {
-          color: white;
-          text-decoration: none;
-        }
-
-        .navLinks a {
-          color: rgba(255, 255, 255, 0.68);
+        .links a {
+          color: rgba(255, 255, 255, 0.62);
           font-size: 14px;
-          transition: 0.2s ease;
+          font-weight: 800;
         }
 
-        .navLinks a:hover {
+        .links a:hover {
           color: white;
         }
 
-        .navButton {
-          padding: 11px 16px;
-          border-radius: 14px;
+        .discord {
+          padding: 12px 16px;
+          border-radius: 16px;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          font-weight: 800;
-          font-size: 14px;
+          font-weight: 900;
         }
 
         .hero {
-          min-height: 100vh;
-          display: grid;
-          place-items: center;
-          position: relative;
-          padding: 140px 24px 80px;
-          background:
-            linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.78)),
-            url("https://images.unsplash.com/photo-1627856013091-fed6e4e30025?auto=format&fit=crop&w=1800&q=80");
-          background-size: cover;
-          background-position: center;
-        }
-
-        .hero::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background:
-            linear-gradient(90deg, rgba(0, 0, 0, 0.72), transparent, rgba(0, 0, 0, 0.72)),
-            linear-gradient(180deg, transparent 30%, #050806 100%);
-          pointer-events: none;
-        }
-
-        .heroGlow {
-          position: absolute;
-          width: 520px;
-          height: 520px;
-          border-radius: 999px;
-          background: rgba(60, 255, 130, 0.2);
-          filter: blur(90px);
-          z-index: 1;
-        }
-
-        .heroContent {
           position: relative;
           z-index: 2;
-          text-align: center;
-          max-width: 920px;
+          width: min(1180px, calc(100% - 28px));
+          min-height: 100vh;
+          margin: 0 auto;
+          padding: 150px 0 90px;
+          display: grid;
+          grid-template-columns: 1fr 0.9fr;
+          align-items: center;
+          gap: 46px;
         }
 
-        .statusPill {
+        .pill {
           display: inline-flex;
-          padding: 10px 15px;
+          padding: 10px 14px;
           border-radius: 999px;
-          background: rgba(64, 255, 133, 0.1);
-          border: 1px solid rgba(64, 255, 133, 0.24);
-          color: #89ffb5;
-          font-weight: 800;
-          font-size: 13px;
-          margin-bottom: 22px;
+          color: #baffcf;
+          background: rgba(101, 255, 152, 0.12);
+          border: 1px solid rgba(101, 255, 152, 0.24);
+          font-size: 12px;
+          font-weight: 1000;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
         }
 
         h1 {
-          font-size: clamp(58px, 10vw, 128px);
+          margin: 24px 0 0;
+          font-size: clamp(56px, 8vw, 112px);
           line-height: 0.86;
           letter-spacing: -0.085em;
-          margin: 0;
-          text-transform: uppercase;
         }
 
         h1 span {
           display: block;
-          color: #59ff91;
-          text-shadow: 0 0 40px rgba(89, 255, 145, 0.38);
+          color: #65ff98;
+          text-shadow: 0 0 44px rgba(101, 255, 152, 0.28);
         }
 
-        .heroContent p {
-          max-width: 720px;
-          margin: 28px auto 0;
-          color: rgba(255, 255, 255, 0.76);
+        .heroText p {
+          max-width: 660px;
+          margin: 28px 0 0;
+          color: rgba(255, 255, 255, 0.68);
           font-size: 18px;
-          line-height: 1.7;
+          line-height: 1.75;
         }
 
-        .heroButtons {
+        .buttons {
           display: flex;
-          justify-content: center;
           gap: 14px;
-          margin-top: 34px;
           flex-wrap: wrap;
+          margin-top: 34px;
         }
 
-        .primaryButton,
-        .secondaryButton {
+        .primary,
+        .secondary,
+        .cta a {
           padding: 16px 24px;
           border-radius: 16px;
-          font-weight: 900;
+          font-weight: 1000;
           transition: 0.2s ease;
         }
 
-        .primaryButton {
-          background: linear-gradient(135deg, #5dff97, #12b95b);
-          color: #031006 !important;
-          box-shadow: 0 20px 50px rgba(18, 185, 91, 0.28);
+        .primary,
+        .cta a {
+          color: #031006;
+          background: linear-gradient(135deg, #72ff9e, #14bd5d);
+          box-shadow: 0 22px 55px rgba(20, 189, 93, 0.28);
         }
 
-        .secondaryButton {
+        .secondary {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.14);
         }
 
-        .primaryButton:hover,
-        .secondaryButton:hover,
-        .cta a:hover {
+        .primary:hover,
+        .secondary:hover,
+        .discord:hover,
+        .cta a:hover,
+        .pageCard:hover {
           transform: translateY(-2px);
         }
 
         .countdown {
-          margin: 46px auto 0;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 14px;
-          max-width: 720px;
+          gap: 12px;
+          max-width: 650px;
+          margin-top: 38px;
         }
 
         .countdown div,
         .stats div,
-        .featureCard,
-        .announcementCard,
-        .shopCard,
-        .roadmapItem,
-        .cta {
-          background: rgba(255, 255, 255, 0.065);
+        .card,
+        .bigCard,
+        .pageCard,
+        .cta,
+        .window {
+          background: rgba(255, 255, 255, 0.07);
           border: 1px solid rgba(255, 255, 255, 0.11);
-          backdrop-filter: blur(16px);
-          box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
+          backdrop-filter: blur(18px);
+          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
         }
 
         .countdown div {
           border-radius: 22px;
           padding: 22px;
+          text-align: center;
         }
 
         .countdown strong {
           display: block;
-          font-size: 38px;
-          line-height: 1;
+          font-size: 34px;
         }
 
         .countdown span {
-          color: rgba(255, 255, 255, 0.58);
-          font-size: 13px;
-          font-weight: 800;
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 12px;
+          font-weight: 1000;
           text-transform: uppercase;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.14em;
+        }
+
+        .window {
+          border-radius: 32px;
+          overflow: hidden;
+        }
+
+        .windowTop {
+          height: 56px;
+          padding: 0 18px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .dots {
+          display: flex;
+          gap: 7px;
+        }
+
+        .dots span {
+          width: 10px;
+          height: 10px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.28);
+        }
+
+        .windowTop p {
+          color: rgba(255, 255, 255, 0.55);
+          font-size: 13px;
+          font-weight: 900;
+        }
+
+        .windowBody {
+          display: grid;
+          grid-template-columns: 140px 1fr;
+          min-height: 430px;
+        }
+
+        aside {
+          padding: 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        aside button {
+          padding: 12px 14px;
+          border: 0;
+          border-radius: 14px;
+          background: transparent;
+          color: rgba(255, 255, 255, 0.55);
+          text-align: left;
+          font-weight: 900;
+        }
+
+        aside .active {
+          color: #031006;
+          background: #65ff98;
+        }
+
+        .panel {
+          padding: 22px;
+        }
+
+        .panelHead {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 18px;
+        }
+
+        .panelHead h3 {
+          margin: 0;
+          font-size: 26px;
+        }
+
+        .panelHead span {
+          color: #65ff98;
+          font-weight: 1000;
+          font-size: 13px;
+        }
+
+        .module {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px;
+          border-radius: 18px;
+          background: rgba(255, 255, 255, 0.055);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          margin-bottom: 12px;
+        }
+
+        .module span {
+          display: block;
+          margin-top: 5px;
+          color: rgba(255, 255, 255, 0.45);
+          font-size: 12px;
+        }
+
+        .toggle {
+          width: 44px;
+          height: 24px;
+          border-radius: 999px;
+          background: #65ff98;
+          position: relative;
+          box-shadow: 0 0 22px rgba(101, 255, 152, 0.3);
+        }
+
+        .toggle::after {
+          content: "";
+          width: 18px;
+          height: 18px;
+          border-radius: 999px;
+          background: #031006;
+          position: absolute;
+          right: 3px;
+          top: 3px;
         }
 
         .stats {
-          width: min(1120px, calc(100% - 32px));
-          margin: -48px auto 90px;
           position: relative;
           z-index: 3;
+          width: min(1180px, calc(100% - 28px));
+          margin: -50px auto 100px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 14px;
         }
 
         .stats div {
-          border-radius: 22px;
-          padding: 24px;
+          border-radius: 24px;
+          padding: 26px;
         }
 
         .stats strong {
           display: block;
-          font-size: 26px;
-          margin-bottom: 6px;
+          font-size: 30px;
         }
 
         .stats span {
-          color: rgba(255, 255, 255, 0.58);
-          font-size: 14px;
+          color: rgba(255, 255, 255, 0.5);
         }
 
         .section,
-        .splitSection {
-          width: min(1120px, calc(100% - 32px));
-          margin: 0 auto 100px;
+        .split {
+          position: relative;
+          z-index: 2;
+          width: min(1180px, calc(100% - 28px));
+          margin: 0 auto 110px;
         }
 
-        .sectionHeader {
+        .sectionHead {
+          max-width: 760px;
+          margin: 0 auto 36px;
           text-align: center;
-          margin-bottom: 34px;
         }
 
-        .sectionHeader p,
-        .miniTitle {
-          color: #59ff91;
+        .sectionHead span,
+        .bigCard span,
+        .cta span {
+          color: #65ff98;
           font-weight: 1000;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
-          letter-spacing: 0.18em;
           font-size: 12px;
         }
 
-        .sectionHeader h2,
-        .announcementCard h2,
-        .shopCard h2,
+        .sectionHead h2,
+        .bigCard h2,
         .cta h2 {
-          font-size: clamp(34px, 5vw, 58px);
-          line-height: 1;
-          letter-spacing: -0.06em;
-          margin: 8px 0 0;
+          margin: 12px 0 0;
+          font-size: clamp(36px, 5vw, 66px);
+          line-height: 0.95;
+          letter-spacing: -0.07em;
+        }
+
+        .sectionHead p,
+        .bigCard p,
+        .cta p {
+          color: rgba(255, 255, 255, 0.62);
+          line-height: 1.7;
         }
 
         .featureGrid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 16px;
         }
 
-        .featureCard {
-          border-radius: 26px;
-          padding: 24px;
-          min-height: 210px;
+        .card,
+        .bigCard,
+        .pageCard {
+          border-radius: 30px;
+          padding: 28px;
           transition: 0.2s ease;
         }
 
-        .featureCard:hover {
-          transform: translateY(-5px);
-          border-color: rgba(89, 255, 145, 0.34);
-          box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+        .card:hover,
+        .bigCard:hover {
+          border-color: rgba(101, 255, 152, 0.35);
+          transform: translateY(-4px);
         }
 
-        .featureIcon {
-          width: 42px;
-          height: 42px;
-          border-radius: 14px;
-          background: rgba(89, 255, 145, 0.12);
+        .icon {
+          width: 46px;
+          height: 46px;
+          border-radius: 16px;
+          background: rgba(101, 255, 152, 0.12);
+          color: #65ff98;
           display: grid;
           place-items: center;
-          color: #59ff91;
-          margin-bottom: 20px;
+          margin-bottom: 22px;
         }
 
-        .featureCard h3 {
-          font-size: 19px;
+        .card h3,
+        .pageCard h3 {
           margin: 0 0 10px;
+          font-size: 24px;
         }
 
-        .featureCard p,
-        .announcementCard p,
-        .shopCard p,
-        .cta p {
-          color: rgba(255, 255, 255, 0.65);
-          line-height: 1.65;
+        .card p,
+        .pageCard p {
+          color: rgba(255, 255, 255, 0.6);
+          line-height: 1.6;
           margin: 0;
         }
 
-        .splitSection {
+        .split {
           display: grid;
           grid-template-columns: 1.1fr 0.9fr;
           gap: 16px;
         }
 
-        .announcementCard,
-        .shopCard,
-        .cta {
-          border-radius: 32px;
-          padding: 34px;
-        }
-
-        .announcementCard a {
+        .bigCard a {
           display: inline-block;
           margin-top: 24px;
-          color: #59ff91;
-          font-weight: 900;
+          color: #65ff98;
+          font-weight: 1000;
         }
 
-        .perkList {
+        .moduleCloud {
           display: flex;
           flex-wrap: wrap;
           gap: 10px;
           margin-top: 24px;
         }
 
-        .perkList span {
+        .moduleCloud p {
+          margin: 0;
           padding: 11px 14px;
           border-radius: 999px;
-          background: rgba(89, 255, 145, 0.1);
-          border: 1px solid rgba(89, 255, 145, 0.18);
-          color: #baffcf;
-          font-weight: 800;
+          background: rgba(101, 255, 152, 0.1);
+          border: 1px solid rgba(101, 255, 152, 0.18);
+          color: #caffd9;
+          font-weight: 900;
           font-size: 13px;
         }
 
-        .roadmap {
+        .pageGrid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 14px;
         }
 
-        .roadmapItem {
-          border-radius: 24px;
-          padding: 22px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          font-weight: 900;
-        }
-
-        .roadmapNumber {
-          width: 42px;
-          height: 42px;
-          border-radius: 14px;
-          background: #59ff91;
-          color: #031006;
-          display: grid;
-          place-items: center;
+        .pageCard span {
+          display: inline-block;
+          margin-top: 18px;
+          color: #65ff98;
           font-weight: 1000;
         }
 
         .cta {
-          width: min(1120px, calc(100% - 32px));
-          margin: 0 auto 80px;
+          position: relative;
+          z-index: 2;
+          width: min(1180px, calc(100% - 28px));
+          margin: 0 auto 90px;
+          border-radius: 38px;
+          padding: 58px 32px;
           text-align: center;
           background:
-            radial-gradient(circle at 50% 0%, rgba(89, 255, 145, 0.18), transparent 45%),
-            rgba(255, 255, 255, 0.065);
+            radial-gradient(circle at 50% 0%, rgba(101, 255, 152, 0.16), transparent 45%),
+            rgba(255, 255, 255, 0.07);
         }
 
         .cta p {
-          max-width: 640px;
+          max-width: 680px;
           margin: 18px auto 0;
         }
 
         .cta a {
           display: inline-block;
           margin-top: 28px;
-          padding: 16px 24px;
-          border-radius: 16px;
-          background: linear-gradient(135deg, #5dff97, #12b95b);
-          color: #031006;
-          font-weight: 1000;
-          box-shadow: 0 20px 50px rgba(18, 185, 91, 0.28);
         }
 
         footer {
-          width: min(1120px, calc(100% - 32px));
+          position: relative;
+          z-index: 2;
+          width: min(1180px, calc(100% - 28px));
           margin: 0 auto;
-          padding: 32px 0 50px;
+          padding: 30px 0 46px;
           display: flex;
           justify-content: space-between;
           color: rgba(255, 255, 255, 0.45);
           font-size: 13px;
-          gap: 16px;
+          gap: 20px;
         }
 
-        @media (max-width: 900px) {
-          .navLinks {
+        footer strong,
+        footer span {
+          display: block;
+        }
+
+        footer strong {
+          color: white;
+          margin-bottom: 6px;
+        }
+
+        footer p {
+          margin: 0;
+        }
+
+        @media (max-width: 980px) {
+          .links {
             display: none;
+          }
+
+          .hero,
+          .split {
+            grid-template-columns: 1fr;
+          }
+
+          .stats,
+          .featureGrid,
+          .pageGrid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .hero {
+            padding-top: 130px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .brand span {
+            display: none;
+          }
+
+          .discord {
+            padding: 10px 12px;
+            font-size: 13px;
           }
 
           .countdown,
           .stats,
           .featureGrid,
-          .roadmap,
-          .splitSection {
+          .pageGrid {
             grid-template-columns: 1fr;
           }
 
-          .hero {
-            padding-top: 130px;
+          .windowBody {
+            grid-template-columns: 1fr;
+          }
+
+          aside {
+            display: none;
+          }
+
+          h1 {
+            font-size: 54px;
           }
 
           footer {
