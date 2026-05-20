@@ -84,6 +84,8 @@ export default function Home() {
 
       <section className="hero">
         <div className="heroText">
+          <img className="heroLogo" src="/logo.png" alt="Booger Client Logo" />
+
           <div className="pill">Minecraft 1.21.11 • In Development</div>
 
           <h1>
@@ -359,12 +361,9 @@ export default function Home() {
         .brandIcon {
           width: 44px;
           height: 44px;
-          border-radius: 16px;
-          background: linear-gradient(135deg, #70ff9b, #14bd5d);
-          color: #031006;
-          display: grid;
-          place-items: center;
-          font-weight: 1000;
+          border-radius: 14px;
+          object-fit: cover;
+          display: block;
           box-shadow: 0 0 36px rgba(85, 255, 142, 0.3);
         }
 
@@ -411,12 +410,47 @@ export default function Home() {
           z-index: 2;
           width: min(1180px, calc(100% - 28px));
           min-height: 100vh;
-          margin: 0 auto;
-          padding: 150px 0 90px;
+          margin: 96px auto 0;
+          padding: 110px 40px 90px;
           display: grid;
           grid-template-columns: 1fr 0.9fr;
           align-items: center;
           gap: 46px;
+          border-radius: 42px;
+          overflow: hidden;
+          background:
+            linear-gradient(90deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.62) 44%, rgba(0, 0, 0, 0.32) 100%),
+            linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(2, 3, 2, 0.9) 100%),
+            url("/hero-bg.png");
+          background-size: cover;
+          background-position: center;
+          box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 30% 25%, rgba(101, 255, 152, 0.18), transparent 28%),
+            radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.12), transparent 22%),
+            linear-gradient(180deg, transparent 0%, rgba(2, 3, 2, 0.75) 100%);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .heroText,
+        .preview {
+          position: relative;
+          z-index: 1;
+        }
+
+        .heroLogo {
+          width: min(300px, 80vw);
+          height: auto;
+          display: block;
+          margin-bottom: 24px;
+          filter: drop-shadow(0 0 35px rgba(101, 255, 152, 0.35));
         }
 
         .pill {
@@ -448,7 +482,7 @@ export default function Home() {
         .heroText p {
           max-width: 660px;
           margin: 28px 0 0;
-          color: rgba(255, 255, 255, 0.68);
+          color: rgba(255, 255, 255, 0.76);
           font-size: 18px;
           line-height: 1.75;
         }
@@ -654,7 +688,7 @@ export default function Home() {
           position: relative;
           z-index: 3;
           width: min(1180px, calc(100% - 28px));
-          margin: -50px auto 100px;
+          margin: 28px auto 100px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 14px;
@@ -869,7 +903,7 @@ export default function Home() {
           }
 
           .hero {
-            padding-top: 130px;
+            padding-top: 110px;
           }
         }
 
@@ -900,6 +934,10 @@ export default function Home() {
 
           h1 {
             font-size: 54px;
+          }
+
+          .hero {
+            padding: 110px 20px 70px;
           }
 
           footer {
