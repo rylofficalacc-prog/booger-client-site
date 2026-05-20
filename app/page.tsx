@@ -32,9 +32,7 @@ const modules = [
 function getTimeLeft() {
   const distance = LAUNCH_DATE - Date.now();
 
-  if (distance <= 0) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  }
+  if (distance <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
   return {
     days: Math.floor(distance / (1000 * 60 * 60 * 24)),
@@ -55,8 +53,6 @@ export default function Home() {
   return (
     <main className="site">
       <div className="bgGrid" />
-      <div className="glow glowOne" />
-      <div className="glow glowTwo" />
 
       <nav className="nav">
         <a className="brand" href="/">
@@ -84,8 +80,6 @@ export default function Home() {
 
       <section className="hero">
         <div className="heroText">
-          <img className="heroLogo" src="/logo.png" alt="Booger Client Logo" />
-
           <div className="pill">Minecraft 1.21.11 • In Development</div>
 
           <h1>
@@ -288,8 +282,8 @@ export default function Home() {
           overflow: hidden;
           color: white;
           background:
-            radial-gradient(circle at 20% 0%, rgba(70, 255, 130, 0.22), transparent 32%),
-            radial-gradient(circle at 80% 10%, rgba(0, 180, 255, 0.16), transparent 30%),
+            radial-gradient(circle at 20% 0%, rgba(70, 255, 130, 0.18), transparent 32%),
+            radial-gradient(circle at 80% 10%, rgba(0, 180, 255, 0.14), transparent 30%),
             linear-gradient(180deg, #030603 0%, #07100a 45%, #020302 100%);
           font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           position: relative;
@@ -299,33 +293,11 @@ export default function Home() {
           position: fixed;
           inset: 0;
           background-image:
-            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
           background-size: 48px 48px;
           mask-image: linear-gradient(to bottom, black, transparent 80%);
           pointer-events: none;
-        }
-
-        .glow {
-          position: fixed;
-          width: 420px;
-          height: 420px;
-          border-radius: 999px;
-          filter: blur(100px);
-          opacity: 0.35;
-          pointer-events: none;
-        }
-
-        .glowOne {
-          top: -100px;
-          left: -120px;
-          background: #40ff85;
-        }
-
-        .glowTwo {
-          right: -120px;
-          top: 120px;
-          background: #00b7ff;
         }
 
         a {
@@ -338,11 +310,11 @@ export default function Home() {
           top: 18px;
           left: 50%;
           transform: translateX(-50%);
-          width: min(1180px, calc(100% - 28px));
+          width: min(1360px, calc(100% - 36px));
           min-height: 74px;
           padding: 0 18px;
           border-radius: 24px;
-          background: rgba(5, 9, 6, 0.76);
+          background: rgba(5, 9, 6, 0.78);
           border: 1px solid rgba(255, 255, 255, 0.1);
           backdrop-filter: blur(24px);
           display: flex;
@@ -388,7 +360,7 @@ export default function Home() {
         }
 
         .links a {
-          color: rgba(255, 255, 255, 0.62);
+          color: rgba(255, 255, 255, 0.66);
           font-size: 14px;
           font-weight: 800;
         }
@@ -408,23 +380,23 @@ export default function Home() {
         .hero {
           position: relative;
           z-index: 2;
-          width: min(1180px, calc(100% - 28px));
-          min-height: 100vh;
-          margin: 96px auto 0;
-          padding: 110px 40px 90px;
+          width: min(1540px, calc(100% - 32px));
+          min-height: calc(100vh - 36px);
+          margin: 18px auto 0;
+          padding: 150px 72px 90px;
           display: grid;
-          grid-template-columns: 1fr 0.9fr;
+          grid-template-columns: 0.95fr 1.05fr;
           align-items: center;
-          gap: 46px;
+          gap: 64px;
           border-radius: 42px;
           overflow: hidden;
           background:
-            linear-gradient(90deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.62) 44%, rgba(0, 0, 0, 0.32) 100%),
-            linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(2, 3, 2, 0.9) 100%),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.64) 42%, rgba(0, 0, 0, 0.28) 100%),
+            linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(2, 3, 2, 0.92) 100%),
             url("/hero-bg.png");
           background-size: cover;
           background-position: center;
-          box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
         }
 
         .hero::before {
@@ -432,9 +404,9 @@ export default function Home() {
           position: absolute;
           inset: 0;
           background:
-            radial-gradient(circle at 30% 25%, rgba(101, 255, 152, 0.18), transparent 28%),
-            radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.12), transparent 22%),
-            linear-gradient(180deg, transparent 0%, rgba(2, 3, 2, 0.75) 100%);
+            radial-gradient(circle at 26% 25%, rgba(101, 255, 152, 0.2), transparent 26%),
+            radial-gradient(circle at 78% 20%, rgba(255, 255, 255, 0.1), transparent 22%),
+            linear-gradient(180deg, transparent 0%, rgba(2, 3, 2, 0.78) 100%);
           pointer-events: none;
           z-index: 0;
         }
@@ -443,14 +415,6 @@ export default function Home() {
         .preview {
           position: relative;
           z-index: 1;
-        }
-
-        .heroLogo {
-          width: min(300px, 80vw);
-          height: auto;
-          display: block;
-          margin-bottom: 24px;
-          filter: drop-shadow(0 0 35px rgba(101, 255, 152, 0.35));
         }
 
         .pill {
@@ -468,9 +432,9 @@ export default function Home() {
 
         h1 {
           margin: 24px 0 0;
-          font-size: clamp(56px, 8vw, 112px);
-          line-height: 0.86;
-          letter-spacing: -0.085em;
+          font-size: clamp(64px, 8vw, 132px);
+          line-height: 0.84;
+          letter-spacing: -0.09em;
         }
 
         h1 span {
@@ -480,10 +444,10 @@ export default function Home() {
         }
 
         .heroText p {
-          max-width: 660px;
+          max-width: 700px;
           margin: 28px 0 0;
-          color: rgba(255, 255, 255, 0.76);
-          font-size: 18px;
+          color: rgba(255, 255, 255, 0.78);
+          font-size: 19px;
           line-height: 1.75;
         }
 
@@ -527,7 +491,7 @@ export default function Home() {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 12px;
-          max-width: 650px;
+          max-width: 700px;
           margin-top: 38px;
         }
 
@@ -538,10 +502,10 @@ export default function Home() {
         .pageCard,
         .cta,
         .window {
-          background: rgba(255, 255, 255, 0.07);
-          border: 1px solid rgba(255, 255, 255, 0.11);
+          background: rgba(255, 255, 255, 0.075);
+          border: 1px solid rgba(255, 255, 255, 0.12);
           backdrop-filter: blur(18px);
-          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
         }
 
         .countdown div {
@@ -556,7 +520,7 @@ export default function Home() {
         }
 
         .countdown span {
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(255, 255, 255, 0.55);
           font-size: 12px;
           font-weight: 1000;
           text-transform: uppercase;
@@ -566,6 +530,8 @@ export default function Home() {
         .window {
           border-radius: 32px;
           overflow: hidden;
+          max-width: 620px;
+          margin-left: auto;
         }
 
         .windowTop {
@@ -687,7 +653,7 @@ export default function Home() {
         .stats {
           position: relative;
           z-index: 3;
-          width: min(1180px, calc(100% - 28px));
+          width: min(1360px, calc(100% - 36px));
           margin: 28px auto 100px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -712,7 +678,7 @@ export default function Home() {
         .split {
           position: relative;
           z-index: 2;
-          width: min(1180px, calc(100% - 28px));
+          width: min(1360px, calc(100% - 36px));
           margin: 0 auto 110px;
         }
 
@@ -839,7 +805,7 @@ export default function Home() {
         .cta {
           position: relative;
           z-index: 2;
-          width: min(1180px, calc(100% - 28px));
+          width: min(1360px, calc(100% - 36px));
           margin: 0 auto 90px;
           border-radius: 38px;
           padding: 58px 32px;
@@ -862,7 +828,7 @@ export default function Home() {
         footer {
           position: relative;
           z-index: 2;
-          width: min(1180px, calc(100% - 28px));
+          width: min(1360px, calc(100% - 36px));
           margin: 0 auto;
           padding: 30px 0 46px;
           display: flex;
@@ -903,7 +869,12 @@ export default function Home() {
           }
 
           .hero {
-            padding-top: 110px;
+            padding: 130px 34px 80px;
+          }
+
+          .window {
+            margin-left: 0;
+            max-width: 100%;
           }
         }
 
@@ -937,7 +908,9 @@ export default function Home() {
           }
 
           .hero {
-            padding: 110px 20px 70px;
+            width: calc(100% - 18px);
+            padding: 120px 20px 70px;
+            border-radius: 28px;
           }
 
           footer {
