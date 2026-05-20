@@ -5,6 +5,8 @@
   --foreground: #ffffff;
   --accent: #65ff98;
   --accent-dark: #14bd5d;
+  --glass: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.12);
 }
 
 * {
@@ -17,7 +19,10 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(70, 255, 130, 0.18), transparent 32%),
+    radial-gradient(circle at 80% 10%, rgba(0, 180, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #030603 0%, #07100a 45%, #020302 100%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -50,4 +55,105 @@ button {
 
 img {
   max-width: 100%;
+}
+
+/* Fix logo size */
+.brandIcon {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 14px !important;
+  object-fit: cover !important;
+  display: block !important;
+  box-shadow: 0 0 36px rgba(85, 255, 142, 0.3) !important;
+}
+
+/* Big hero logo */
+.heroLogo {
+  width: min(300px, 80vw) !important;
+  height: auto !important;
+  display: block !important;
+  margin-bottom: 24px !important;
+  filter: drop-shadow(0 0 35px rgba(101, 255, 152, 0.35)) !important;
+}
+
+/* Hero background image */
+.hero {
+  position: relative !important;
+  z-index: 2 !important;
+  width: min(1180px, calc(100% - 28px)) !important;
+  min-height: 100vh !important;
+  margin: 96px auto 0 !important;
+  padding: 110px 40px 90px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 0.9fr !important;
+  align-items: center !important;
+  gap: 46px !important;
+  border-radius: 42px !important;
+  overflow: hidden !important;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.62) 44%, rgba(0, 0, 0, 0.32) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(2, 3, 2, 0.9) 100%),
+    url("/hero-bg.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5) !important;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(101, 255, 152, 0.18), transparent 28%),
+    radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.12), transparent 22%),
+    linear-gradient(180deg, transparent 0%, rgba(2, 3, 2, 0.75) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroText,
+.preview {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Make glass cards cleaner */
+.card,
+.bigCard,
+.pageCard,
+.window,
+.cta,
+.stats div,
+.countdown div {
+  background: rgba(255, 255, 255, 0.075) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(18px) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* Better hover */
+.card:hover,
+.bigCard:hover,
+.pageCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(101, 255, 152, 0.35) !important;
+}
+
+/* Mobile fix */
+@media (max-width: 1050px) {
+  .hero {
+    grid-template-columns: 1fr !important;
+    padding-top: 110px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 110px 20px 70px !important;
+    border-radius: 28px !important;
+  }
+
+  .heroLogo {
+    width: min(240px, 85vw) !important;
+  }
 }
