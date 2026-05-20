@@ -60,7 +60,7 @@ export default function Home() {
 
       <nav className="nav">
         <a className="brand" href="/">
-          <img className="brandLogo" src="/logo.png" alt="Booger Client Logo" />
+          <div className="brandIcon">B</div>
           <div>
             <strong>Booger Client</strong>
             <span>Minecraft 1.21.11</span>
