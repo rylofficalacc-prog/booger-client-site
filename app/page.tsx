@@ -73,6 +73,8 @@ export default function Home() {
           <a href="/roadmap">Roadmap</a>
           <a href="/changelog">Updates</a>
           <a href="/shop">Shop</a>
+          <a href="/staff">Staff</a>
+          <a href="/faq">FAQ</a>
         </div>
 
         <a className="discord" href={DISCORD} target="_blank">
@@ -242,6 +244,8 @@ export default function Home() {
             ["Roadmap", "/roadmap", "Track the plan before public release."],
             ["Updates", "/changelog", "Read development announcements and changelog posts."],
             ["Shop", "/shop", "Preview cosmetics and supporter perks."],
+            ["Staff", "/staff", "Meet the Booger Client team."],
+            ["FAQ", "/faq", "Read common questions and answers."],
           ].map(([title, link, desc]) => (
             <a className="pageCard" href={link} key={title}>
               <h3>{title}</h3>
@@ -333,7 +337,7 @@ export default function Home() {
           left: 50%;
           transform: translateX(-50%);
           width: min(1180px, calc(100% - 28px));
-          height: 74px;
+          min-height: 74px;
           padding: 0 18px;
           border-radius: 24px;
           background: rgba(5, 9, 6, 0.76);
@@ -379,7 +383,9 @@ export default function Home() {
 
         .links {
           display: flex;
-          gap: 24px;
+          gap: 18px;
+          flex-wrap: wrap;
+          justify-content: center;
         }
 
         .links a {
@@ -785,7 +791,7 @@ export default function Home() {
 
         .pageGrid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 14px;
         }
 
@@ -846,7 +852,7 @@ export default function Home() {
           margin: 0;
         }
 
-        @media (max-width: 980px) {
+        @media (max-width: 1050px) {
           .links {
             display: none;
           }
