@@ -29,6 +29,17 @@ const modules = [
   "Notifications",
 ];
 
+const partners = [
+  {
+    name: "Recreation SMP",
+    status: "Official Partner",
+    description:
+      "Recreation SMP is one of Booger Client’s first official Minecraft server partners. This collaboration includes a dedicated website feature, exclusive Booger Client cosmetics, promotion between both communities, and future server/client event opportunities.",
+    link: "https://discord.gg/DaMDEDwKSm",
+    tags: ["Minecraft Server", "Official Partner", "Exclusive Cosmetics", "Website Feature"],
+  },
+];
+
 function getTimeLeft() {
   const distance = LAUNCH_DATE - Date.now();
 
@@ -71,6 +82,7 @@ export default function Home() {
           <a href="/roadmap">Roadmap</a>
           <a href="/changelog">Updates</a>
           <a href="/shop">Shop</a>
+          <a href="#collabs">Collabs</a>
           <a href="/staff">Staff</a>
           <a href="/faq">FAQ</a>
           <a href="/terms">Terms</a>
@@ -206,6 +218,46 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section" id="collabs">
+        <div className="sectionHead">
+          <span>Official Collabs</span>
+          <h2>Partnered Minecraft communities.</h2>
+          <p>
+            Booger Client is partnering with active Minecraft servers and communities
+            to create exclusive cosmetics, website features, promotion, and future
+            server/client events.
+          </p>
+        </div>
+
+        <div className="partnerGrid">
+          {partners.map((partner) => (
+            <div className="partnerCard" key={partner.name}>
+              <div className="partnerGlow" />
+
+              <div className="partnerTop">
+                <div>
+                  <span>{partner.status}</span>
+                  <h3>{partner.name}</h3>
+                </div>
+                <div className="partnerBadge">Collab</div>
+              </div>
+
+              <p>{partner.description}</p>
+
+              <div className="partnerTags">
+                {partner.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+
+              <a href={partner.link} target="_blank">
+                Join {partner.name} →
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="split">
         <div className="bigCard">
           <span>Latest Announcement</span>
@@ -243,6 +295,7 @@ export default function Home() {
             ["Roadmap", "/roadmap", "Track the plan before public release."],
             ["Updates", "/changelog", "Read development announcements and changelog posts."],
             ["Shop", "/shop", "Preview cosmetics and supporter perks."],
+            ["Collabs", "#collabs", "View official Booger Client partners."],
             ["Staff", "/staff", "Meet the Booger Client team."],
             ["FAQ", "/faq", "Read common questions and answers."],
             ["Terms", "/terms", "Read the Booger Client terms of service."],
@@ -771,6 +824,124 @@ export default function Home() {
           margin: 0;
         }
 
+        .partnerGrid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .partnerCard {
+          position: relative;
+          overflow: hidden;
+          border-radius: 34px;
+          padding: 34px;
+          background:
+            radial-gradient(circle at 20% 0%, rgba(101, 255, 152, 0.18), transparent 34%),
+            rgba(255, 255, 255, 0.075);
+          border: 1px solid rgba(101, 255, 152, 0.2);
+          backdrop-filter: blur(18px);
+          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+          transition: 0.2s ease;
+        }
+
+        .partnerGlow {
+          position: absolute;
+          inset: auto -120px -160px auto;
+          width: 360px;
+          height: 360px;
+          border-radius: 999px;
+          background: rgba(101, 255, 152, 0.11);
+          filter: blur(40px);
+          pointer-events: none;
+        }
+
+        .partnerCard:hover {
+          transform: translateY(-4px);
+          border-color: rgba(101, 255, 152, 0.42);
+          box-shadow: 0 30px 100px rgba(20, 189, 93, 0.16);
+        }
+
+        .partnerTop {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 18px;
+          margin-bottom: 18px;
+        }
+
+        .partnerTop span {
+          color: #65ff98;
+          font-weight: 1000;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          font-size: 12px;
+        }
+
+        .partnerTop h3 {
+          margin: 10px 0 0;
+          font-size: clamp(32px, 5vw, 58px);
+          line-height: 0.95;
+          letter-spacing: -0.06em;
+        }
+
+        .partnerBadge {
+          padding: 10px 14px;
+          border-radius: 999px;
+          color: #031006;
+          background: linear-gradient(135deg, #72ff9e, #14bd5d);
+          font-weight: 1000;
+          font-size: 12px;
+          box-shadow: 0 18px 40px rgba(20, 189, 93, 0.22);
+        }
+
+        .partnerCard p {
+          position: relative;
+          z-index: 1;
+          max-width: 880px;
+          color: rgba(255, 255, 255, 0.64);
+          line-height: 1.7;
+          margin: 0;
+        }
+
+        .partnerTags {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 24px;
+        }
+
+        .partnerTags span {
+          padding: 10px 13px;
+          border-radius: 999px;
+          background: rgba(101, 255, 152, 0.1);
+          border: 1px solid rgba(101, 255, 152, 0.18);
+          color: #caffd9;
+          font-weight: 900;
+          font-size: 13px;
+        }
+
+        .partnerCard a {
+          position: relative;
+          z-index: 1;
+          display: inline-block;
+          margin-top: 28px;
+          padding: 15px 20px;
+          border-radius: 16px;
+          color: #031006;
+          background: linear-gradient(135deg, #72ff9e, #14bd5d);
+          box-shadow: 0 22px 55px rgba(20, 189, 93, 0.22);
+          font-weight: 1000;
+          transition: 0.2s ease;
+        }
+
+        .partnerCard a:hover {
+          transform: translateY(-2px);
+        }
+
         .split {
           display: grid;
           grid-template-columns: 1.1fr 0.9fr;
@@ -906,6 +1077,10 @@ export default function Home() {
             grid-template-columns: 1fr;
           }
 
+          .partnerTop {
+            flex-direction: column;
+          }
+
           .windowBody {
             grid-template-columns: 1fr;
           }
@@ -922,6 +1097,10 @@ export default function Home() {
             width: calc(100% - 18px);
             padding: 120px 20px 70px;
             border-radius: 28px;
+          }
+
+          .partnerCard {
+            padding: 26px;
           }
 
           footer {
