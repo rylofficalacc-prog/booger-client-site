@@ -57,22 +57,44 @@ const roadmap = [
   ["Phase 2", "Main Menu", "Custom Minecraft main menu with Booger Client branding."],
   ["Phase 3", "Module Menu", "Clean module menu with categories, toggles, and settings."],
   ["Phase 4", "HUD Editor", "Move, scale, and save HUD elements in-game."],
-  ["Phase 5", "Public Beta", "Private testing first, then public download when stable."],
+  ["Phase 5", "Private Testing", "Small trusted testing group before public beta."],
+  ["Phase 6", "Public Beta", "Public download when the client is stable and ready."],
 ];
 
 const staff = [
   ["Snot2", "Founder", "Project owner and main vision for Booger Client."],
   ["TRM", "Co-Founder", "Helps lead the project and community direction."],
-  ["Developer Team", "Developers", "Client, launcher, website, and feature development."],
-  ["Private Testers", "Testing Team", "Testing builds before public beta release."],
+  ["descendant_of_time", "Executive", "Helps manage project direction and community growth."],
+  ["Vueril", "Executive", "Helps support leadership, planning, and team organization."],
+  ["MES", "Internal Affairs Supervisor", "Helps with staff structure, community safety, and internal rules."],
+  ["Private Testers", "Testing Team", "Tests builds before public beta release."],
 ];
 
 const faqs = [
   ["Is Booger Client free?", "The goal is to keep the main client free, with possible supporter cosmetics later."],
-  ["Is Booger Client a cheat client?", "No. Booger Client is planned as a non-cheat utility client focused on HUD, visuals, profiles, and quality-of-life tools."],
+  ["Is Booger Client a cheat client?", "No. Booger Client is a non-cheat utility client focused on HUD, visuals, profiles, and quality-of-life tools."],
   ["What version will it support?", "Booger Client is currently focused on Minecraft Java Edition 1.21.11 Fabric."],
-  ["When is beta?", "Private beta will come first. Public beta will happen when the launcher, menu, and modules are stable."],
+  ["When is beta?", "The release date is undetermined. We are focusing on making the client stable, clean, and worth using."],
   ["How do I join testing?", "Join the Discord for testing news, announcements, and future application info."],
+];
+
+const workingOn = [
+  "Launcher cleanup",
+  "Main menu design",
+  "Module menu polish",
+  "HUD editor",
+  "Website redesign",
+  "Private testing",
+];
+
+const checklist = [
+  ["Launcher opens correctly", true],
+  ["Client loads in-game", true],
+  ["Main menu replaced", false],
+  ["Module menu works", false],
+  ["HUD editor saves", false],
+  ["Website updated", true],
+  ["Private testing complete", false],
 ];
 
 export default function Home() {
@@ -94,7 +116,7 @@ export default function Home() {
         <div className="links">
           <a href="/">Home</a>
           <a href="/features">Features</a>
-          <a href="/download">Download</a>
+          <a href="/download">Beta Status</a>
           <a href="/roadmap">Roadmap</a>
           <a href="/faq">FAQ</a>
         </div>
@@ -113,16 +135,16 @@ export default function Home() {
               Booger <span>Client</span>
             </h1>
 
-            <h2>A cleaner Minecraft client built for smoother gameplay.</h2>
+            <h2>A Minecraft utility client built for smoother gameplay.</h2>
 
             <p>
-              Customize your HUD, improve your visuals, manage profiles, and play
-              Minecraft with a smoother client experience.
+              Customize your HUD, improve visuals, manage profiles, and enjoy a
+              cleaner Minecraft experience.
             </p>
 
             <div className="buttons">
-              <a className="primary" href="/download">
-                Download Soon
+              <a className="primary" href="#status">
+                View Beta Status
               </a>
               <a className="secondary" href={DISCORD} target="_blank">
                 Join Discord
@@ -130,8 +152,8 @@ export default function Home() {
             </div>
 
             <div className="trust">
-              <span>Fabric 1.21.11</span>
-              <span>Private Beta</span>
+              <span>Release Date: Undetermined</span>
+              <span>No unfair combat hacks</span>
               <span>Community Feedback</span>
             </div>
           </div>
@@ -171,6 +193,18 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="notice">
+        <div>
+          <span>Development Notice</span>
+          <h2>Release date is undetermined.</h2>
+          <p>
+            Booger Client is still in development. We are taking extra time to
+            make the client cleaner, safer, more stable, and better for users.
+            We do not want to rush out something unfinished.
+          </p>
+        </div>
+      </section>
+
       <section className="stats">
         <div>
           <strong>1.21.11</strong>
@@ -181,8 +215,8 @@ export default function Home() {
           <span>Current Build</span>
         </div>
         <div>
-          <strong>Beta Soon</strong>
-          <span>Release Phase</span>
+          <strong>Undetermined</strong>
+          <span>Release Date</span>
         </div>
         <div>
           <strong>Discord</strong>
@@ -195,8 +229,8 @@ export default function Home() {
           <span>Why Booger Client?</span>
           <h2>Made to feel useful, clean, and familiar.</h2>
           <p>
-            Booger Client is designed around Minecraft players. The goal is not
-            to look futuristic. The goal is to look trustworthy, simple, and fun.
+            Booger Client is designed around Minecraft players. The goal is to
+            look trustworthy, simple, and fun.
           </p>
         </div>
 
@@ -211,30 +245,90 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="statusBox">
+      <section className="statusBox" id="status">
         <div>
           <span>Beta Status</span>
           <h2>Current development status.</h2>
           <p>
-            Booger Client is still being worked on. The launcher, custom main
-            menu, module menu, HUD editor, and website are being cleaned up before
-            public beta.
+            Public downloads are not open yet. The release date is undetermined
+            because we are focusing on quality, stability, and the user
+            experience.
           </p>
         </div>
 
         <div className="statusGrid">
           <div>
             <strong>Current Status</strong>
-            <span>Private Beta</span>
+            <span>Private Development</span>
           </div>
           <div>
             <strong>Public Download</strong>
-            <span>Coming Soon</span>
+            <span>Coming When Ready</span>
           </div>
           <div>
             <strong>Supported Version</strong>
             <span>Minecraft 1.21.11 Fabric</span>
           </div>
+        </div>
+      </section>
+
+      <section className="safeBox">
+        <div>
+          <span>Non-cheat Utility Client</span>
+          <h2>Built for HUD, visuals, profiles, and quality-of-life tools.</h2>
+          <p>
+            Booger Client is not being built as an unfair combat cheat client.
+            The goal is to give players a smoother Minecraft experience with
+            clean menus, useful HUD tools, visual options, profiles, and
+            everyday quality-of-life features.
+          </p>
+        </div>
+
+        <div className="safeGrid">
+          <p>No unfair combat hacks</p>
+          <p>HUD and visual tools</p>
+          <p>Profiles and settings</p>
+          <p>Quality-of-life features</p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="sectionHead">
+          <span>What’s Being Worked On?</span>
+          <h2>Active development areas.</h2>
+          <p>
+            These are the main parts being cleaned up before Booger Client is
+            ready for public beta.
+          </p>
+        </div>
+
+        <div className="workGrid">
+          {workingOn.map((item) => (
+            <div className="workItem" key={item}>
+              <span>✦</span>
+              <strong>{item}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="checklistBox">
+        <div>
+          <span>Before Release Checklist</span>
+          <h2>What needs to be finished first.</h2>
+          <p>
+            We want the client to feel clean and stable before opening public
+            downloads.
+          </p>
+        </div>
+
+        <div className="checkGrid">
+          {checklist.map(([item, done]) => (
+            <div className={done ? "check done" : "check"} key={item as string}>
+              <span>{done ? "✓" : "…"}</span>
+              <p>{item}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -373,7 +467,7 @@ export default function Home() {
             <strong>Links</strong>
             <a href="/">Home</a>
             <a href="/features">Features</a>
-            <a href="/download">Download</a>
+            <a href="#status">Beta Status</a>
           </div>
           <div>
             <strong>Support</strong>
@@ -554,7 +648,10 @@ export default function Home() {
         .sectionHead span,
         .wideShowcase span,
         .downloadBox span,
-        .statusBox span {
+        .statusBox span,
+        .notice span,
+        .safeBox span,
+        .checklistBox span {
           display: inline-flex;
           width: fit-content;
           padding: 9px 14px;
@@ -624,7 +721,9 @@ export default function Home() {
         .wideShowcase:hover,
         .staffCard:hover,
         .faq:hover,
-        .roadItem:hover {
+        .roadItem:hover,
+        .workItem:hover,
+        .check:hover {
           transform: translateY(-2px);
         }
 
@@ -768,6 +867,9 @@ export default function Home() {
         .wideShowcase,
         .downloadBox,
         .statusBox,
+        .notice,
+        .safeBox,
+        .checklistBox,
         footer,
         .copyright {
           width: min(1220px, calc(100% - 32px));
@@ -775,10 +877,38 @@ export default function Home() {
           margin-right: auto;
         }
 
+        .notice {
+          margin-top: -50px;
+          position: relative;
+          z-index: 6;
+          padding: 28px;
+          border-radius: 26px;
+          background: rgba(25, 29, 26, 0.94);
+          border: 1px solid rgba(139, 207, 84, 0.2);
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        .notice h2,
+        .safeBox h2,
+        .checklistBox h2 {
+          margin: 14px 0 0;
+          font-size: clamp(30px, 5vw, 48px);
+          line-height: 1;
+          letter-spacing: -0.05em;
+        }
+
+        .notice p,
+        .safeBox p,
+        .checklistBox p {
+          max-width: 820px;
+          color: rgba(255, 255, 255, 0.65);
+          line-height: 1.7;
+        }
+
         .stats {
           position: relative;
           z-index: 5;
-          margin-top: -42px;
+          margin-top: 18px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 14px;
@@ -810,7 +940,10 @@ export default function Home() {
           color: rgba(255, 255, 255, 0.58);
         }
 
-        .section {
+        .section,
+        .statusBox,
+        .safeBox,
+        .checklistBox {
           margin-top: 84px;
         }
 
@@ -848,7 +981,9 @@ export default function Home() {
         .card,
         .staffCard,
         .faq,
-        .roadItem {
+        .roadItem,
+        .workItem,
+        .check {
           padding: 26px;
           border-radius: 22px;
           background: rgba(255, 255, 255, 0.065);
@@ -888,8 +1023,9 @@ export default function Home() {
           line-height: 1.6;
         }
 
-        .statusBox {
-          margin-top: 84px;
+        .statusBox,
+        .safeBox,
+        .checklistBox {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 28px;
@@ -905,12 +1041,31 @@ export default function Home() {
           box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
         }
 
-        .statusGrid {
+        .safeBox {
+          background:
+            linear-gradient(90deg, rgba(25, 29, 26, 0.96), rgba(25, 29, 26, 0.9)),
+            url("/mobs-showcase.png");
+          background-size: cover;
+          background-position: center;
+        }
+
+        .checklistBox {
+          background:
+            linear-gradient(90deg, rgba(25, 29, 26, 0.96), rgba(25, 29, 26, 0.9)),
+            url("/village-run.png");
+          background-size: cover;
+          background-position: center;
+        }
+
+        .statusGrid,
+        .safeGrid,
+        .checkGrid {
           display: grid;
           gap: 12px;
         }
 
-        .statusGrid div {
+        .statusGrid div,
+        .safeGrid p {
           padding: 18px;
           border-radius: 18px;
           background: rgba(22, 26, 22, 0.76);
@@ -920,6 +1075,66 @@ export default function Home() {
         .statusGrid strong {
           display: block;
           margin-bottom: 7px;
+        }
+
+        .safeGrid p {
+          margin: 0;
+          font-weight: 900;
+        }
+
+        .workGrid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+        }
+
+        .workItem {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .workItem span {
+          width: 42px;
+          height: 42px;
+          display: grid;
+          place-items: center;
+          border-radius: 14px;
+          color: #1b2a13;
+          background: #9dde61;
+          font-weight: 1000;
+        }
+
+        .checkGrid {
+          grid-template-columns: 1fr;
+        }
+
+        .check {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 16px;
+        }
+
+        .check span {
+          width: 34px;
+          height: 34px;
+          display: grid;
+          place-items: center;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.12);
+          color: white;
+          font-weight: 1000;
+        }
+
+        .check.done span {
+          background: #9dde61;
+          color: #1b2a13;
+        }
+
+        .check p {
+          margin: 0;
+          font-weight: 900;
         }
 
         .wideShowcase {
@@ -1100,7 +1315,9 @@ export default function Home() {
 
           .heroInner,
           .wideShowcase,
-          .statusBox {
+          .statusBox,
+          .safeBox,
+          .checklistBox {
             grid-template-columns: 1fr;
           }
 
@@ -1112,7 +1329,8 @@ export default function Home() {
           .showcaseGrid,
           .stats,
           .staffGrid,
-          .faqGrid {
+          .faqGrid,
+          .workGrid {
             grid-template-columns: repeat(2, 1fr);
           }
 
@@ -1173,7 +1391,8 @@ export default function Home() {
           .showcaseGrid,
           .stats,
           .staffGrid,
-          .faqGrid {
+          .faqGrid,
+          .workGrid {
             grid-template-columns: 1fr;
           }
 
