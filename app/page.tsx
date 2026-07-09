@@ -1,63 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 const DISCORD = "https://discord.gg/5HxHgKdfMu";
-const LAUNCH_DATE = new Date("2026-08-17T00:00:00").getTime();
 
 const features = [
-  ["Custom HUD", "Move and customize CPS, armor, potions, playtime, and more."],
-  ["Smooth Visuals", "Clean Minecraft visuals that make your game feel better."],
-  ["Better Performance", "Useful FPS tools made for smoother gameplay."],
-  ["Simple UI", "Easy menus made for players, not confusing settings pages."],
+  {
+    title: "Easy to Use",
+    desc: "No confusing menus. Booger Client is built to feel simple, clean, and easy for any Minecraft player.",
+  },
+  {
+    title: "PvP & Survival Ready",
+    desc: "Useful HUD tools, visuals, profiles, and settings for normal gameplay, PvP, and survival worlds.",
+  },
+  {
+    title: "Community Driven",
+    desc: "Updates, testing, feedback, and sneak peeks are handled through the Booger Client Discord.",
+  },
+];
+
+const modules = [
+  ["Fullbright", "ON"],
+  ["CPS Counter", "ON"],
+  ["Armor HUD", "ON"],
+  ["Zoom", "ON"],
+  ["Potion Effects", "ON"],
+  ["Sprint", "ON"],
 ];
 
 const screenshots = [
   {
-    title: "Minecraft Village",
-    desc: "A friendly Minecraft-themed design.",
+    title: "Village Theme",
+    desc: "A friendly Minecraft look with villagers, mobs, and a warm village feel.",
     image: "/hero-village.png",
   },
   {
-    title: "Mobs & Gameplay",
-    desc: "Clean visuals built around Minecraft.",
+    title: "Clean Visuals",
+    desc: "Minecraft-style visuals that feel fun, colorful, and familiar.",
     image: "/mobs-showcase.png",
   },
   {
-    title: "Villagers",
-    desc: "Village style, simple and familiar.",
+    title: "Player Friendly",
+    desc: "A simple site made for real players, not a confusing tech page.",
     image: "/villagers.png",
   },
   {
-    title: "Adventure",
-    desc: "A client made for everyday players.",
+    title: "Smooth Gameplay",
+    desc: "Useful client tools made for everyday Minecraft gameplay.",
     image: "/village-run.png",
   },
 ];
 
-function getTimeLeft() {
-  const distance = LAUNCH_DATE - Date.now();
-
-  if (distance <= 0) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  }
-
-  return {
-    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((distance / (1000 * 60)) % 60),
-    seconds: Math.floor((distance / 1000) % 60),
-  };
-}
-
 export default function Home() {
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
-
-  useEffect(() => {
-    const timer = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <main className="site">
       <nav className="nav">
@@ -87,45 +79,67 @@ export default function Home() {
       </nav>
 
       <section className="hero">
-        <div className="heroText">
-          <div className="pill">Beta Soon • Minecraft 1.21.11</div>
+        <div className="heroInner">
+          <div className="heroText">
+            <div className="pill">Non-cheat utility client • Fabric 1.21.11</div>
 
-          <h1>
-            Booger <span>Client</span>
-          </h1>
+            <h1>
+              Booger <span>Client</span>
+            </h1>
 
-          <h2>A cleaner way to play Minecraft.</h2>
+            <h2>A cleaner Minecraft client built for smoother gameplay.</h2>
 
-          <p>
-            Customize your HUD, improve your visuals, manage profiles, and play
-            Minecraft with a smoother client experience.
-          </p>
+            <p>
+              Customize your HUD, improve your visuals, manage profiles, and play
+              Minecraft with a smoother client experience.
+            </p>
 
-          <div className="buttons">
-            <a className="primary" href="/download">
-              Download Soon
-            </a>
-            <a className="secondary" href={DISCORD} target="_blank">
-              Join Discord
-            </a>
+            <div className="buttons">
+              <a className="primary" href="/download">
+                Download Soon
+              </a>
+              <a className="secondary" href={DISCORD} target="_blank">
+                Join Discord
+              </a>
+            </div>
+
+            <div className="trust">
+              <span>Fabric 1.21.11</span>
+              <span>Private Beta</span>
+              <span>Community Feedback</span>
+            </div>
           </div>
 
-          <div className="countdown">
-            <div>
-              <strong>{timeLeft.days}</strong>
-              <span>Days</span>
+          <div className="clientPreview">
+            <div className="previewTop">
+              <div className="miniLogo">B</div>
+              <div>
+                <strong>Booger Client</strong>
+                <span>Module Menu Preview</span>
+              </div>
+              <p>Beta Build</p>
             </div>
-            <div>
-              <strong>{timeLeft.hours}</strong>
-              <span>Hours</span>
-            </div>
-            <div>
-              <strong>{timeLeft.minutes}</strong>
-              <span>Minutes</span>
-            </div>
-            <div>
-              <strong>{timeLeft.seconds}</strong>
-              <span>Seconds</span>
+
+            <div className="previewBody">
+              <aside>
+                <button className="active">Visual</button>
+                <button>Movement</button>
+                <button>Combat</button>
+                <button>HUD</button>
+                <button>Settings</button>
+              </aside>
+
+              <div className="moduleList">
+                {modules.map(([name, state]) => (
+                  <div className="module" key={name}>
+                    <div>
+                      <strong>{name}</strong>
+                      <span>Ready to use</span>
+                    </div>
+                    <em>{state}</em>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -145,39 +159,52 @@ export default function Home() {
           <span>Release Phase</span>
         </div>
         <div>
-          <strong>Worldwide</strong>
-          <span>Support Goal</span>
+          <strong>Discord</strong>
+          <span>Community Updates</span>
         </div>
       </section>
 
       <section className="section">
         <div className="sectionHead">
-          <span>Built for a Better Minecraft</span>
-          <h2>Simple, clean, and player friendly.</h2>
+          <span>Why Booger Client?</span>
+          <h2>Made to feel useful, clean, and familiar.</h2>
           <p>
-            Booger Client is made to feel useful and easy. No confusing mess,
-            no crazy futuristic style, just a clean Minecraft client site.
+            Booger Client is designed around Minecraft players. The goal is not
+            to look futuristic. The goal is to look trustworthy, simple, and fun.
           </p>
         </div>
 
         <div className="featureGrid">
-          {features.map(([title, desc], index) => (
-            <div className="card" key={title}>
-              <div className="icon">{["⌖", "▰", "↗", "☺"][index]}</div>
-              <h3>{title}</h3>
-              <p>{desc}</p>
+          {features.map((feature, index) => (
+            <div className="card" key={feature.title}>
+              <div className="icon">{["🌿", "⚔️", "💬"][index]}</div>
+              <h3>{feature.title}</h3>
+              <p>{feature.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
+      <section className="wideShowcase">
+        <img src="/mobs-showcase.png" alt="Minecraft mobs showcase" />
+        <div>
+          <span>Clean Minecraft Style</span>
+          <h2>Built around the game people already love.</h2>
+          <p>
+            The website uses a village and mob theme so it feels like Minecraft
+            right away. Bees, cows, pigs, villagers, and farms make it more
+            friendly and appealing to normal players.
+          </p>
+        </div>
+      </section>
+
       <section className="section">
         <div className="sectionHead">
-          <span>See it in Action</span>
-          <h2>Minecraft style, clean client feel.</h2>
+          <span>Preview</span>
+          <h2>Village-themed, player-friendly design.</h2>
           <p>
-            A friendly village-themed site with mobs, villagers, and a familiar
-            Minecraft look.
+            These image cards help the site feel more alive and less like a
+            plain project page.
           </p>
         </div>
 
@@ -195,11 +222,7 @@ export default function Home() {
       </section>
 
       <section className="downloadBox">
-        <div className="downloadImage">
-          <img src="/mobs-showcase.png" alt="Booger Client Minecraft mobs" />
-        </div>
-
-        <div className="downloadText">
+        <div>
           <span>Beta Access</span>
           <h2>Download coming soon.</h2>
           <p>
@@ -261,7 +284,9 @@ export default function Home() {
         .site {
           min-height: 100vh;
           color: #f7fff0;
-          background: #171b17;
+          background:
+            radial-gradient(circle at top, rgba(139, 207, 84, 0.1), transparent 36%),
+            #171b17;
           font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           overflow-x: hidden;
         }
@@ -384,27 +409,32 @@ export default function Home() {
 
         .hero {
           position: relative;
-          min-height: 720px;
+          min-height: 780px;
           overflow: hidden;
           background:
-            linear-gradient(90deg, rgba(15, 17, 15, 0.9) 0%, rgba(15, 17, 15, 0.72) 35%, rgba(15, 17, 15, 0.18) 100%),
-            linear-gradient(180deg, rgba(15, 17, 15, 0.1) 0%, rgba(22, 26, 22, 0.92) 100%),
+            linear-gradient(90deg, rgba(15, 17, 15, 0.92) 0%, rgba(15, 17, 15, 0.72) 36%, rgba(15, 17, 15, 0.16) 100%),
+            linear-gradient(180deg, rgba(15, 17, 15, 0.1) 0%, rgba(22, 26, 22, 0.94) 100%),
             url("/hero-village.png");
           background-size: cover;
           background-position: center;
         }
 
-        .heroText {
-          position: relative;
-          z-index: 10;
+        .heroInner {
           width: min(1220px, calc(100% - 32px));
           margin: 0 auto;
-          padding-top: 160px;
+          padding-top: 155px;
+          display: grid;
+          grid-template-columns: 0.95fr 1.05fr;
+          align-items: center;
+          gap: 36px;
+          position: relative;
+          z-index: 5;
         }
 
         .pill,
         .sectionHead span,
-        .downloadText span {
+        .wideShowcase span,
+        .downloadBox span {
           display: inline-flex;
           width: fit-content;
           padding: 9px 14px;
@@ -470,44 +500,149 @@ export default function Home() {
         .discord:hover,
         .downloadBox a:hover,
         .card:hover,
-        .showcase:hover {
+        .showcase:hover,
+        .wideShowcase:hover {
           transform: translateY(-2px);
         }
 
-        .countdown {
-          max-width: 560px;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
+        .trust {
+          display: flex;
+          flex-wrap: wrap;
           gap: 10px;
-          margin-top: 36px;
+          margin-top: 32px;
         }
 
-        .countdown div {
-          padding: 18px 12px;
-          text-align: center;
-          border-radius: 16px;
-          background: rgba(22, 26, 22, 0.68);
+        .trust span {
+          padding: 10px 12px;
+          border-radius: 999px;
+          color: rgba(255, 255, 255, 0.76);
+          background: rgba(22, 26, 22, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          font-size: 13px;
+          font-weight: 800;
+        }
+
+        .clientPreview {
+          overflow: hidden;
+          border-radius: 26px;
+          background: rgba(22, 26, 22, 0.86);
           border: 1px solid rgba(255, 255, 255, 0.14);
-          backdrop-filter: blur(12px);
+          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+          backdrop-filter: blur(16px);
         }
 
-        .countdown strong {
-          display: block;
-          color: #a7e567;
-          font-size: 30px;
+        .previewTop {
+          min-height: 74px;
+          padding: 16px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .countdown span {
+        .previewTop strong {
           display: block;
-          margin-top: 4px;
-          color: rgba(255, 255, 255, 0.68);
+          font-size: 16px;
+        }
+
+        .previewTop span {
+          display: block;
+          margin-top: 3px;
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 12px;
+        }
+
+        .previewTop p {
+          margin: 0 0 0 auto;
+          color: #a6df68;
+          font-size: 12px;
+          font-weight: 900;
+        }
+
+        .miniLogo {
+          width: 42px;
+          height: 42px;
+          border-radius: 12px;
+          display: grid;
+          place-items: center;
+          color: #1b2a13;
+          background: #9dde61;
+          font-weight: 1000;
+          font-size: 22px;
+        }
+
+        .previewBody {
+          display: grid;
+          grid-template-columns: 150px 1fr;
+          min-height: 390px;
+        }
+
+        aside {
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 9px;
+          border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        aside button {
+          padding: 12px 13px;
+          border: 0;
+          border-radius: 12px;
+          background: transparent;
+          color: rgba(255, 255, 255, 0.58);
+          text-align: left;
+          font-weight: 900;
+        }
+
+        aside .active {
+          color: #1b2a13;
+          background: #9dde61;
+        }
+
+        .moduleList {
+          padding: 18px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+
+        .module {
+          min-height: 82px;
+          padding: 15px;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.065);
+          border: 1px solid rgba(255, 255, 255, 0.09);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+        }
+
+        .module strong {
+          display: block;
+        }
+
+        .module span {
+          display: block;
+          margin-top: 5px;
+          color: rgba(255, 255, 255, 0.52);
+          font-size: 12px;
+        }
+
+        .module em {
+          font-style: normal;
+          color: #1b2a13;
+          background: #9dde61;
+          border-radius: 999px;
+          padding: 7px 10px;
           font-size: 11px;
           font-weight: 1000;
-          text-transform: uppercase;
         }
 
         .stats,
         .section,
+        .wideShowcase,
         .downloadBox,
         footer,
         .copyright {
@@ -561,26 +696,30 @@ export default function Home() {
           text-align: center;
         }
 
-        .sectionHead h2 {
+        .sectionHead h2,
+        .wideShowcase h2,
+        .downloadBox h2 {
           margin: 14px 0 0;
           font-size: clamp(34px, 5vw, 56px);
           line-height: 1;
           letter-spacing: -0.05em;
         }
 
-        .sectionHead p {
+        .sectionHead p,
+        .wideShowcase p,
+        .downloadBox p {
           color: rgba(255, 255, 255, 0.62);
           line-height: 1.7;
         }
 
         .featureGrid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 16px;
         }
 
         .card {
-          padding: 24px;
+          padding: 26px;
           border-radius: 22px;
           background: rgba(255, 255, 255, 0.065);
           border: 1px solid rgba(255, 255, 255, 0.1);
@@ -603,13 +742,41 @@ export default function Home() {
 
         .card h3 {
           margin: 0 0 8px;
-          font-size: 20px;
+          font-size: 22px;
         }
 
         .card p {
           margin: 0;
           color: rgba(255, 255, 255, 0.62);
-          line-height: 1.55;
+          line-height: 1.6;
+        }
+
+        .wideShowcase {
+          margin-top: 84px;
+          min-height: 390px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 28px;
+          align-items: center;
+          padding: 26px;
+          border-radius: 28px;
+          background: rgba(25, 29, 26, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+          transition: 0.18s ease;
+        }
+
+        .wideShowcase img {
+          width: 100%;
+          height: 330px;
+          object-fit: cover;
+          display: block;
+          border-radius: 22px;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .wideShowcase div {
+          padding: 10px;
         }
 
         .showcaseGrid {
@@ -655,42 +822,24 @@ export default function Home() {
         .downloadBox {
           margin-top: 84px;
           min-height: 230px;
-          display: grid;
-          grid-template-columns: 320px 1fr auto;
-          gap: 30px;
+          display: flex;
           align-items: center;
-          padding: 28px;
+          justify-content: space-between;
+          gap: 28px;
+          padding: 34px;
           border-radius: 26px;
-          background: rgba(25, 29, 26, 0.95);
+          background:
+            linear-gradient(90deg, rgba(25, 29, 26, 0.96), rgba(25, 29, 26, 0.86)),
+            url("/villagers.png");
+          background-size: cover;
+          background-position: center;
           border: 1px solid rgba(255, 255, 255, 0.12);
           box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
           overflow: hidden;
         }
 
-        .downloadImage {
-          height: 170px;
-          border-radius: 20px;
-          overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .downloadImage img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
-
-        .downloadText h2 {
-          margin: 12px 0 0;
-          font-size: clamp(32px, 5vw, 48px);
-          letter-spacing: -0.04em;
-        }
-
-        .downloadText p {
+        .downloadBox p {
           max-width: 650px;
-          color: rgba(255, 255, 255, 0.64);
-          line-height: 1.65;
         }
 
         footer {
@@ -740,6 +889,15 @@ export default function Home() {
             display: none;
           }
 
+          .heroInner,
+          .wideShowcase {
+            grid-template-columns: 1fr;
+          }
+
+          .clientPreview {
+            max-width: 720px;
+          }
+
           .featureGrid,
           .showcaseGrid,
           .stats {
@@ -751,7 +909,8 @@ export default function Home() {
           }
 
           .downloadBox {
-            grid-template-columns: 1fr;
+            flex-direction: column;
+            align-items: flex-start;
           }
 
           footer {
@@ -778,7 +937,7 @@ export default function Home() {
             font-size: 13px;
           }
 
-          .heroText {
+          .heroInner {
             padding-top: 135px;
           }
 
@@ -786,7 +945,18 @@ export default function Home() {
             font-size: 58px;
           }
 
-          .countdown,
+          .previewBody {
+            grid-template-columns: 1fr;
+          }
+
+          aside {
+            display: none;
+          }
+
+          .moduleList {
+            grid-template-columns: 1fr;
+          }
+
           .featureGrid,
           .showcaseGrid,
           .stats {
