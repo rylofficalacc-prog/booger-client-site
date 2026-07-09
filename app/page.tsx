@@ -6,27 +6,17 @@ const DISCORD = "https://discord.gg/5HxHgKdfMu";
 const LAUNCH_DATE = new Date("2026-08-17T00:00:00").getTime();
 
 const features = [
-  ["Clean ClickGUI", "Simple categories, smooth toggles, clean module cards, and settings."],
-  ["HUD Editor", "Move, scale, and save HUD modules like CPS, armor, potions, and playtime."],
-  ["Profiles", "Swap between PvP, Survival, Recording, and custom presets."],
-  ["Themes", "Dark mode, soft green accents, and clean saved style presets."],
-  ["Discord RPC", "Show Booger Client status while playing Minecraft."],
-  ["FPS Tools", "Visual and performance tools built for smoother gameplay."],
+  ["Custom HUD", "Move and customize CPS, armor, potions, playtime, and more."],
+  ["Smooth Visuals", "Clean visuals that make Minecraft look better without feeling messy."],
+  ["Better Performance", "Useful FPS tools made for smoother gameplay."],
+  ["Simple UI", "Easy menus made for players, not confusing settings pages."],
 ];
 
-const modules = [
-  "Fullbright",
-  "CPS Counter",
-  "Armor HUD",
-  "Potion Effects",
-  "Zoom",
-  "Sprint",
-  "Playtime",
-  "Stopwatch",
-  "Crosshair",
-  "Motion Blur",
-  "Freelook",
-  "Notifications",
+const showcases = [
+  ["Custom HUD", "Build your perfect layout."],
+  ["Smooth Visuals", "Cleaner Minecraft visuals."],
+  ["Performance", "Settings made simple."],
+  ["Module Menu", "Clean and easy toggles."],
 ];
 
 function getTimeLeft() {
@@ -56,42 +46,46 @@ export default function Home() {
     <main className="site">
       <nav className="nav">
         <a className="brand" href="/">
-          <img src="/logo.png" alt="Booger Client" />
+          <div className="logoCube">
+            <span />
+          </div>
           <div>
-            <strong>Booger Client</strong>
-            <span>1.21.11 Fabric Client</span>
+            <strong>Booger <b>Client</b></strong>
+            <p>Minecraft Utility Client</p>
           </div>
         </a>
 
         <div className="links">
+          <a href="/">Home</a>
           <a href="/features">Features</a>
           <a href="/download">Download</a>
           <a href="/roadmap">Roadmap</a>
-          <a href="/changelog">Updates</a>
-          <a href="/staff">Staff</a>
           <a href="/faq">FAQ</a>
         </div>
 
-        <a className="navBtn" href={DISCORD} target="_blank">
-          Discord
+        <a className="discord" href={DISCORD} target="_blank">
+          Join Discord
         </a>
       </nav>
 
       <section className="hero">
-        <div className="heroLeft">
-          <div className="badge">Minecraft 1.21.11 • Beta Soon</div>
+        <div className="shade" />
+
+        <div className="heroText">
+          <div className="pill">Beta Soon • Minecraft 1.21.11</div>
 
           <h1>
-            A cleaner way to play
-            <span>Minecraft.</span>
+            Booger <span>Client</span>
           </h1>
 
+          <h2>A cleaner way to play Minecraft.</h2>
+
           <p>
-            Booger Client is a clean utility client focused on smooth visuals,
-            useful HUD tools, simple profiles, and a polished launcher experience.
+            Customize your HUD, improve your visuals, manage profiles, and play
+            Minecraft with a smoother client experience.
           </p>
 
-          <div className="heroButtons">
+          <div className="buttons">
             <a className="primary" href="/download">
               Download Soon
             </a>
@@ -120,42 +114,78 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="clientPreview">
-          <div className="previewTop">
-            <div>
-              <strong>Booger Client</strong>
-              <span>Module Menu Preview</span>
-            </div>
-            <p>Private Build</p>
+        <div className="village">
+          <div className="sun" />
+          <div className="cloud cloud1" />
+          <div className="cloud cloud2" />
+
+          <div className="bee bee1">
+            <i />
+          </div>
+          <div className="bee bee2">
+            <i />
+          </div>
+          <div className="bee bee3">
+            <i />
           </div>
 
-          <div className="previewBody">
-            <aside>
-              <button className="active">Visual</button>
-              <button>Movement</button>
-              <button>Combat</button>
-              <button>HUD</button>
-              <button>Misc</button>
-            </aside>
-
-            <div className="modules">
-              {["Fullbright", "Armor HUD", "CPS Counter", "Crosshair", "Motion Blur"].map(
-                (module) => (
-                  <div className="module" key={module}>
-                    <div>
-                      <strong>{module}</strong>
-                      <span>Ready to use</span>
-                    </div>
-                    <div className="toggle" />
-                  </div>
-                )
-              )}
+          <div className="house house1">
+            <div className="roof" />
+            <div className="body">
+              <span />
             </div>
           </div>
+
+          <div className="house house2">
+            <div className="roof" />
+            <div className="body">
+              <span />
+            </div>
+          </div>
+
+          <div className="house house3">
+            <div className="roof" />
+            <div className="body">
+              <span />
+            </div>
+          </div>
+
+          <div className="tree tree1">
+            <span />
+          </div>
+          <div className="tree tree2">
+            <span />
+          </div>
+
+          <div className="farm">
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+
+          <div className="mob cow">
+            <span />
+          </div>
+
+          <div className="mob pig">
+            <span />
+          </div>
+
+          <div className="villager villager1">
+            <span />
+          </div>
+
+          <div className="villager villager2">
+            <span />
+          </div>
+
+          <div className="path" />
+          <div className="grass" />
         </div>
       </section>
 
-      <section className="quickStats">
+      <section className="stats">
         <div>
           <strong>1.21.11</strong>
           <span>Target Version</span>
@@ -176,18 +206,18 @@ export default function Home() {
 
       <section className="section">
         <div className="sectionHead">
-          <span>Features</span>
-          <h2>Everything feels simple and polished.</h2>
+          <span>Built for a Better Minecraft</span>
+          <h2>Simple, clean, and player friendly.</h2>
           <p>
-            No messy layout. No random neon spam. Just clean tools, clean menus,
-            and a website that looks like a real client project.
+            Booger Client is made to feel useful and easy. No confusing mess,
+            no crazy futuristic style, just a clean Minecraft client site.
           </p>
         </div>
 
         <div className="featureGrid">
-          {features.map(([title, desc]) => (
+          {features.map(([title, desc], index) => (
             <div className="card" key={title}>
-              <div className="icon">✦</div>
+              <div className="icon">{["⌖", "▰", "↗", "☺"][index]}</div>
               <h3>{title}</h3>
               <p>{desc}</p>
             </div>
@@ -195,35 +225,61 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="split">
-        <div className="bigCard">
-          <span>Status</span>
-          <h2>Booger Client is being rebuilt better.</h2>
+      <section className="section">
+        <div className="sectionHead">
+          <span>See it in Action</span>
+          <h2>Screenshots and modules.</h2>
           <p>
-            Development is still active. The launcher, main menu, module menu,
-            HUD tools, and website are being cleaned up before public beta.
+            Preview sections for your HUD, visuals, performance menu, and module
+            menu.
           </p>
-          <a href="/changelog">View updates →</a>
         </div>
 
-        <div className="bigCard">
-          <span>Modules</span>
-          <h2>Utility modules.</h2>
-          <div className="moduleCloud">
-            {modules.map((module) => (
-              <p key={module}>{module}</p>
-            ))}
-          </div>
+        <div className="showcaseGrid">
+          {showcases.map(([title, desc], index) => (
+            <div className="showcase" key={title}>
+              <div className={`fakeShot shot${index + 1}`}>
+                <div className="fakeWindow">
+                  <div className="fakeTop">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className="fakeContent">
+                    <p />
+                    <p />
+                    <p />
+                    <p />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <strong>{title}</strong>
+                <span>{desc}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       <section className="downloadBox">
-        <div>
+        <div className="downloadArt">
+          <div className="bee bigBee">
+            <i />
+          </div>
+          <div className="miniVillage">
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+
+        <div className="downloadText">
           <span>Beta Access</span>
           <h2>Download coming soon.</h2>
           <p>
-            Public downloads are not open yet. Join the Discord for private testing,
-            sneak peeks, announcements, and development updates.
+            Public downloads are not open yet. Join the Discord for private
+            testing, sneak peeks, announcements, and development updates.
           </p>
         </div>
 
@@ -233,12 +289,42 @@ export default function Home() {
       </section>
 
       <footer>
-        <div>
-          <strong>Booger Client</strong>
-          <span>© 2026. All rights reserved.</span>
+        <div className="footerBrand">
+          <div className="logoCube small">
+            <span />
+          </div>
+          <div>
+            <strong>Booger <b>Client</b></strong>
+            <p>Play better. Your world, your way.</p>
+          </div>
         </div>
-        <p>Not affiliated with Mojang, Microsoft, Lunar Client, or LabyMod.</p>
+
+        <div className="footerLinks">
+          <div>
+            <strong>Links</strong>
+            <a href="/">Home</a>
+            <a href="/features">Features</a>
+            <a href="/download">Download</a>
+          </div>
+          <div>
+            <strong>Support</strong>
+            <a href="/faq">FAQ</a>
+            <a href={DISCORD} target="_blank">
+              Discord
+            </a>
+            <a href="/staff">Staff</a>
+          </div>
+          <div>
+            <strong>Legal</strong>
+            <a href="/terms">Terms</a>
+            <a href="/privacy">Privacy</a>
+          </div>
+        </div>
       </footer>
+
+      <div className="copyright">
+        © 2026 Booger Client. Not affiliated with Mojang or Microsoft.
+      </div>
 
       <style jsx>{`
         * {
@@ -247,11 +333,8 @@ export default function Home() {
 
         .site {
           min-height: 100vh;
-          color: white;
-          background:
-            radial-gradient(circle at top left, rgba(72, 255, 135, 0.14), transparent 34%),
-            radial-gradient(circle at top right, rgba(255, 255, 255, 0.06), transparent 30%),
-            linear-gradient(180deg, #080b09 0%, #0d120f 45%, #070807 100%);
+          color: #f7fff0;
+          background: #161a16;
           font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           overflow-x: hidden;
         }
@@ -262,498 +345,997 @@ export default function Home() {
         }
 
         .nav {
-          width: min(1180px, calc(100% - 32px));
-          height: 74px;
-          margin: 18px auto 0;
-          padding: 0 16px;
-          border-radius: 22px;
-          background: rgba(15, 18, 16, 0.84);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          position: fixed;
+          top: 16px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: min(1220px, calc(100% - 28px));
+          min-height: 72px;
+          padding: 12px 16px;
+          border-radius: 20px;
+          background: rgba(26, 30, 28, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.12);
           backdrop-filter: blur(18px);
+          z-index: 50;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          position: sticky;
-          top: 18px;
-          z-index: 50;
-          box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
         }
 
-        .brand {
+        .brand,
+        .footerBrand {
           display: flex;
           align-items: center;
           gap: 12px;
         }
 
-        .brand img {
-          width: 44px;
-          height: 44px;
-          border-radius: 14px;
-          object-fit: cover;
-          background: rgba(255, 255, 255, 0.08);
+        .brand strong,
+        .footerBrand strong {
+          font-size: 22px;
+          line-height: 1;
         }
 
-        .brand strong {
-          display: block;
-          font-size: 15px;
+        .brand b,
+        .footerBrand b {
+          color: #8bcf54;
         }
 
-        .brand span {
-          display: block;
-          margin-top: 3px;
-          color: rgba(255, 255, 255, 0.48);
+        .brand p,
+        .footerBrand p {
+          margin: 4px 0 0;
+          color: rgba(255, 255, 255, 0.58);
           font-size: 12px;
+        }
+
+        .logoCube {
+          width: 46px;
+          height: 46px;
+          border-radius: 12px;
+          background:
+            linear-gradient(135deg, #8ed957 0 50%, #65ad3b 50% 100%);
+          border: 2px solid #2d4b24;
+          position: relative;
+          box-shadow: inset 0 -8px rgba(0, 0, 0, 0.12);
+        }
+
+        .logoCube::before,
+        .logoCube::after,
+        .logoCube span {
+          content: "";
+          position: absolute;
+          width: 7px;
+          height: 7px;
+          border-radius: 2px;
+          background: #24401e;
+        }
+
+        .logoCube::before {
+          left: 12px;
+          top: 13px;
+        }
+
+        .logoCube::after {
+          right: 12px;
+          top: 13px;
+        }
+
+        .logoCube span {
+          left: 20px;
+          bottom: 12px;
+          width: 8px;
+        }
+
+        .logoCube.small {
+          width: 42px;
+          height: 42px;
         }
 
         .links {
           display: flex;
-          gap: 20px;
+          gap: 26px;
         }
 
         .links a {
-          color: rgba(255, 255, 255, 0.58);
           font-size: 14px;
-          font-weight: 700;
+          font-weight: 800;
+          color: rgba(255, 255, 255, 0.74);
+          transition: 0.2s ease;
         }
 
         .links a:hover {
-          color: white;
+          color: #a6df68;
         }
 
-        .navBtn,
+        .discord,
         .secondary {
-          padding: 12px 16px;
-          border-radius: 14px;
-          background: rgba(255, 255, 255, 0.07);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          font-weight: 800;
+          padding: 13px 18px;
+          border-radius: 13px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          font-weight: 900;
         }
 
         .hero {
-          width: min(1180px, calc(100% - 32px));
-          margin: 52px auto 0;
-          min-height: 650px;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          align-items: center;
-          gap: 42px;
+          position: relative;
+          min-height: 720px;
+          overflow: hidden;
+          background:
+            linear-gradient(180deg, #9fd7ff 0%, #b7e7ff 36%, #6caf42 36%, #4d8c35 100%);
         }
 
-        .badge,
+        .shade {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(90deg, rgba(15, 17, 15, 0.88) 0%, rgba(15, 17, 15, 0.74) 32%, rgba(15, 17, 15, 0.15) 68%),
+            linear-gradient(180deg, transparent 0%, rgba(22, 26, 22, 0.78) 100%);
+          z-index: 3;
+        }
+
+        .heroText {
+          position: relative;
+          z-index: 10;
+          width: min(1220px, calc(100% - 32px));
+          margin: 0 auto;
+          padding-top: 160px;
+        }
+
+        .pill,
         .sectionHead span,
-        .bigCard span,
-        .downloadBox span {
+        .downloadText span {
           display: inline-flex;
           width: fit-content;
-          color: #79ff9f;
-          background: rgba(121, 255, 159, 0.1);
-          border: 1px solid rgba(121, 255, 159, 0.18);
+          padding: 9px 14px;
           border-radius: 999px;
-          padding: 9px 13px;
+          color: #eaffd2;
+          background: rgba(139, 207, 84, 0.22);
+          border: 1px solid rgba(139, 207, 84, 0.36);
           font-size: 12px;
-          font-weight: 900;
+          font-weight: 1000;
           text-transform: uppercase;
           letter-spacing: 0.1em;
         }
 
         h1 {
-          margin: 22px 0 0;
-          font-size: clamp(48px, 7vw, 92px);
-          line-height: 0.95;
-          letter-spacing: -0.07em;
+          margin: 18px 0 0;
+          max-width: 720px;
+          font-size: clamp(64px, 8vw, 122px);
+          line-height: 0.88;
+          letter-spacing: -0.08em;
+          color: white;
+          text-shadow: 0 8px 0 rgba(0, 0, 0, 0.12);
         }
 
         h1 span {
-          display: block;
-          color: #79ff9f;
+          color: #9dde61;
         }
 
-        .heroLeft p {
-          max-width: 560px;
-          color: rgba(255, 255, 255, 0.64);
+        .heroText h2 {
+          margin: 22px 0 0;
+          font-size: clamp(26px, 4vw, 42px);
+          line-height: 1.1;
+        }
+
+        .heroText p {
+          max-width: 610px;
+          margin: 16px 0 0;
+          color: rgba(255, 255, 255, 0.82);
           font-size: 18px;
-          line-height: 1.7;
-          margin: 24px 0 0;
+          line-height: 1.65;
         }
 
-        .heroButtons {
+        .buttons {
+          margin-top: 28px;
           display: flex;
+          gap: 14px;
           flex-wrap: wrap;
-          gap: 12px;
-          margin-top: 30px;
         }
 
         .primary,
         .downloadBox a {
-          padding: 14px 20px;
-          border-radius: 14px;
-          color: #071108;
-          background: linear-gradient(135deg, #8affaa, #29d66b);
-          font-weight: 900;
-          box-shadow: 0 18px 50px rgba(41, 214, 107, 0.2);
+          padding: 16px 24px;
+          border-radius: 15px;
+          color: #1b2a13;
+          background: linear-gradient(180deg, #b5ee70, #7fc64b);
+          border: 1px solid rgba(255, 255, 255, 0.28);
+          box-shadow: 0 12px 0 #4c7c2e, 0 22px 40px rgba(0, 0, 0, 0.28);
+          font-weight: 1000;
+          transition: 0.16s ease;
         }
 
         .primary:hover,
         .secondary:hover,
-        .navBtn:hover,
+        .discord:hover,
         .downloadBox a:hover,
         .card:hover,
-        .bigCard:hover {
+        .showcase:hover {
           transform: translateY(-2px);
         }
 
         .countdown {
+          max-width: 560px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 10px;
-          margin-top: 34px;
-          max-width: 560px;
-        }
-
-        .countdown div,
-        .quickStats div,
-        .clientPreview,
-        .card,
-        .bigCard,
-        .downloadBox {
-          background: rgba(255, 255, 255, 0.055);
-          border: 1px solid rgba(255, 255, 255, 0.09);
-          backdrop-filter: blur(16px);
-          box-shadow: 0 18px 70px rgba(0, 0, 0, 0.26);
+          margin-top: 36px;
         }
 
         .countdown div {
-          border-radius: 18px;
           padding: 18px 12px;
           text-align: center;
+          border-radius: 16px;
+          background: rgba(22, 26, 22, 0.68);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          backdrop-filter: blur(12px);
         }
 
         .countdown strong {
           display: block;
-          font-size: 28px;
+          color: #a7e567;
+          font-size: 30px;
         }
 
         .countdown span {
-          color: rgba(255, 255, 255, 0.45);
-          font-size: 12px;
-          font-weight: 800;
+          display: block;
+          margin-top: 4px;
+          color: rgba(255, 255, 255, 0.68);
+          font-size: 11px;
+          font-weight: 1000;
+          text-transform: uppercase;
         }
 
-        .clientPreview {
-          border-radius: 28px;
+        .village {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
           overflow: hidden;
         }
 
-        .previewTop {
-          height: 74px;
-          padding: 0 22px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .previewTop strong {
-          display: block;
-          font-size: 18px;
-        }
-
-        .previewTop span,
-        .previewTop p {
-          color: rgba(255, 255, 255, 0.48);
-          font-size: 13px;
-          margin: 4px 0 0;
-        }
-
-        .previewBody {
-          display: grid;
-          grid-template-columns: 150px 1fr;
-          min-height: 430px;
-        }
-
-        aside {
-          padding: 18px;
-          border-right: 1px solid rgba(255, 255, 255, 0.08);
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-
-        aside button {
-          border: 0;
-          border-radius: 14px;
-          padding: 12px 14px;
-          background: transparent;
-          color: rgba(255, 255, 255, 0.5);
-          text-align: left;
-          font-weight: 800;
-        }
-
-        aside .active {
-          color: #071108;
-          background: #79ff9f;
-        }
-
-        .modules {
-          padding: 20px;
-        }
-
-        .module {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 15px;
-          border-radius: 18px;
-          background: rgba(255, 255, 255, 0.055);
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          margin-bottom: 12px;
-        }
-
-        .module strong {
-          display: block;
-        }
-
-        .module span {
-          display: block;
-          margin-top: 4px;
-          color: rgba(255, 255, 255, 0.45);
-          font-size: 12px;
-        }
-
-        .toggle {
-          width: 44px;
-          height: 24px;
-          border-radius: 999px;
-          background: #79ff9f;
-          position: relative;
-        }
-
-        .toggle::after {
-          content: "";
-          width: 18px;
-          height: 18px;
-          border-radius: 999px;
-          background: #071108;
+        .grass {
           position: absolute;
-          right: 3px;
-          top: 3px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 180px;
+          background:
+            linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+            linear-gradient(#5fa13b, #3f752d);
+          background-size: 48px 48px, auto;
         }
 
-        .quickStats,
+        .path {
+          position: absolute;
+          right: 13%;
+          bottom: -30px;
+          width: 360px;
+          height: 320px;
+          background: #bc9c67;
+          transform: skewX(-18deg) rotate(3deg);
+          border: 12px solid rgba(94, 74, 44, 0.14);
+        }
+
+        .sun {
+          position: absolute;
+          top: 115px;
+          right: 280px;
+          width: 82px;
+          height: 82px;
+          background: #ffe37a;
+          border-radius: 18px;
+          box-shadow: 0 0 90px rgba(255, 227, 122, 0.55);
+        }
+
+        .cloud {
+          position: absolute;
+          height: 36px;
+          background: rgba(255, 255, 255, 0.72);
+          border-radius: 10px;
+        }
+
+        .cloud::before,
+        .cloud::after {
+          content: "";
+          position: absolute;
+          background: inherit;
+          border-radius: inherit;
+        }
+
+        .cloud::before {
+          width: 62px;
+          height: 46px;
+          left: 24px;
+          top: -18px;
+        }
+
+        .cloud::after {
+          width: 74px;
+          height: 54px;
+          right: 24px;
+          top: -24px;
+        }
+
+        .cloud1 {
+          width: 190px;
+          top: 150px;
+          right: 440px;
+        }
+
+        .cloud2 {
+          width: 160px;
+          top: 210px;
+          right: 80px;
+        }
+
+        .house {
+          position: absolute;
+          width: 180px;
+          height: 150px;
+        }
+
+        .house .roof {
+          position: absolute;
+          left: 8px;
+          top: 0;
+          width: 164px;
+          height: 70px;
+          background:
+            repeating-linear-gradient(0deg, #9d6a30 0 10px, #815123 10px 20px);
+          clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+        }
+
+        .house .body {
+          position: absolute;
+          left: 28px;
+          top: 62px;
+          width: 124px;
+          height: 88px;
+          background: #c99b5b;
+          border: 6px solid #7c5732;
+          box-shadow: inset 0 -14px rgba(0, 0, 0, 0.08);
+        }
+
+        .house .body span {
+          position: absolute;
+          left: 43px;
+          bottom: 0;
+          width: 36px;
+          height: 48px;
+          background: #5d3b22;
+        }
+
+        .house1 {
+          right: 520px;
+          bottom: 170px;
+          transform: scale(1.15);
+        }
+
+        .house2 {
+          right: 260px;
+          bottom: 155px;
+        }
+
+        .house3 {
+          right: 70px;
+          bottom: 190px;
+          transform: scale(0.9);
+        }
+
+        .tree {
+          position: absolute;
+          width: 52px;
+          height: 90px;
+          background: #6b4427;
+        }
+
+        .tree span {
+          position: absolute;
+          left: -36px;
+          top: -78px;
+          width: 126px;
+          height: 105px;
+          background:
+            linear-gradient(135deg, #4f9d3b, #2f702c);
+          border-radius: 20px;
+        }
+
+        .tree1 {
+          right: 760px;
+          bottom: 205px;
+        }
+
+        .tree2 {
+          right: 140px;
+          bottom: 260px;
+          transform: scale(0.85);
+        }
+
+        .farm {
+          position: absolute;
+          right: 330px;
+          bottom: 100px;
+          width: 260px;
+          height: 92px;
+          background:
+            repeating-linear-gradient(90deg, #6f4a2b 0 22px, #4a311f 22px 44px);
+          border: 8px solid #8d6a38;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          padding: 12px;
+          transform: skewX(-8deg);
+        }
+
+        .farm span {
+          background: #70b949;
+          border-radius: 8px 8px 0 0;
+          box-shadow: inset 0 -14px #e19b34;
+        }
+
+        .bee {
+          position: absolute;
+          width: 52px;
+          height: 38px;
+          background:
+            repeating-linear-gradient(90deg, #f6c64d 0 14px, #2d2516 14px 24px);
+          border-radius: 12px;
+          box-shadow: inset 0 -6px rgba(0, 0, 0, 0.12);
+        }
+
+        .bee::before,
+        .bee::after {
+          content: "";
+          position: absolute;
+          top: -16px;
+          width: 22px;
+          height: 18px;
+          background: rgba(255, 255, 255, 0.74);
+          border-radius: 999px;
+        }
+
+        .bee::before {
+          left: 8px;
+        }
+
+        .bee::after {
+          right: 8px;
+        }
+
+        .bee i {
+          position: absolute;
+          right: -8px;
+          top: 15px;
+          width: 10px;
+          height: 8px;
+          background: #2d2516;
+          clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        .bee1 {
+          right: 160px;
+          top: 160px;
+          transform: scale(1.35);
+        }
+
+        .bee2 {
+          right: 640px;
+          top: 210px;
+          transform: scale(0.7);
+        }
+
+        .bee3 {
+          right: 850px;
+          top: 150px;
+          transform: scale(0.55);
+        }
+
+        .mob,
+        .villager {
+          position: absolute;
+          border-radius: 8px;
+          box-shadow: inset 0 -10px rgba(0, 0, 0, 0.08);
+        }
+
+        .cow {
+          right: 730px;
+          bottom: 115px;
+          width: 95px;
+          height: 70px;
+          background: #f1eee4;
+          border: 6px solid #6d4b35;
+        }
+
+        .cow::before,
+        .cow::after {
+          content: "";
+          position: absolute;
+          background: #6d4b35;
+          border-radius: 5px;
+        }
+
+        .cow::before {
+          width: 32px;
+          height: 24px;
+          left: 12px;
+          top: 10px;
+        }
+
+        .cow::after {
+          width: 28px;
+          height: 20px;
+          right: 14px;
+          bottom: 16px;
+        }
+
+        .cow span {
+          position: absolute;
+          right: -38px;
+          top: 12px;
+          width: 46px;
+          height: 42px;
+          background: #f1eee4;
+          border: 6px solid #6d4b35;
+          border-radius: 8px;
+        }
+
+        .pig {
+          right: 430px;
+          bottom: 95px;
+          width: 82px;
+          height: 58px;
+          background: #ee9baa;
+          border: 6px solid #d77d8d;
+        }
+
+        .pig span {
+          position: absolute;
+          right: -34px;
+          top: 8px;
+          width: 42px;
+          height: 38px;
+          background: #ee9baa;
+          border: 6px solid #d77d8d;
+          border-radius: 8px;
+        }
+
+        .villager {
+          width: 52px;
+          height: 100px;
+          background: #7c553b;
+          border: 5px solid #4e3324;
+        }
+
+        .villager::before {
+          content: "";
+          position: absolute;
+          left: 4px;
+          top: -42px;
+          width: 34px;
+          height: 42px;
+          background: #b88761;
+          border: 5px solid #6b4731;
+          border-radius: 7px;
+        }
+
+        .villager::after {
+          content: "";
+          position: absolute;
+          left: 8px;
+          top: -18px;
+          width: 28px;
+          height: 12px;
+          background: #8b5a3e;
+          border-radius: 5px;
+        }
+
+        .villager1 {
+          right: 210px;
+          bottom: 95px;
+        }
+
+        .villager2 {
+          right: 610px;
+          bottom: 110px;
+          transform: scale(0.85);
+        }
+
+        .stats,
         .section,
-        .split,
         .downloadBox,
-        footer {
-          width: min(1180px, calc(100% - 32px));
+        footer,
+        .copyright {
+          width: min(1220px, calc(100% - 32px));
           margin-left: auto;
           margin-right: auto;
         }
 
-        .quickStats {
-          margin-top: 34px;
+        .stats {
+          position: relative;
+          z-index: 5;
+          margin-top: -42px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 12px;
+          gap: 14px;
+          padding: 20px;
+          border-radius: 24px;
+          background: rgba(25, 29, 26, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
         }
 
-        .quickStats div {
-          border-radius: 20px;
-          padding: 24px;
+        .stats div {
+          padding: 18px 22px;
+          border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .quickStats strong {
+        .stats div:last-child {
+          border-right: none;
+        }
+
+        .stats strong {
           display: block;
-          font-size: 26px;
+          color: white;
+          font-size: 24px;
         }
 
-        .quickStats span {
-          color: rgba(255, 255, 255, 0.48);
+        .stats span {
+          display: block;
+          margin-top: 5px;
+          color: rgba(255, 255, 255, 0.58);
         }
 
         .section {
-          margin-top: 110px;
+          margin-top: 84px;
         }
 
         .sectionHead {
-          max-width: 720px;
+          max-width: 760px;
           margin: 0 auto 34px;
           text-align: center;
         }
 
-        .sectionHead h2,
-        .bigCard h2,
-        .downloadBox h2 {
+        .sectionHead h2 {
           margin: 14px 0 0;
-          font-size: clamp(34px, 5vw, 58px);
+          font-size: clamp(34px, 5vw, 56px);
           line-height: 1;
-          letter-spacing: -0.06em;
+          letter-spacing: -0.05em;
         }
 
-        .sectionHead p,
-        .bigCard p,
-        .downloadBox p {
-          color: rgba(255, 255, 255, 0.58);
+        .sectionHead p {
+          color: rgba(255, 255, 255, 0.62);
           line-height: 1.7;
         }
 
         .featureGrid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 14px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
         }
 
-        .card,
-        .bigCard {
-          border-radius: 26px;
-          padding: 28px;
+        .card {
+          padding: 24px;
+          border-radius: 22px;
+          background: rgba(255, 255, 255, 0.065);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
           transition: 0.18s ease;
         }
 
-        .card:hover,
-        .bigCard:hover {
-          border-color: rgba(121, 255, 159, 0.25);
-        }
-
         .icon {
-          width: 44px;
-          height: 44px;
-          border-radius: 15px;
+          width: 58px;
+          height: 58px;
           display: grid;
           place-items: center;
-          background: rgba(121, 255, 159, 0.1);
-          color: #79ff9f;
-          margin-bottom: 20px;
+          border-radius: 15px;
+          color: #caff8e;
+          background: rgba(139, 207, 84, 0.18);
+          border: 1px solid rgba(139, 207, 84, 0.2);
+          font-size: 28px;
+          margin-bottom: 18px;
         }
 
         .card h3 {
-          margin: 0 0 10px;
-          font-size: 22px;
+          margin: 0 0 8px;
+          font-size: 20px;
         }
 
         .card p {
           margin: 0;
-          color: rgba(255, 255, 255, 0.56);
-          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.62);
+          line-height: 1.55;
         }
 
-        .split {
-          margin-top: 100px;
+        .showcaseGrid {
           display: grid;
-          grid-template-columns: 1.1fr 0.9fr;
-          gap: 14px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
         }
 
-        .bigCard a {
-          display: inline-block;
-          margin-top: 18px;
-          color: #79ff9f;
-          font-weight: 900;
+        .showcase {
+          overflow: hidden;
+          border-radius: 22px;
+          background: rgba(255, 255, 255, 0.065);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: 0.18s ease;
         }
 
-        .moduleCloud {
+        .fakeShot {
+          height: 150px;
+          padding: 18px;
+          background:
+            linear-gradient(135deg, rgba(139, 207, 84, 0.25), rgba(255, 255, 255, 0.06)),
+            linear-gradient(180deg, #8ad6ff 0 48%, #79ad54 48% 100%);
+        }
+
+        .shot2 {
+          background:
+            linear-gradient(135deg, rgba(255, 180, 77, 0.2), rgba(255, 255, 255, 0.06)),
+            linear-gradient(180deg, #ffca7a 0 48%, #71a850 48% 100%);
+        }
+
+        .shot3 {
+          background:
+            linear-gradient(135deg, rgba(139, 207, 84, 0.24), rgba(0, 0, 0, 0.16)),
+            linear-gradient(180deg, #9ed6ff 0 48%, #4e7c42 48% 100%);
+        }
+
+        .shot4 {
+          background:
+            linear-gradient(135deg, rgba(139, 207, 84, 0.18), rgba(255, 255, 255, 0.06)),
+            #151a16;
+        }
+
+        .fakeWindow {
+          height: 100%;
+          border-radius: 16px;
+          background: rgba(19, 22, 20, 0.84);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          padding: 12px;
+        }
+
+        .fakeTop {
           display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-          margin-top: 20px;
+          gap: 6px;
+          margin-bottom: 14px;
         }
 
-        .moduleCloud p {
-          margin: 0;
-          padding: 10px 13px;
-          border-radius: 999px;
-          background: rgba(121, 255, 159, 0.1);
-          border: 1px solid rgba(121, 255, 159, 0.16);
-          color: #caffd7;
+        .fakeTop span {
+          width: 9px;
+          height: 9px;
+          background: rgba(255, 255, 255, 0.35);
+          border-radius: 99px;
+        }
+
+        .fakeContent p {
+          height: 12px;
+          margin: 8px 0;
+          border-radius: 5px;
+          background: rgba(139, 207, 84, 0.35);
+        }
+
+        .fakeContent p:nth-child(2),
+        .fakeContent p:nth-child(4) {
+          width: 70%;
+          background: rgba(255, 255, 255, 0.18);
+        }
+
+        .showcase div:last-child {
+          padding: 14px 16px 16px;
+        }
+
+        .showcase strong {
+          display: block;
+        }
+
+        .showcase span {
+          display: block;
+          margin-top: 4px;
+          color: rgba(255, 255, 255, 0.56);
           font-size: 13px;
-          font-weight: 800;
         }
 
         .downloadBox {
-          margin-top: 100px;
-          margin-bottom: 70px;
-          border-radius: 30px;
-          padding: 34px;
-          display: flex;
+          margin-top: 84px;
+          min-height: 210px;
+          display: grid;
+          grid-template-columns: 280px 1fr auto;
+          gap: 30px;
           align-items: center;
-          justify-content: space-between;
-          gap: 24px;
+          padding: 28px;
+          border-radius: 26px;
+          background:
+            linear-gradient(90deg, rgba(25, 29, 26, 0.95), rgba(35, 49, 33, 0.9)),
+            linear-gradient(180deg, #8bd6ff 0 45%, #5f9b42 45% 100%);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+          overflow: hidden;
         }
 
-        .downloadBox p {
-          max-width: 680px;
+        .downloadArt {
+          height: 150px;
+          position: relative;
+        }
+
+        .bigBee {
+          left: 92px;
+          top: 22px;
+          transform: scale(1.4);
+        }
+
+        .miniVillage {
+          position: absolute;
+          left: 20px;
+          bottom: 0;
+          display: flex;
+          gap: 10px;
+          align-items: flex-end;
+        }
+
+        .miniVillage div {
+          width: 56px;
+          height: 56px;
+          background: #c99b5b;
+          border: 4px solid #7c5732;
+          position: relative;
+        }
+
+        .miniVillage div::before {
+          content: "";
+          position: absolute;
+          left: -5px;
+          top: -30px;
+          width: 58px;
+          height: 34px;
+          background: #8a5a2a;
+          clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+
+        .miniVillage div:nth-child(2) {
+          height: 76px;
+        }
+
+        .miniVillage div:nth-child(3) {
+          height: 48px;
+        }
+
+        .downloadText h2 {
+          margin: 12px 0 0;
+          font-size: clamp(32px, 5vw, 48px);
+          letter-spacing: -0.04em;
+        }
+
+        .downloadText p {
+          max-width: 650px;
+          color: rgba(255, 255, 255, 0.64);
+          line-height: 1.65;
         }
 
         footer {
-          padding: 26px 0 42px;
+          margin-top: 72px;
+          padding: 34px 0;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: space-between;
-          gap: 16px;
-          color: rgba(255, 255, 255, 0.42);
-          font-size: 13px;
+          gap: 28px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        footer strong {
-          display: block;
+        .footerLinks {
+          display: flex;
+          gap: 80px;
+        }
+
+        .footerLinks div {
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+        }
+
+        .footerLinks strong {
           color: white;
           margin-bottom: 5px;
         }
 
-        footer p {
-          margin: 0;
+        .footerLinks a {
+          color: rgba(255, 255, 255, 0.54);
+          font-size: 14px;
         }
 
-        @media (max-width: 950px) {
+        .footerLinks a:hover {
+          color: #a6df68;
+        }
+
+        .copyright {
+          padding: 0 0 34px;
+          text-align: center;
+          color: rgba(255, 255, 255, 0.38);
+          font-size: 13px;
+        }
+
+        @media (max-width: 1050px) {
           .links {
             display: none;
           }
 
-          .hero,
-          .split {
-            grid-template-columns: 1fr;
-          }
-
-          .quickStats,
-          .featureGrid {
+          .featureGrid,
+          .showcaseGrid,
+          .stats {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .clientPreview {
-            max-width: 650px;
+          .stats div {
+            border-right: none;
+          }
+
+          .downloadBox {
+            grid-template-columns: 1fr;
+          }
+
+          .downloadArt {
+            display: none;
+          }
+
+          footer {
+            flex-direction: column;
+          }
+
+          .footerLinks {
+            gap: 42px;
           }
         }
 
-        @media (max-width: 620px) {
-          .brand span {
+        @media (max-width: 640px) {
+          .nav {
+            top: 10px;
+            width: calc(100% - 16px);
+          }
+
+          .brand p {
             display: none;
           }
 
-          .hero {
-            margin-top: 38px;
+          .discord {
+            padding: 10px 12px;
+            font-size: 13px;
           }
 
-          .countdown,
-          .quickStats,
-          .featureGrid {
-            grid-template-columns: 1fr;
-          }
-
-          .previewBody {
-            grid-template-columns: 1fr;
-          }
-
-          aside {
-            display: none;
-          }
-
-          .downloadBox,
-          footer {
-            flex-direction: column;
-            align-items: flex-start;
+          .heroText {
+            padding-top: 135px;
           }
 
           h1 {
-            font-size: 48px;
+            font-size: 58px;
+          }
+
+          .countdown,
+          .featureGrid,
+          .showcaseGrid,
+          .stats {
+            grid-template-columns: 1fr;
+          }
+
+          .footerLinks {
+            flex-direction: column;
+            gap: 24px;
+          }
+
+          .village {
+            opacity: 0.75;
+          }
+
+          .house1 {
+            right: 220px;
+          }
+
+          .house2 {
+            right: 40px;
+          }
+
+          .house3,
+          .tree1,
+          .cow,
+          .villager2 {
+            display: none;
           }
         }
       `}</style>
