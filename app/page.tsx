@@ -116,7 +116,7 @@ export default function Home() {
         <div className="links">
           <a href="/">Home</a>
           <a href="/features">Features</a>
-          <a href="/download">Beta Status</a>
+          <a href="#status">Beta Status</a>
           <a href="/roadmap">Roadmap</a>
           <a href="/faq">FAQ</a>
         </div>
@@ -622,11 +622,11 @@ export default function Home() {
 
         .hero {
           position: relative;
-          min-height: 780px;
+          min-height: 760px;
           overflow: hidden;
           background:
-            linear-gradient(90deg, rgba(15, 17, 15, 0.92) 0%, rgba(15, 17, 15, 0.72) 36%, rgba(15, 17, 15, 0.16) 100%),
-            linear-gradient(180deg, rgba(15, 17, 15, 0.1) 0%, rgba(22, 26, 22, 0.94) 100%),
+            linear-gradient(90deg, rgba(15, 17, 15, 0.9) 0%, rgba(15, 17, 15, 0.68) 42%, rgba(15, 17, 15, 0.2) 100%),
+            linear-gradient(180deg, rgba(15, 17, 15, 0.05) 0%, rgba(22, 26, 22, 0.95) 100%),
             url("/hero-village.png");
           background-size: cover;
           background-position: center;
@@ -637,9 +637,9 @@ export default function Home() {
           margin: 0 auto;
           padding-top: 155px;
           display: grid;
-          grid-template-columns: 0.95fr 1.05fr;
+          grid-template-columns: 0.85fr 1.15fr;
           align-items: center;
-          gap: 36px;
+          gap: 44px;
           position: relative;
           z-index: 5;
         }
@@ -667,10 +667,10 @@ export default function Home() {
 
         h1 {
           margin: 18px 0 0;
-          max-width: 720px;
-          font-size: clamp(64px, 8vw, 122px);
-          line-height: 0.88;
-          letter-spacing: -0.08em;
+          max-width: 520px;
+          font-size: clamp(58px, 6vw, 96px);
+          line-height: 0.9;
+          letter-spacing: -0.07em;
           color: white;
           text-shadow: 0 8px 0 rgba(0, 0, 0, 0.12);
         }
@@ -681,15 +681,16 @@ export default function Home() {
 
         .heroText h2 {
           margin: 22px 0 0;
-          font-size: clamp(26px, 4vw, 42px);
-          line-height: 1.1;
+          max-width: 520px;
+          font-size: clamp(28px, 3vw, 42px);
+          line-height: 1.12;
         }
 
         .heroText p {
-          max-width: 610px;
+          max-width: 500px;
           margin: 16px 0 0;
           color: rgba(255, 255, 255, 0.82);
-          font-size: 18px;
+          font-size: 17px;
           line-height: 1.65;
         }
 
@@ -745,9 +746,12 @@ export default function Home() {
         }
 
         .clientPreview {
+          width: 100%;
+          max-width: 650px;
+          justify-self: end;
           overflow: hidden;
           border-radius: 26px;
-          background: rgba(22, 26, 22, 0.86);
+          background: rgba(22, 26, 22, 0.88);
           border: 1px solid rgba(255, 255, 255, 0.14);
           box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
           backdrop-filter: blur(16px);
@@ -795,7 +799,7 @@ export default function Home() {
 
         .previewBody {
           display: grid;
-          grid-template-columns: 150px 1fr;
+          grid-template-columns: 145px 1fr;
           min-height: 390px;
         }
 
@@ -825,12 +829,13 @@ export default function Home() {
         .moduleList {
           padding: 18px;
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 12px;
         }
 
         .module {
           min-height: 82px;
+          min-width: 0;
           padding: 15px;
           border-radius: 16px;
           background: rgba(255, 255, 255, 0.065);
@@ -843,6 +848,7 @@ export default function Home() {
 
         .module strong {
           display: block;
+          font-size: 15px;
         }
 
         .module span {
@@ -853,6 +859,7 @@ export default function Home() {
         }
 
         .module em {
+          flex-shrink: 0;
           font-style: normal;
           color: #1b2a13;
           background: #9dde61;
@@ -1322,6 +1329,7 @@ export default function Home() {
           }
 
           .clientPreview {
+            justify-self: start;
             max-width: 720px;
           }
 
