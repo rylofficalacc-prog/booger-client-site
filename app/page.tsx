@@ -5,15 +5,18 @@ const DISCORD = "https://discord.gg/5HxHgKdfMu";
 const features = [
   {
     title: "Easy to Use",
-    desc: "No confusing menus. Booger Client is built to feel simple, clean, and easy for any Minecraft player.",
+    desc: "Clean menus made for normal players. No confusing layout, no messy settings.",
+    icon: "🌿",
   },
   {
     title: "PvP & Survival Ready",
-    desc: "Useful HUD tools, visuals, profiles, and settings for normal gameplay, PvP, and survival worlds.",
+    desc: "Useful HUD, visual, and utility tools for PvP, survival, and everyday gameplay.",
+    icon: "⚔️",
   },
   {
     title: "Community Driven",
-    desc: "Updates, testing, feedback, and sneak peeks are handled through the Booger Client Discord.",
+    desc: "Updates, beta testing, feedback, and sneak peeks are handled through Discord.",
+    icon: "💬",
   },
 ];
 
@@ -47,6 +50,29 @@ const screenshots = [
     desc: "Useful client tools made for everyday Minecraft gameplay.",
     image: "/village-run.png",
   },
+];
+
+const roadmap = [
+  ["Phase 1", "Launcher", "Opening Minecraft through the Booger Client launcher."],
+  ["Phase 2", "Main Menu", "Custom Minecraft main menu with Booger Client branding."],
+  ["Phase 3", "Module Menu", "Clean module menu with categories, toggles, and settings."],
+  ["Phase 4", "HUD Editor", "Move, scale, and save HUD elements in-game."],
+  ["Phase 5", "Public Beta", "Private testing first, then public download when stable."],
+];
+
+const staff = [
+  ["Snot2", "Founder", "Project owner and main vision for Booger Client."],
+  ["TRM", "Co-Founder", "Helps lead the project and community direction."],
+  ["Developer Team", "Developers", "Client, launcher, website, and feature development."],
+  ["Private Testers", "Testing Team", "Testing builds before public beta release."],
+];
+
+const faqs = [
+  ["Is Booger Client free?", "The goal is to keep the main client free, with possible supporter cosmetics later."],
+  ["Is Booger Client a cheat client?", "No. Booger Client is planned as a non-cheat utility client focused on HUD, visuals, profiles, and quality-of-life tools."],
+  ["What version will it support?", "Booger Client is currently focused on Minecraft Java Edition 1.21.11 Fabric."],
+  ["When is beta?", "Private beta will come first. Public beta will happen when the launcher, menu, and modules are stable."],
+  ["How do I join testing?", "Join the Discord for testing news, announcements, and future application info."],
 ];
 
 export default function Home() {
@@ -175,13 +201,40 @@ export default function Home() {
         </div>
 
         <div className="featureGrid">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <div className="card" key={feature.title}>
-              <div className="icon">{["🌿", "⚔️", "💬"][index]}</div>
+              <div className="icon">{feature.icon}</div>
               <h3>{feature.title}</h3>
               <p>{feature.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="statusBox">
+        <div>
+          <span>Beta Status</span>
+          <h2>Current development status.</h2>
+          <p>
+            Booger Client is still being worked on. The launcher, custom main
+            menu, module menu, HUD editor, and website are being cleaned up before
+            public beta.
+          </p>
+        </div>
+
+        <div className="statusGrid">
+          <div>
+            <strong>Current Status</strong>
+            <span>Private Beta</span>
+          </div>
+          <div>
+            <strong>Public Download</strong>
+            <span>Coming Soon</span>
+          </div>
+          <div>
+            <strong>Supported Version</strong>
+            <span>Minecraft 1.21.11 Fabric</span>
+          </div>
         </div>
       </section>
 
@@ -195,6 +248,30 @@ export default function Home() {
             right away. Bees, cows, pigs, villagers, and farms make it more
             friendly and appealing to normal players.
           </p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="sectionHead">
+          <span>Roadmap</span>
+          <h2>The plan before public beta.</h2>
+          <p>
+            Booger Client is being built in phases so the release feels cleaner,
+            safer, and more stable.
+          </p>
+        </div>
+
+        <div className="timeline">
+          {roadmap.map(([phase, title, desc]) => (
+            <div className="roadItem" key={phase}>
+              <div className="roadDot" />
+              <div>
+                <span>{phase}</span>
+                <h3>{title}</h3>
+                <p>{desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -221,13 +298,55 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section">
+        <div className="sectionHead">
+          <span>Team</span>
+          <h2>The people behind Booger Client.</h2>
+          <p>
+            A growing project built by staff, developers, and private testers
+            working toward a cleaner Minecraft client.
+          </p>
+        </div>
+
+        <div className="staffGrid">
+          {staff.map(([name, role, desc]) => (
+            <div className="staffCard" key={name}>
+              <div className="avatar">{name.charAt(0)}</div>
+              <h3>{name}</h3>
+              <span>{role}</span>
+              <p>{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="sectionHead">
+          <span>FAQ</span>
+          <h2>Common questions.</h2>
+          <p>
+            Quick answers for people who want to know what Booger Client is and
+            when they can use it.
+          </p>
+        </div>
+
+        <div className="faqGrid">
+          {faqs.map(([question, answer]) => (
+            <div className="faq" key={question}>
+              <h3>{question}</h3>
+              <p>{answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="downloadBox">
         <div>
-          <span>Beta Access</span>
-          <h2>Download coming soon.</h2>
+          <span>Join the Community</span>
+          <h2>Get updates before release.</h2>
           <p>
-            Public downloads are not open yet. Join the Discord for private
-            testing, sneak peeks, announcements, and development updates.
+            Join the Discord for private testing news, sneak peeks, beta updates,
+            announcements, and development progress.
           </p>
         </div>
 
@@ -434,7 +553,8 @@ export default function Home() {
         .pill,
         .sectionHead span,
         .wideShowcase span,
-        .downloadBox span {
+        .downloadBox span,
+        .statusBox span {
           display: inline-flex;
           width: fit-content;
           padding: 9px 14px;
@@ -501,7 +621,10 @@ export default function Home() {
         .downloadBox a:hover,
         .card:hover,
         .showcase:hover,
-        .wideShowcase:hover {
+        .wideShowcase:hover,
+        .staffCard:hover,
+        .faq:hover,
+        .roadItem:hover {
           transform: translateY(-2px);
         }
 
@@ -644,6 +767,7 @@ export default function Home() {
         .section,
         .wideShowcase,
         .downloadBox,
+        .statusBox,
         footer,
         .copyright {
           width: min(1220px, calc(100% - 32px));
@@ -698,7 +822,8 @@ export default function Home() {
 
         .sectionHead h2,
         .wideShowcase h2,
-        .downloadBox h2 {
+        .downloadBox h2,
+        .statusBox h2 {
           margin: 14px 0 0;
           font-size: clamp(34px, 5vw, 56px);
           line-height: 1;
@@ -707,18 +832,23 @@ export default function Home() {
 
         .sectionHead p,
         .wideShowcase p,
-        .downloadBox p {
+        .downloadBox p,
+        .statusBox p {
           color: rgba(255, 255, 255, 0.62);
           line-height: 1.7;
         }
 
-        .featureGrid {
+        .featureGrid,
+        .staffGrid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 16px;
         }
 
-        .card {
+        .card,
+        .staffCard,
+        .faq,
+        .roadItem {
           padding: 26px;
           border-radius: 22px;
           background: rgba(255, 255, 255, 0.065);
@@ -727,7 +857,8 @@ export default function Home() {
           transition: 0.18s ease;
         }
 
-        .icon {
+        .icon,
+        .avatar {
           width: 58px;
           height: 58px;
           display: grid;
@@ -740,15 +871,55 @@ export default function Home() {
           margin-bottom: 18px;
         }
 
-        .card h3 {
+        .card h3,
+        .staffCard h3,
+        .faq h3,
+        .roadItem h3 {
           margin: 0 0 8px;
           font-size: 22px;
         }
 
-        .card p {
+        .card p,
+        .staffCard p,
+        .faq p,
+        .roadItem p {
           margin: 0;
           color: rgba(255, 255, 255, 0.62);
           line-height: 1.6;
+        }
+
+        .statusBox {
+          margin-top: 84px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 28px;
+          align-items: center;
+          padding: 30px;
+          border-radius: 28px;
+          background:
+            linear-gradient(90deg, rgba(25, 29, 26, 0.95), rgba(32, 44, 28, 0.9)),
+            url("/villagers.png");
+          background-size: cover;
+          background-position: center;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+        }
+
+        .statusGrid {
+          display: grid;
+          gap: 12px;
+        }
+
+        .statusGrid div {
+          padding: 18px;
+          border-radius: 18px;
+          background: rgba(22, 26, 22, 0.76);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .statusGrid strong {
+          display: block;
+          margin-bottom: 7px;
         }
 
         .wideShowcase {
@@ -777,6 +948,38 @@ export default function Home() {
 
         .wideShowcase div {
           padding: 10px;
+        }
+
+        .timeline {
+          display: grid;
+          gap: 14px;
+        }
+
+        .roadItem {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 18px;
+          align-items: flex-start;
+        }
+
+        .roadDot {
+          width: 18px;
+          height: 18px;
+          border-radius: 999px;
+          background: #9dde61;
+          box-shadow: 0 0 0 8px rgba(157, 222, 97, 0.13);
+          margin-top: 6px;
+        }
+
+        .roadItem span,
+        .staffCard span {
+          display: inline-block;
+          margin-bottom: 8px;
+          color: #a6df68;
+          font-size: 12px;
+          font-weight: 1000;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
         }
 
         .showcaseGrid {
@@ -819,6 +1022,12 @@ export default function Home() {
           font-size: 13px;
         }
 
+        .faqGrid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
         .downloadBox {
           margin-top: 84px;
           min-height: 230px;
@@ -830,7 +1039,7 @@ export default function Home() {
           border-radius: 26px;
           background:
             linear-gradient(90deg, rgba(25, 29, 26, 0.96), rgba(25, 29, 26, 0.86)),
-            url("/villagers.png");
+            url("/village-run.png");
           background-size: cover;
           background-position: center;
           border: 1px solid rgba(255, 255, 255, 0.12);
@@ -890,7 +1099,8 @@ export default function Home() {
           }
 
           .heroInner,
-          .wideShowcase {
+          .wideShowcase,
+          .statusBox {
             grid-template-columns: 1fr;
           }
 
@@ -900,7 +1110,9 @@ export default function Home() {
 
           .featureGrid,
           .showcaseGrid,
-          .stats {
+          .stats,
+          .staffGrid,
+          .faqGrid {
             grid-template-columns: repeat(2, 1fr);
           }
 
@@ -959,7 +1171,9 @@ export default function Home() {
 
           .featureGrid,
           .showcaseGrid,
-          .stats {
+          .stats,
+          .staffGrid,
+          .faqGrid {
             grid-template-columns: 1fr;
           }
 
