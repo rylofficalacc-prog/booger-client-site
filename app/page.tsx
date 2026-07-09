@@ -7,16 +7,32 @@ const LAUNCH_DATE = new Date("2026-08-17T00:00:00").getTime();
 
 const features = [
   ["Custom HUD", "Move and customize CPS, armor, potions, playtime, and more."],
-  ["Smooth Visuals", "Clean visuals that make Minecraft look better without feeling messy."],
+  ["Smooth Visuals", "Clean Minecraft visuals that make your game feel better."],
   ["Better Performance", "Useful FPS tools made for smoother gameplay."],
   ["Simple UI", "Easy menus made for players, not confusing settings pages."],
 ];
 
-const showcases = [
-  ["Custom HUD", "Build your perfect layout."],
-  ["Smooth Visuals", "Cleaner Minecraft visuals."],
-  ["Performance", "Settings made simple."],
-  ["Module Menu", "Clean and easy toggles."],
+const screenshots = [
+  {
+    title: "Minecraft Village",
+    desc: "A friendly Minecraft-themed design.",
+    image: "/hero-village.png",
+  },
+  {
+    title: "Mobs & Gameplay",
+    desc: "Clean visuals built around Minecraft.",
+    image: "/mobs-showcase.png",
+  },
+  {
+    title: "Villagers",
+    desc: "Village style, simple and familiar.",
+    image: "/villagers.png",
+  },
+  {
+    title: "Adventure",
+    desc: "A client made for everyday players.",
+    image: "/village-run.png",
+  },
 ];
 
 function getTimeLeft() {
@@ -50,7 +66,9 @@ export default function Home() {
             <span />
           </div>
           <div>
-            <strong>Booger <b>Client</b></strong>
+            <strong>
+              Booger <b>Client</b>
+            </strong>
             <p>Minecraft Utility Client</p>
           </div>
         </a>
@@ -69,8 +87,6 @@ export default function Home() {
       </nav>
 
       <section className="hero">
-        <div className="shade" />
-
         <div className="heroText">
           <div className="pill">Beta Soon • Minecraft 1.21.11</div>
 
@@ -112,76 +128,6 @@ export default function Home() {
               <span>Seconds</span>
             </div>
           </div>
-        </div>
-
-        <div className="village">
-          <div className="sun" />
-          <div className="cloud cloud1" />
-          <div className="cloud cloud2" />
-
-          <div className="bee bee1">
-            <i />
-          </div>
-          <div className="bee bee2">
-            <i />
-          </div>
-          <div className="bee bee3">
-            <i />
-          </div>
-
-          <div className="house house1">
-            <div className="roof" />
-            <div className="body">
-              <span />
-            </div>
-          </div>
-
-          <div className="house house2">
-            <div className="roof" />
-            <div className="body">
-              <span />
-            </div>
-          </div>
-
-          <div className="house house3">
-            <div className="roof" />
-            <div className="body">
-              <span />
-            </div>
-          </div>
-
-          <div className="tree tree1">
-            <span />
-          </div>
-          <div className="tree tree2">
-            <span />
-          </div>
-
-          <div className="farm">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-
-          <div className="mob cow">
-            <span />
-          </div>
-
-          <div className="mob pig">
-            <span />
-          </div>
-
-          <div className="villager villager1">
-            <span />
-          </div>
-
-          <div className="villager villager2">
-            <span />
-          </div>
-
-          <div className="path" />
-          <div className="grass" />
         </div>
       </section>
 
@@ -228,34 +174,20 @@ export default function Home() {
       <section className="section">
         <div className="sectionHead">
           <span>See it in Action</span>
-          <h2>Screenshots and modules.</h2>
+          <h2>Minecraft style, clean client feel.</h2>
           <p>
-            Preview sections for your HUD, visuals, performance menu, and module
-            menu.
+            A friendly village-themed site with mobs, villagers, and a familiar
+            Minecraft look.
           </p>
         </div>
 
         <div className="showcaseGrid">
-          {showcases.map(([title, desc], index) => (
-            <div className="showcase" key={title}>
-              <div className={`fakeShot shot${index + 1}`}>
-                <div className="fakeWindow">
-                  <div className="fakeTop">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <div className="fakeContent">
-                    <p />
-                    <p />
-                    <p />
-                    <p />
-                  </div>
-                </div>
-              </div>
+          {screenshots.map((shot) => (
+            <div className="showcase" key={shot.title}>
+              <img src={shot.image} alt={shot.title} />
               <div>
-                <strong>{title}</strong>
-                <span>{desc}</span>
+                <strong>{shot.title}</strong>
+                <span>{shot.desc}</span>
               </div>
             </div>
           ))}
@@ -263,15 +195,8 @@ export default function Home() {
       </section>
 
       <section className="downloadBox">
-        <div className="downloadArt">
-          <div className="bee bigBee">
-            <i />
-          </div>
-          <div className="miniVillage">
-            <div />
-            <div />
-            <div />
-          </div>
+        <div className="downloadImage">
+          <img src="/mobs-showcase.png" alt="Booger Client Minecraft mobs" />
         </div>
 
         <div className="downloadText">
@@ -294,7 +219,9 @@ export default function Home() {
             <span />
           </div>
           <div>
-            <strong>Booger <b>Client</b></strong>
+            <strong>
+              Booger <b>Client</b>
+            </strong>
             <p>Play better. Your world, your way.</p>
           </div>
         </div>
@@ -334,7 +261,7 @@ export default function Home() {
         .site {
           min-height: 100vh;
           color: #f7fff0;
-          background: #161a16;
+          background: #171b17;
           font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           overflow-x: hidden;
         }
@@ -392,8 +319,7 @@ export default function Home() {
           width: 46px;
           height: 46px;
           border-radius: 12px;
-          background:
-            linear-gradient(135deg, #8ed957 0 50%, #65ad3b 50% 100%);
+          background: linear-gradient(135deg, #8ed957 0 50%, #65ad3b 50% 100%);
           border: 2px solid #2d4b24;
           position: relative;
           box-shadow: inset 0 -8px rgba(0, 0, 0, 0.12);
@@ -461,16 +387,11 @@ export default function Home() {
           min-height: 720px;
           overflow: hidden;
           background:
-            linear-gradient(180deg, #9fd7ff 0%, #b7e7ff 36%, #6caf42 36%, #4d8c35 100%);
-        }
-
-        .shade {
-          position: absolute;
-          inset: 0;
-          background:
-            linear-gradient(90deg, rgba(15, 17, 15, 0.88) 0%, rgba(15, 17, 15, 0.74) 32%, rgba(15, 17, 15, 0.15) 68%),
-            linear-gradient(180deg, transparent 0%, rgba(22, 26, 22, 0.78) 100%);
-          z-index: 3;
+            linear-gradient(90deg, rgba(15, 17, 15, 0.9) 0%, rgba(15, 17, 15, 0.72) 35%, rgba(15, 17, 15, 0.18) 100%),
+            linear-gradient(180deg, rgba(15, 17, 15, 0.1) 0%, rgba(22, 26, 22, 0.92) 100%),
+            url("/hero-village.png");
+          background-size: cover;
+          background-position: center;
         }
 
         .heroText {
@@ -583,360 +504,6 @@ export default function Home() {
           font-size: 11px;
           font-weight: 1000;
           text-transform: uppercase;
-        }
-
-        .village {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          overflow: hidden;
-        }
-
-        .grass {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          height: 180px;
-          background:
-            linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
-            linear-gradient(#5fa13b, #3f752d);
-          background-size: 48px 48px, auto;
-        }
-
-        .path {
-          position: absolute;
-          right: 13%;
-          bottom: -30px;
-          width: 360px;
-          height: 320px;
-          background: #bc9c67;
-          transform: skewX(-18deg) rotate(3deg);
-          border: 12px solid rgba(94, 74, 44, 0.14);
-        }
-
-        .sun {
-          position: absolute;
-          top: 115px;
-          right: 280px;
-          width: 82px;
-          height: 82px;
-          background: #ffe37a;
-          border-radius: 18px;
-          box-shadow: 0 0 90px rgba(255, 227, 122, 0.55);
-        }
-
-        .cloud {
-          position: absolute;
-          height: 36px;
-          background: rgba(255, 255, 255, 0.72);
-          border-radius: 10px;
-        }
-
-        .cloud::before,
-        .cloud::after {
-          content: "";
-          position: absolute;
-          background: inherit;
-          border-radius: inherit;
-        }
-
-        .cloud::before {
-          width: 62px;
-          height: 46px;
-          left: 24px;
-          top: -18px;
-        }
-
-        .cloud::after {
-          width: 74px;
-          height: 54px;
-          right: 24px;
-          top: -24px;
-        }
-
-        .cloud1 {
-          width: 190px;
-          top: 150px;
-          right: 440px;
-        }
-
-        .cloud2 {
-          width: 160px;
-          top: 210px;
-          right: 80px;
-        }
-
-        .house {
-          position: absolute;
-          width: 180px;
-          height: 150px;
-        }
-
-        .house .roof {
-          position: absolute;
-          left: 8px;
-          top: 0;
-          width: 164px;
-          height: 70px;
-          background:
-            repeating-linear-gradient(0deg, #9d6a30 0 10px, #815123 10px 20px);
-          clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-        }
-
-        .house .body {
-          position: absolute;
-          left: 28px;
-          top: 62px;
-          width: 124px;
-          height: 88px;
-          background: #c99b5b;
-          border: 6px solid #7c5732;
-          box-shadow: inset 0 -14px rgba(0, 0, 0, 0.08);
-        }
-
-        .house .body span {
-          position: absolute;
-          left: 43px;
-          bottom: 0;
-          width: 36px;
-          height: 48px;
-          background: #5d3b22;
-        }
-
-        .house1 {
-          right: 520px;
-          bottom: 170px;
-          transform: scale(1.15);
-        }
-
-        .house2 {
-          right: 260px;
-          bottom: 155px;
-        }
-
-        .house3 {
-          right: 70px;
-          bottom: 190px;
-          transform: scale(0.9);
-        }
-
-        .tree {
-          position: absolute;
-          width: 52px;
-          height: 90px;
-          background: #6b4427;
-        }
-
-        .tree span {
-          position: absolute;
-          left: -36px;
-          top: -78px;
-          width: 126px;
-          height: 105px;
-          background:
-            linear-gradient(135deg, #4f9d3b, #2f702c);
-          border-radius: 20px;
-        }
-
-        .tree1 {
-          right: 760px;
-          bottom: 205px;
-        }
-
-        .tree2 {
-          right: 140px;
-          bottom: 260px;
-          transform: scale(0.85);
-        }
-
-        .farm {
-          position: absolute;
-          right: 330px;
-          bottom: 100px;
-          width: 260px;
-          height: 92px;
-          background:
-            repeating-linear-gradient(90deg, #6f4a2b 0 22px, #4a311f 22px 44px);
-          border: 8px solid #8d6a38;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-          padding: 12px;
-          transform: skewX(-8deg);
-        }
-
-        .farm span {
-          background: #70b949;
-          border-radius: 8px 8px 0 0;
-          box-shadow: inset 0 -14px #e19b34;
-        }
-
-        .bee {
-          position: absolute;
-          width: 52px;
-          height: 38px;
-          background:
-            repeating-linear-gradient(90deg, #f6c64d 0 14px, #2d2516 14px 24px);
-          border-radius: 12px;
-          box-shadow: inset 0 -6px rgba(0, 0, 0, 0.12);
-        }
-
-        .bee::before,
-        .bee::after {
-          content: "";
-          position: absolute;
-          top: -16px;
-          width: 22px;
-          height: 18px;
-          background: rgba(255, 255, 255, 0.74);
-          border-radius: 999px;
-        }
-
-        .bee::before {
-          left: 8px;
-        }
-
-        .bee::after {
-          right: 8px;
-        }
-
-        .bee i {
-          position: absolute;
-          right: -8px;
-          top: 15px;
-          width: 10px;
-          height: 8px;
-          background: #2d2516;
-          clip-path: polygon(0 0, 100% 50%, 0 100%);
-        }
-
-        .bee1 {
-          right: 160px;
-          top: 160px;
-          transform: scale(1.35);
-        }
-
-        .bee2 {
-          right: 640px;
-          top: 210px;
-          transform: scale(0.7);
-        }
-
-        .bee3 {
-          right: 850px;
-          top: 150px;
-          transform: scale(0.55);
-        }
-
-        .mob,
-        .villager {
-          position: absolute;
-          border-radius: 8px;
-          box-shadow: inset 0 -10px rgba(0, 0, 0, 0.08);
-        }
-
-        .cow {
-          right: 730px;
-          bottom: 115px;
-          width: 95px;
-          height: 70px;
-          background: #f1eee4;
-          border: 6px solid #6d4b35;
-        }
-
-        .cow::before,
-        .cow::after {
-          content: "";
-          position: absolute;
-          background: #6d4b35;
-          border-radius: 5px;
-        }
-
-        .cow::before {
-          width: 32px;
-          height: 24px;
-          left: 12px;
-          top: 10px;
-        }
-
-        .cow::after {
-          width: 28px;
-          height: 20px;
-          right: 14px;
-          bottom: 16px;
-        }
-
-        .cow span {
-          position: absolute;
-          right: -38px;
-          top: 12px;
-          width: 46px;
-          height: 42px;
-          background: #f1eee4;
-          border: 6px solid #6d4b35;
-          border-radius: 8px;
-        }
-
-        .pig {
-          right: 430px;
-          bottom: 95px;
-          width: 82px;
-          height: 58px;
-          background: #ee9baa;
-          border: 6px solid #d77d8d;
-        }
-
-        .pig span {
-          position: absolute;
-          right: -34px;
-          top: 8px;
-          width: 42px;
-          height: 38px;
-          background: #ee9baa;
-          border: 6px solid #d77d8d;
-          border-radius: 8px;
-        }
-
-        .villager {
-          width: 52px;
-          height: 100px;
-          background: #7c553b;
-          border: 5px solid #4e3324;
-        }
-
-        .villager::before {
-          content: "";
-          position: absolute;
-          left: 4px;
-          top: -42px;
-          width: 34px;
-          height: 42px;
-          background: #b88761;
-          border: 5px solid #6b4731;
-          border-radius: 7px;
-        }
-
-        .villager::after {
-          content: "";
-          position: absolute;
-          left: 8px;
-          top: -18px;
-          width: 28px;
-          height: 12px;
-          background: #8b5a3e;
-          border-radius: 5px;
-        }
-
-        .villager1 {
-          right: 210px;
-          bottom: 95px;
-        }
-
-        .villager2 {
-          right: 610px;
-          bottom: 110px;
-          transform: scale(0.85);
         }
 
         .stats,
@@ -1059,67 +626,18 @@ export default function Home() {
           transition: 0.18s ease;
         }
 
-        .fakeShot {
-          height: 150px;
-          padding: 18px;
-          background:
-            linear-gradient(135deg, rgba(139, 207, 84, 0.25), rgba(255, 255, 255, 0.06)),
-            linear-gradient(180deg, #8ad6ff 0 48%, #79ad54 48% 100%);
+        .showcase:hover {
+          border-color: rgba(139, 207, 84, 0.35);
         }
 
-        .shot2 {
-          background:
-            linear-gradient(135deg, rgba(255, 180, 77, 0.2), rgba(255, 255, 255, 0.06)),
-            linear-gradient(180deg, #ffca7a 0 48%, #71a850 48% 100%);
+        .showcase img {
+          width: 100%;
+          height: 170px;
+          object-fit: cover;
+          display: block;
         }
 
-        .shot3 {
-          background:
-            linear-gradient(135deg, rgba(139, 207, 84, 0.24), rgba(0, 0, 0, 0.16)),
-            linear-gradient(180deg, #9ed6ff 0 48%, #4e7c42 48% 100%);
-        }
-
-        .shot4 {
-          background:
-            linear-gradient(135deg, rgba(139, 207, 84, 0.18), rgba(255, 255, 255, 0.06)),
-            #151a16;
-        }
-
-        .fakeWindow {
-          height: 100%;
-          border-radius: 16px;
-          background: rgba(19, 22, 20, 0.84);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          padding: 12px;
-        }
-
-        .fakeTop {
-          display: flex;
-          gap: 6px;
-          margin-bottom: 14px;
-        }
-
-        .fakeTop span {
-          width: 9px;
-          height: 9px;
-          background: rgba(255, 255, 255, 0.35);
-          border-radius: 99px;
-        }
-
-        .fakeContent p {
-          height: 12px;
-          margin: 8px 0;
-          border-radius: 5px;
-          background: rgba(139, 207, 84, 0.35);
-        }
-
-        .fakeContent p:nth-child(2),
-        .fakeContent p:nth-child(4) {
-          width: 70%;
-          background: rgba(255, 255, 255, 0.18);
-        }
-
-        .showcase div:last-child {
+        .showcase div {
           padding: 14px 16px 16px;
         }
 
@@ -1136,66 +654,31 @@ export default function Home() {
 
         .downloadBox {
           margin-top: 84px;
-          min-height: 210px;
+          min-height: 230px;
           display: grid;
-          grid-template-columns: 280px 1fr auto;
+          grid-template-columns: 320px 1fr auto;
           gap: 30px;
           align-items: center;
           padding: 28px;
           border-radius: 26px;
-          background:
-            linear-gradient(90deg, rgba(25, 29, 26, 0.95), rgba(35, 49, 33, 0.9)),
-            linear-gradient(180deg, #8bd6ff 0 45%, #5f9b42 45% 100%);
+          background: rgba(25, 29, 26, 0.95);
           border: 1px solid rgba(255, 255, 255, 0.12);
           box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
           overflow: hidden;
         }
 
-        .downloadArt {
-          height: 150px;
-          position: relative;
+        .downloadImage {
+          height: 170px;
+          border-radius: 20px;
+          overflow: hidden;
+          border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
-        .bigBee {
-          left: 92px;
-          top: 22px;
-          transform: scale(1.4);
-        }
-
-        .miniVillage {
-          position: absolute;
-          left: 20px;
-          bottom: 0;
-          display: flex;
-          gap: 10px;
-          align-items: flex-end;
-        }
-
-        .miniVillage div {
-          width: 56px;
-          height: 56px;
-          background: #c99b5b;
-          border: 4px solid #7c5732;
-          position: relative;
-        }
-
-        .miniVillage div::before {
-          content: "";
-          position: absolute;
-          left: -5px;
-          top: -30px;
-          width: 58px;
-          height: 34px;
-          background: #8a5a2a;
-          clip-path: polygon(50% 0, 100% 100%, 0 100%);
-        }
-
-        .miniVillage div:nth-child(2) {
-          height: 76px;
-        }
-
-        .miniVillage div:nth-child(3) {
-          height: 48px;
+        .downloadImage img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
 
         .downloadText h2 {
@@ -1271,10 +754,6 @@ export default function Home() {
             grid-template-columns: 1fr;
           }
 
-          .downloadArt {
-            display: none;
-          }
-
           footer {
             flex-direction: column;
           }
@@ -1317,25 +796,6 @@ export default function Home() {
           .footerLinks {
             flex-direction: column;
             gap: 24px;
-          }
-
-          .village {
-            opacity: 0.75;
-          }
-
-          .house1 {
-            right: 220px;
-          }
-
-          .house2 {
-            right: 40px;
-          }
-
-          .house3,
-          .tree1,
-          .cow,
-          .villager2 {
-            display: none;
           }
         }
       `}</style>
