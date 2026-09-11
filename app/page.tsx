@@ -2,578 +2,314 @@
 
 import { useMemo, useState } from "react";
 
-type TabKey =
-  | "home"
-  | "launch"
-  | "download"
-  | "modules"
-  | "hud"
-  | "cosmetics"
-  | "owner"
-  | "updates"
-  | "screenshots"
-  | "faq"
-  | "discord";
-
 const DISCORD = "https://discord.gg/5HxHgKdfMu";
 
-const tabs: { key: TabKey; label: string; icon: string }[] = [
-  { key: "home", label: "Home", icon: "★" },
-  { key: "launch", label: "Launch", icon: "▶" },
-  { key: "download", label: "Download", icon: "⬇" },
-  { key: "modules", label: "Modules", icon: "▣" },
-  { key: "hud", label: "HUD", icon: "⌁" },
-  { key: "cosmetics", label: "Cosmetics", icon: "✦" },
-  { key: "owner", label: "Owner", icon: "♛" },
-  { key: "updates", label: "Updates", icon: "✎" },
-  { key: "screenshots", label: "Gallery", icon: "▧" },
-  { key: "faq", label: "FAQ", icon: "?" },
-  { key: "discord", label: "Discord", icon: "☁" },
-];
+const tabs = [
+  "home",
+  "builds",
+  "modules",
+  "hud",
+  "cosmetics",
+  "owner",
+  "notes",
+  "faq",
+  "discord",
+] as const;
+
+type Tab = (typeof tabs)[number];
+
+const tabLabels: Record<Tab, string> = {
+  home: "Home",
+  builds: "Builds",
+  modules: "Modules",
+  hud: "HUD",
+  cosmetics: "Cosmetics",
+  owner: "Owner",
+  notes: "Notes",
+  faq: "FAQ",
+  discord: "Discord",
+};
 
 const modules = [
-  ["Fullbright", "Visuals", "Bright caves without needing server changes.", "ON"],
-  ["CPS Counter", "HUD", "Tracks clicks in a clean corner widget.", "ON"],
-  ["Keystrokes", "HUD", "Shows WASD, space, and mouse input.", "WIP"],
-  ["Armor HUD", "HUD", "Displays durability and armor status.", "WIP"],
-  ["Coordinates", "HUD", "Shows your live X/Y/Z position.", "ON"],
-  ["Zoom", "Utility", "Smooth zoom for screenshots and gameplay.", "WIP"],
-  ["Hit Particles", "Visuals", "Adds client-side hit feedback.", "WIP"],
-  ["Profiles", "Utility", "Swap between saved setups.", "ON"],
+  ["Fullbright", "Lighting utility for caves and dark areas.", "working"],
+  ["CPS Counter", "Tracks left/right clicks on your HUD.", "working"],
+  ["Coordinates", "Shows player position cleanly on screen.", "working"],
+  ["Keystrokes", "Displays WASD, space, and mouse buttons.", "testing"],
+  ["Armor HUD", "Shows armor durability without opening inventory.", "testing"],
+  ["Zoom", "Simple clean zoom key for screenshots and gameplay.", "planned"],
+  ["Profiles", "Save setups for normal play, PvP, and screenshots.", "planned"],
+  ["Cosmetics", "Local menu for capes, trails, badges, and seasonal items.", "planned"],
 ];
 
-const cosmetics = [
-  "Founder Cape",
-  "Booger Cape",
-  "Christmas Cape",
-  "Slime Trail",
-  "Snow Trail",
-  "Owner Crown",
-  "Beta Badge",
-  "Name Badge",
+const changelog = [
+  "Right Shift is the only menu key now.",
+  "Removed the extra backup keys that made testing messy.",
+  "Rebuilding the menu around real local modules first.",
+  "Christmas was chosen as the release window so the client can get polished.",
 ];
 
-const updates = [
-  ["V6 Real Starter", "Right Shift only, working local settings, CPS, coords, and owner panel base."],
-  ["GUI Rebuild", "Replacing placeholder screens with cleaner tabs and real local actions."],
-  ["Christmas Release", "Chosen so the client has time to feel polished instead of rushed."],
-  ["Next Focus", "Armor HUD, keystrokes, profiles, cosmetics preview, and cleaner config."],
-];
-
-function StatusPill({ children }: { children: string }) {
-  return <span className="statusPill">{children}</span>;
+function StatusTag({ value }: { value: string }) {
+  return <span className={`status ${value}`}>{value}</span>;
 }
 
-function BigButton({ href, children, hollow = false }: { href: string; children: string; hollow?: boolean }) {
+function TabButton({ tab, active, onClick }: { tab: Tab; active: boolean; onClick: () => void }) {
   return (
-    <a className={hollow ? "bigButton hollow" : "bigButton"} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
-      {children}
-    </a>
+    <button className={`tab ${active ? "active" : ""}`} onClick={onClick} type="button">
+      {tabLabels[tab]}
+    </button>
   );
 }
 
-function MiniCard({ title, text, tag }: { title: string; text: string; tag?: string }) {
+function Window({ title, children, className = "" }: { title: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className="miniCard">
-      {tag && <span className="tinyTag">{tag}</span>}
-      <h3>{title}</h3>
-      <p>{text}</p>
-    </div>
+    <section className={`window ${className}`}>
+      <div className="windowTitle">
+        <span>{title}</span>
+        <div className="windowDots"><i /><i /><i /></div>
+      </div>
+      <div className="windowBody">{children}</div>
+    </section>
   );
 }
 
 export default function Page() {
-  const [activeTab, setActiveTab] = useState<TabKey>("home");
-  const [selectedModule, setSelectedModule] = useState(modules[0]);
+  const [active, setActive] = useState<Tab>("home");
 
-  const enabledCount = useMemo(() => modules.filter((m) => m[3] === "ON").length, []);
+  const enabledCount = useMemo(() => modules.filter((m) => m[2] === "working").length, []);
 
   return (
-    <main className="siteShell">
-      <div className="stars" />
-      <div className="scanlines" />
-
-      <section className="clientFrame">
-        <header className="topBar">
-          <div className="windowDots" aria-hidden="true">
-            <span />
-            <span />
-            <span />
+    <main className="pageShell">
+      <div className="noise" />
+      <div className="siteFrame">
+        <header className="topbar">
+          <div>
+            <div className="eyebrow">Minecraft Fabric 1.21.11</div>
+            <h1>Booger Client</h1>
           </div>
-          <div className="titleBlock">
-            <span className="logoBox">B</span>
-            <div>
-              <h1>Booger Client</h1>
-              <p>Fabric 1.21.11 • Christmas comeback build</p>
-            </div>
-          </div>
-          <div className="topStats">
-            <StatusPill>{enabledCount}/8 working modules</StatusPill>
-            <StatusPill>[OWNER] snot2</StatusPill>
+          <div className="topRight">
+            <span className="badge">Christmas release</span>
+            <a href={DISCORD} className="smallLink">Discord</a>
           </div>
         </header>
 
-        <nav className="tabBar" aria-label="Booger Client tabs">
+        <nav className="tabs" aria-label="Booger Client sections">
           {tabs.map((tab) => (
-            <button key={tab.key} className={activeTab === tab.key ? "tab active" : "tab"} onClick={() => setActiveTab(tab.key)}>
-              <span>{tab.icon}</span>
-              {tab.label}
-            </button>
+            <TabButton key={tab} tab={tab} active={active === tab} onClick={() => setActive(tab)} />
           ))}
         </nav>
 
-        <div className="contentArea">
-          {activeTab === "home" && (
-            <section className="tabPage homeGrid">
-              <div className="heroPanel">
-                <span className="eyebrow">Christmas 2026 Release Window</span>
-                <h2>Booger Client returns with a cleaner client-style website.</h2>
-                <p>
-                  A cozy Minecraft Fabric utility mod built around a Right Shift menu, HUD tools, cosmetics, profiles, and a real owner panel for development.
-                </p>
-                <div className="buttonRow">
-                  <BigButton href={DISCORD}>Join Discord</BigButton>
-                  <BigButton href="#download" hollow>Download Soon</BigButton>
-                </div>
-              </div>
+        <div className="contentGrid">
+          <aside className="sidePanel">
+            <div className="miniLogo">BC</div>
+            <p className="sideTitle">Booger Client Beta</p>
+            <p className="sideText">A small Minecraft client project with a cleaner menu, useful HUD tools, cosmetics, and a Christmas comeback plan.</p>
+            <div className="meter">
+              <div className="meterFill" />
+            </div>
+            <div className="sideStats">
+              <span>{enabledCount}/8 real module base</span>
+              <span>Right Shift menu</span>
+              <span>Owner: snot2</span>
+            </div>
+          </aside>
 
-              <div className="sideConsole">
-                <div className="consoleHeader">client_status.log</div>
-                <p><span className="green">✓</span> Right Shift menu</p>
-                <p><span className="green">✓</span> No Fabric event crash</p>
-                <p><span className="green">✓</span> Owner panel base</p>
-                <p><span className="yellow">•</span> Replacing placeholders</p>
-                <p><span className="yellow">•</span> Christmas polish active</p>
-              </div>
-
-              <MiniCard tag="01" title="Client-style tabs" text="The site now feels more like a Minecraft client menu instead of a portfolio page." />
-              <MiniCard tag="02" title="No trailer needed yet" text="Until the ad is final, the site focuses on development status, features, and Discord." />
-              <MiniCard tag="03" title="Indie but cleaner" text="Dark panels, green accents, pixel borders, and a cozy handmade game-client feel." />
-            </section>
-          )}
-
-          {activeTab === "launch" && (
-            <section className="tabPage splitPage">
-              <div>
-                <span className="eyebrow">Launcher Preview</span>
-                <h2>Launch panel</h2>
-                <p>This is styled like a client home screen. Later, this can link to your real launcher, mod download, setup guide, and update notes.</p>
-                <div className="launchBox">
-                  <div className="launchLogo">BC</div>
-                  <div>
-                    <h3>Booger Client Beta</h3>
-                    <p>Version: V6 starter • Minecraft: 1.21.11 • Loader: Fabric</p>
+          <section className="mainPanel">
+            {active === "home" && (
+              <div className="twoCol">
+                <Window title="boot.txt" className="heroWindow">
+                  <p className="terminalLine green">&gt; boogerclient returns this christmas</p>
+                  <h2>Less fake. More playable.</h2>
+                  <p>
+                    Booger Client is being rebuilt as a clean Fabric utility mod. The plan is simple: make the menu feel good, make the local modules actually work, then polish everything before Christmas.
+                  </p>
+                  <div className="buttonRow">
+                    <a href={DISCORD} className="primaryBtn">Join Discord</a>
+                    <button className="ghostBtn" type="button" onClick={() => setActive("modules")}>View modules</button>
                   </div>
-                  <button className="fakeLaunch">Coming Christmas</button>
+                </Window>
+
+                <Window title="release-card.dat">
+                  <div className="releaseCard">
+                    <span className="sticker">chosen window</span>
+                    <h3>Christmas</h3>
+                    <p>More time to fix the client properly instead of dropping another rushed placeholder build.</p>
+                  </div>
+                </Window>
+              </div>
+            )}
+
+            {active === "builds" && (
+              <Window title="builds">
+                <h2>Current build direction</h2>
+                <div className="listCards">
+                  <div><b>V6 real starter</b><p>Right Shift only, real local settings, basic HUD modules, owner tab.</p></div>
+                  <div><b>Next build</b><p>Cleaner click handling, fewer fake pages, better module backend.</p></div>
+                  <div><b>Christmas build</b><p>Public-ready beta with a polished menu, config saving, and preview cosmetics.</p></div>
                 </div>
-              </div>
-              <div className="notePanel">
-                <h3>Before release</h3>
-                <p>We are fixing real features first so the site does not overpromise fake buttons or unfinished modules.</p>
-              </div>
-            </section>
-          )}
+              </Window>
+            )}
 
-          {activeTab === "download" && (
-            <section id="download" className="tabPage downloadPage">
-              <span className="eyebrow">Download</span>
-              <h2>Not public yet.</h2>
-              <p>Booger Client is planned for a Christmas release window. Beta builds are being tested before a public download is posted.</p>
-              <div className="downloadCard">
-                <h3>Public Build</h3>
-                <p>Status: Coming Christmas</p>
-                <p>Minecraft: Java 1.21.11</p>
-                <p>Loader: Fabric</p>
-                <BigButton href={DISCORD}>Get beta updates</BigButton>
-              </div>
-            </section>
-          )}
-
-          {activeTab === "modules" && (
-            <section className="tabPage moduleLayout">
-              <div className="moduleList">
-                <div className="sectionTitle">
-                  <span className="eyebrow">Modules</span>
-                  <h2>Feature tabs</h2>
+            {active === "modules" && (
+              <Window title="modules">
+                <div className="sectionTop">
+                  <div>
+                    <h2>Modules</h2>
+                    <p>Real features first. Fancy pages later.</p>
+                  </div>
+                  <span className="countBox">{enabledCount} working</span>
                 </div>
                 <div className="moduleGrid">
-                  {modules.map((module) => (
-                    <button key={module[0]} className={selectedModule[0] === module[0] ? "moduleCard selected" : "moduleCard"} onClick={() => setSelectedModule(module)}>
-                      <div>
-                        <h3>{module[0]}</h3>
-                        <p>{module[2]}</p>
+                  {modules.map(([name, desc, status]) => (
+                    <article className="moduleCard" key={name}>
+                      <div className="moduleHead">
+                        <b>{name}</b>
+                        <StatusTag value={status} />
                       </div>
-                      <div className="moduleFooter">
-                        <span>{module[1]}</span>
-                        <strong className={module[3] === "ON" ? "green" : "yellow"}>{module[3]}</strong>
-                      </div>
-                    </button>
+                      <p>{desc}</p>
+                    </article>
                   ))}
                 </div>
-              </div>
-              <aside className="detailPanel">
-                <span className="eyebrow">Selected Module</span>
-                <h2>{selectedModule[0]}</h2>
-                <p>{selectedModule[2]}</p>
-                <div className="settingRows">
-                  <div><span>Category</span><b>{selectedModule[1]}</b></div>
-                  <div><span>Status</span><b>{selectedModule[3]}</b></div>
-                  <div><span>Client side</span><b>Yes</b></div>
+              </Window>
+            )}
+
+            {active === "hud" && (
+              <Window title="hud">
+                <h2>HUD tools</h2>
+                <div className="previewHud">
+                  <span>XYZ: 128 / 64 / -420</span>
+                  <span>CPS: 7 | 6</span>
+                  <span>W A S D</span>
+                  <span>Armor: 94%</span>
                 </div>
-              </aside>
-            </section>
-          )}
+                <p className="muted">The HUD should stay simple: readable, small, and useful without covering half the screen.</p>
+              </Window>
+            )}
 
-          {activeTab === "hud" && (
-            <section className="tabPage cardGridPage">
-              <span className="eyebrow">HUD Tools</span>
-              <h2>Clean overlays for everyday gameplay.</h2>
-              <div className="cards3">
-                <MiniCard title="CPS Counter" text="Simple click tracker for PvP and practice." />
-                <MiniCard title="Coordinates" text="Live position display for SMPs and travel." />
-                <MiniCard title="Keystrokes" text="WASD input overlay planned for the next working build." />
-                <MiniCard title="Armor HUD" text="Durability and equipment info without opening inventory." />
-                <MiniCard title="Profiles" text="Switch HUD setups for PvP, SMP, or cinematic recording." />
-                <MiniCard title="Right Shift GUI" text="One clean menu key. No backup spam binds." />
-              </div>
-            </section>
-          )}
-
-          {activeTab === "cosmetics" && (
-            <section className="tabPage cosmeticsPage">
-              <div>
-                <span className="eyebrow">Cosmetics</span>
-                <h2>Seasonal and founder cosmetics.</h2>
-                <p>Cosmetics are planned around capes, trails, badges, and profile identity. Some will require future server/API support to show for everyone.</p>
-                <div className="cosmeticGrid">
-                  {cosmetics.map((item) => <span key={item}>{item}</span>)}
+            {active === "cosmetics" && (
+              <Window title="cosmetics">
+                <h2>Cosmetics</h2>
+                <div className="cosmeticShelf">
+                  <div><b>Founder Cape</b><span>owner</span></div>
+                  <div><b>Slime Trail</b><span>testing</span></div>
+                  <div><b>Christmas Badge</b><span>seasonal</span></div>
+                  <div><b>Booger Cape</b><span>planned</span></div>
                 </div>
-              </div>
-              <div className="previewSkin">
-                <div className="head" />
-                <div className="body" />
-                <div className="legs" />
-                <p>[OWNER] snot2</p>
-              </div>
-            </section>
-          )}
+                <p className="muted">Cosmetics are planned as local/client-side visuals first. Server-wide visibility would need a server plugin or API later.</p>
+              </Window>
+            )}
 
-          {activeTab === "owner" && (
-            <section className="tabPage ownerPage">
-              <span className="eyebrow">Owner Panel</span>
-              <h2>Built for snot2.</h2>
-              <p>The owner panel is for local development controls, build testing, cosmetic previews, and future admin tools. Server-wide rank changes will need a plugin or API later.</p>
-              <div className="ownerGrid">
-                <MiniCard title="Build Tools" text="Quick test toggles for checking modules and HUD states." />
-                <MiniCard title="Cosmetic Preview" text="Test owner badge, cape, crown, and Christmas cosmetics." />
-                <MiniCard title="User/Ranks Plan" text="Real global ranks need backend support, not fake placeholders." />
-                <MiniCard title="Release Checklist" text="Track what is ready before the Christmas public build." />
-              </div>
-            </section>
-          )}
+            {active === "owner" && (
+              <Window title="owner-panel">
+                <h2>Owner Panel</h2>
+                <div className="ownerBox">
+                  <span className="ownerBadge">[OWNER] snot2</span>
+                  <p>Owner tools are for local testing, build info, config checks, and future admin settings. No fake rank system until a real backend exists.</p>
+                </div>
+              </Window>
+            )}
 
-          {activeTab === "updates" && (
-            <section className="tabPage updatesPage">
-              <span className="eyebrow">Devlog</span>
-              <h2>Development notes</h2>
-              <div className="timeline">
-                {updates.map(([title, text], index) => (
-                  <div className="timelineItem" key={title}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3>{title}</h3>
-                      <p>{text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
+            {active === "notes" && (
+              <Window title="dev-notes">
+                <h2>Dev notes</h2>
+                <ul className="notesList">
+                  {changelog.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              </Window>
+            )}
 
-          {activeTab === "screenshots" && (
-            <section className="tabPage screenshotsPage">
-              <span className="eyebrow">Gallery</span>
-              <h2>Preview slots</h2>
-              <p>Add your real Booger Client screenshots here when the GUI and modules are ready.</p>
-              <div className="shotGrid">
-                <div>GUI Screenshot</div>
-                <div>HUD Preview</div>
-                <div>Cosmetic Preview</div>
-                <div>Christmas Spawn Shot</div>
-              </div>
-            </section>
-          )}
+            {active === "faq" && (
+              <Window title="faq">
+                <h2>FAQ</h2>
+                <div className="faqGrid">
+                  <div><b>Is it released?</b><p>Not yet. Christmas is the target window.</p></div>
+                  <div><b>Is it a cheat client?</b><p>No. It is being built around utility, visuals, HUD, cosmetics, and customization.</p></div>
+                  <div><b>Why not add global ranks yet?</b><p>Because real global ranks need a server plugin or online API.</p></div>
+                </div>
+              </Window>
+            )}
 
-          {activeTab === "faq" && (
-            <section className="tabPage faqPage">
-              <span className="eyebrow">FAQ</span>
-              <h2>Questions</h2>
-              <details open><summary>Is Booger Client a cheat client?</summary><p>No. The plan is a fair Fabric utility mod/client with HUD, customization, visuals, cosmetics, and profiles.</p></details>
-              <details><summary>When is release?</summary><p>The release window chosen is Christmas. Testing and polish happen before public release.</p></details>
-              <details><summary>Why are some features not real yet?</summary><p>Client-only features can work locally. Global users, ranks, and public cosmetics need a server plugin or online API.</p></details>
-              <details><summary>What version?</summary><p>Minecraft Java 1.21.11 with Fabric.</p></details>
-            </section>
-          )}
-
-          {activeTab === "discord" && (
-            <section className="tabPage discordPage">
-              <span className="eyebrow">Community</span>
-              <h2>Join the Booger Client Discord.</h2>
-              <p>Follow development, suggest features, see screenshots, and get beta/release updates.</p>
-              <BigButton href={DISCORD}>Open Discord</BigButton>
-            </section>
-          )}
+            {active === "discord" && (
+              <Window title="discord">
+                <h2>Join the comeback</h2>
+                <p>Follow updates, test builds, suggest features, and help shape the Christmas release.</p>
+                <a href={DISCORD} className="primaryBtn">Join the Discord</a>
+              </Window>
+            )}
+          </section>
         </div>
-      </section>
+      </div>
 
-      <footer className="siteFooter">
-        <span>Booger Client • Indie Fabric client site</span>
-        <span>Christmas release window</span>
-      </footer>
-
-      <style jsx global>{`
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-          margin: 0;
-          background: #05070d;
-          color: #f3f5ff;
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-          min-height: 100vh;
-          overflow-x: hidden;
-        }
-        a { color: inherit; text-decoration: none; }
-        button { font: inherit; }
-        .siteShell {
-          min-height: 100vh;
-          padding: 28px;
-          position: relative;
-          isolation: isolate;
-          background:
-            radial-gradient(circle at 15% 10%, rgba(108, 255, 105, .16), transparent 25%),
-            radial-gradient(circle at 85% 15%, rgba(255, 207, 105, .13), transparent 22%),
-            linear-gradient(135deg, #05070d 0%, #0b1220 45%, #0f0c10 100%);
-        }
-        .stars {
-          position: fixed;
-          inset: 0;
-          background-image:
-            radial-gradient(#ffffff 1px, transparent 1px),
-            radial-gradient(#7cff6b 1px, transparent 1px),
-            radial-gradient(#f7c85b 1px, transparent 1px);
-          background-size: 90px 90px, 140px 140px, 180px 180px;
-          background-position: 0 0, 40px 70px, 110px 20px;
-          opacity: .18;
-          z-index: -3;
-        }
-        .scanlines {
-          position: fixed;
-          inset: 0;
-          background: repeating-linear-gradient(to bottom, rgba(255,255,255,.03) 0 1px, transparent 1px 5px);
-          pointer-events: none;
-          z-index: -1;
-        }
-        .clientFrame {
-          width: min(1180px, calc(100vw - 56px));
-          min-height: calc(100vh - 95px);
-          margin: 0 auto;
-          border: 2px solid #2f4a68;
-          background: rgba(7, 11, 19, .94);
-          box-shadow: 0 0 0 3px rgba(0,0,0,.45), 0 24px 80px rgba(0,0,0,.55), inset 0 0 90px rgba(124,255,107,.04);
-        }
-        .topBar {
-          min-height: 100px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 18px;
-          padding: 18px 20px;
-          background: linear-gradient(180deg, rgba(24, 34, 50, .98), rgba(12, 18, 29, .98));
-          border-bottom: 2px solid #25364d;
-        }
+      <style jsx>{`
+        :global(*) { box-sizing: border-box; }
+        :global(body) { margin: 0; background: #0d1110; color: #f3ead7; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        :global(a) { color: inherit; text-decoration: none; }
+        .pageShell { min-height: 100vh; padding: 28px; position: relative; overflow: hidden; background:
+          radial-gradient(circle at 20% 10%, rgba(128, 190, 105, .15), transparent 28%),
+          radial-gradient(circle at 90% 0%, rgba(196, 91, 77, .12), transparent 24%),
+          linear-gradient(180deg, #111614, #0b0f0e 60%, #080a09); }
+        .noise { position: fixed; inset: 0; pointer-events: none; opacity: .12; background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,.05) 4px); }
+        .siteFrame { max-width: 1180px; margin: 0 auto; border: 2px solid #334437; background: rgba(18, 24, 22, .92); box-shadow: 0 0 0 4px rgba(0,0,0,.28), 0 24px 70px rgba(0,0,0,.45); position: relative; }
+        .topbar { min-height: 108px; padding: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 2px solid #334437; background: linear-gradient(180deg, #1b241e, #151b18); }
+        .eyebrow { color: #90c979; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { font-size: clamp(34px, 6vw, 70px); margin-bottom: 0; line-height: .9; letter-spacing: -3px; }
+        h2 { font-size: clamp(24px, 4vw, 44px); margin-bottom: 14px; letter-spacing: -2px; }
+        h3 { font-size: 42px; margin-bottom: 10px; color: #f0c76a; }
+        p { color: #c9bea9; line-height: 1.6; }
+        .topRight { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+        .badge, .smallLink, .countBox { border: 1px solid #52664c; background: #202b22; color: #d9f7cb; padding: 10px 12px; font-size: 13px; }
+        .smallLink { color: #f3ead7; }
+        .tabs { display: flex; overflow-x: auto; border-bottom: 2px solid #334437; background: #101412; }
+        .tab { appearance: none; border: 0; border-right: 1px solid #334437; background: #131a16; color: #b8b09f; padding: 14px 18px; font: inherit; cursor: pointer; white-space: nowrap; }
+        .tab:hover { background: #1d261f; color: #fff2d3; }
+        .tab.active { background: #8fbf6f; color: #081009; font-weight: 900; }
+        .contentGrid { display: grid; grid-template-columns: 260px 1fr; min-height: 610px; }
+        .sidePanel { border-right: 2px solid #334437; background: #121815; padding: 22px; }
+        .miniLogo { width: 76px; height: 76px; display: grid; place-items: center; font-size: 26px; font-weight: 900; color: #0b100d; background: #8fbf6f; border: 2px solid #d8ffd2; box-shadow: inset -6px -6px 0 rgba(0,0,0,.18); margin-bottom: 18px; }
+        .sideTitle { color: #fff1d1; font-weight: 900; margin-bottom: 8px; }
+        .sideText { font-size: 13px; }
+        .meter { height: 14px; border: 1px solid #52664c; background: #0b0f0e; margin: 20px 0; }
+        .meterFill { height: 100%; width: 46%; background: repeating-linear-gradient(90deg, #8fbf6f, #8fbf6f 8px, #b7df78 8px, #b7df78 14px); }
+        .sideStats { display: grid; gap: 8px; font-size: 12px; color: #e6dabf; }
+        .sideStats span { border: 1px solid #27322b; padding: 9px; background: #0e1311; }
+        .mainPanel { padding: 24px; overflow: hidden; }
+        .twoCol { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .8fr); gap: 18px; align-items: start; }
+        .window { border: 2px solid #334437; background: #121815; box-shadow: 6px 6px 0 rgba(0,0,0,.24); margin-bottom: 18px; }
+        .windowTitle { height: 42px; padding: 0 14px; border-bottom: 2px solid #334437; display: flex; align-items: center; justify-content: space-between; background: #1a211d; color: #f6e7c6; font-weight: 900; }
         .windowDots { display: flex; gap: 7px; }
-        .windowDots span {
-          width: 12px;
-          height: 12px;
-          display: block;
-          border: 1px solid #496884;
-          background: #101927;
-        }
-        .windowDots span:nth-child(1) { background: #ff6b6b; }
-        .windowDots span:nth-child(2) { background: #f7c85b; }
-        .windowDots span:nth-child(3) { background: #7cff6b; }
-        .titleBlock { display: flex; align-items: center; gap: 14px; flex: 1; }
-        .logoBox {
-          width: 48px;
-          height: 48px;
-          display: grid;
-          place-items: center;
-          background: linear-gradient(135deg, #74ff64, #223d25);
-          color: #07110a;
-          border: 2px solid #c4ffbe;
-          box-shadow: 4px 4px 0 #000;
-          font-weight: 900;
-          font-size: 24px;
-        }
-        h1, h2, h3, p { margin: 0; }
-        h1 { font-size: clamp(22px, 3vw, 38px); letter-spacing: -1px; }
-        .titleBlock p, .heroPanel p, .tabPage p, .miniCard p, .sideConsole p, details p {
-          color: #aeb8ca;
-          line-height: 1.65;
-        }
-        .topStats { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-        .statusPill, .tinyTag {
-          border: 1px solid #38516e;
-          background: #101927;
-          color: #7cff6b;
-          padding: 8px 10px;
-          font-size: 12px;
-          box-shadow: inset 0 0 20px rgba(124,255,107,.04);
-        }
-        .tabBar {
-          display: flex;
-          gap: 0;
-          overflow-x: auto;
-          background: #070b12;
-          border-bottom: 2px solid #25364d;
-          scrollbar-color: #7cff6b #101927;
-        }
-        .tab {
-          min-width: 112px;
-          padding: 14px 14px;
-          border: 0;
-          border-right: 1px solid #25364d;
-          background: #0b111d;
-          color: #aeb8ca;
-          cursor: pointer;
-          transition: .16s ease;
-          display: flex;
-          gap: 8px;
-          align-items: center;
-          justify-content: center;
-          white-space: nowrap;
-        }
-        .tab:hover { color: #fff; background: #121b2b; }
-        .tab.active {
-          color: #07110a;
-          background: #7cff6b;
-          box-shadow: inset 0 -4px 0 rgba(0,0,0,.22);
-          font-weight: 900;
-        }
-        .contentArea { padding: 24px; }
-        .tabPage { animation: showTab .16s ease-out both; }
-        @keyframes showTab { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
-        .homeGrid {
-          display: grid;
-          grid-template-columns: 1.35fr .75fr;
-          gap: 18px;
-        }
-        .heroPanel, .sideConsole, .miniCard, .detailPanel, .notePanel, .downloadCard, .launchBox, .previewSkin, details, .shotGrid div {
-          border: 2px solid #2a3d58;
-          background: rgba(16, 24, 38, .92);
-          box-shadow: inset 0 0 50px rgba(255,255,255,.02), 8px 8px 0 rgba(0,0,0,.25);
-        }
-        .heroPanel { padding: clamp(24px, 4vw, 46px); min-height: 360px; display: flex; flex-direction: column; justify-content: center; }
-        .eyebrow { color: #f7c85b; text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 900; }
-        h2 { font-size: clamp(28px, 5vw, 58px); line-height: .98; margin: 12px 0 16px; letter-spacing: -2px; }
-        h3 { font-size: 18px; margin-bottom: 8px; }
+        .windowDots i { width: 9px; height: 9px; background: #52664c; display: block; }
+        .windowBody { padding: 22px; }
+        .terminalLine { font-size: 13px; color: #9cff7d; margin-bottom: 14px; }
         .buttonRow { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
-        .bigButton {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 46px;
-          padding: 0 18px;
-          background: #7cff6b;
-          color: #07110a;
-          font-weight: 900;
-          border: 2px solid #c4ffbe;
-          box-shadow: 4px 4px 0 #000;
-        }
-        .bigButton:hover { transform: translate(-1px, -1px); box-shadow: 6px 6px 0 #000; }
-        .bigButton.hollow { background: #101927; color: #f3f5ff; border-color: #496884; }
-        .sideConsole { padding: 20px; }
-        .consoleHeader { color: #7cff6b; border-bottom: 1px solid #2a3d58; padding-bottom: 10px; margin-bottom: 14px; }
-        .green { color: #7cff6b; }
-        .yellow { color: #f7c85b; }
-        .miniCard { padding: 18px; min-height: 150px; }
-        .homeGrid .miniCard { min-height: 170px; }
-        .splitPage, .cosmeticsPage { display: grid; grid-template-columns: 1fr 330px; gap: 18px; align-items: start; }
-        .launchBox { margin-top: 22px; padding: 18px; display: grid; grid-template-columns: 64px 1fr auto; gap: 16px; align-items: center; }
-        .launchLogo { width: 64px; height: 64px; display: grid; place-items: center; background: #7cff6b; color: #07110a; border: 2px solid #c4ffbe; font-weight: 900; font-size: 24px; }
-        .fakeLaunch { border: 2px solid #c4ffbe; background: #7cff6b; color: #07110a; padding: 12px 16px; font-weight: 900; }
-        .notePanel, .downloadCard { padding: 20px; }
-        .downloadPage { max-width: 760px; }
-        .downloadCard { margin-top: 20px; display: grid; gap: 10px; }
-        .moduleLayout { display: grid; grid-template-columns: 1fr 320px; gap: 18px; align-items: start; }
-        .sectionTitle { margin-bottom: 16px; }
-        .moduleGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-        .moduleCard {
-          text-align: left;
-          padding: 16px;
-          min-height: 150px;
-          border: 2px solid #2a3d58;
-          background: #101827;
-          color: #f3f5ff;
-          cursor: pointer;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-        }
-        .moduleCard:hover, .moduleCard.selected { border-color: #7cff6b; background: #152339; }
-        .moduleCard p { font-size: 13px; }
-        .moduleFooter, .settingRows div {
-          display: flex;
-          justify-content: space-between;
-          gap: 12px;
-          color: #aeb8ca;
-          margin-top: 14px;
-          border-top: 1px solid #2a3d58;
-          padding-top: 12px;
-        }
-        .detailPanel { padding: 20px; position: sticky; top: 18px; }
-        .settingRows { margin-top: 18px; display: grid; gap: 10px; }
-        .cards3, .ownerGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
-        .cosmeticGrid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-        .cosmeticGrid span {
-          padding: 12px 14px;
-          border: 1px solid #38516e;
-          background: #101927;
-          color: #f3f5ff;
-        }
-        .previewSkin { min-height: 340px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 22px; }
-        .head, .body, .legs { border: 2px solid #2a3d58; background: linear-gradient(135deg, #7cff6b, #1c3520); box-shadow: 4px 4px 0 #000; }
-        .head { width: 82px; height: 82px; }
-        .body { width: 104px; height: 128px; }
-        .legs { width: 82px; height: 84px; }
-        .previewSkin p { color: #f7c85b; font-weight: 900; }
-        .timeline { display: grid; gap: 14px; margin-top: 18px; }
-        .timelineItem { display: grid; grid-template-columns: 55px 1fr; gap: 16px; padding: 16px; border: 2px solid #2a3d58; background: #101827; }
-        .timelineItem > span { color: #7cff6b; font-size: 22px; font-weight: 900; }
-        .shotGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
-        .shotGrid div { min-height: 210px; display: grid; place-items: center; color: #aeb8ca; }
-        .faqPage { max-width: 850px; }
-        details { padding: 18px; margin-top: 12px; }
-        summary { cursor: pointer; font-weight: 900; color: #f3f5ff; }
-        details p { margin-top: 10px; }
-        .discordPage { max-width: 720px; min-height: 420px; display: flex; flex-direction: column; justify-content: center; }
-        .siteFooter { width: min(1180px, calc(100vw - 56px)); margin: 18px auto 0; display: flex; justify-content: space-between; gap: 12px; color: #aeb8ca; font-size: 12px; }
-        @media (max-width: 980px) {
-          .topBar { align-items: flex-start; flex-direction: column; }
-          .topStats { justify-content: flex-start; }
-          .homeGrid, .splitPage, .moduleLayout, .cosmeticsPage { grid-template-columns: 1fr; }
-          .detailPanel { position: static; }
-          .cards3, .ownerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        }
-        @media (max-width: 680px) {
-          .siteShell { padding: 14px; }
-          .clientFrame, .siteFooter { width: calc(100vw - 28px); }
-          .contentArea { padding: 14px; }
-          .windowDots { display: none; }
-          .tab { min-width: 96px; padding: 12px 10px; }
-          .moduleGrid, .cards3, .ownerGrid, .shotGrid { grid-template-columns: 1fr; }
-          .launchBox { grid-template-columns: 1fr; }
-          .siteFooter { flex-direction: column; }
+        .primaryBtn, .ghostBtn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border: 2px solid #d9ffd0; background: #8fbf6f; color: #071009; font: inherit; font-weight: 900; cursor: pointer; box-shadow: 4px 4px 0 rgba(0,0,0,.3); }
+        .ghostBtn { background: #19221d; color: #f3ead7; border-color: #52664c; }
+        .releaseCard { min-height: 250px; padding: 16px; border: 1px dashed #7a6540; background: linear-gradient(180deg, #241c16, #181411); }
+        .sticker { display: inline-block; background: #c45b4d; color: #fff2dd; padding: 8px 10px; transform: rotate(-2deg); font-size: 12px; font-weight: 900; margin-bottom: 26px; }
+        .sectionTop { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 14px; }
+        .moduleGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+        .moduleCard, .listCards > div, .faqGrid > div, .cosmeticShelf > div { border: 1px solid #334437; background: #171f1a; padding: 14px; min-height: 118px; }
+        .moduleHead { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+        .moduleCard p, .listCards p, .faqGrid p { font-size: 13px; margin-bottom: 0; }
+        .status { font-size: 11px; padding: 5px 7px; border: 1px solid #52664c; color: #c9bea9; }
+        .status.working { color: #0b1109; background: #9cff7d; border-color: #9cff7d; }
+        .status.testing { color: #171006; background: #f0c76a; border-color: #f0c76a; }
+        .status.planned { color: #efe0c2; background: #252019; border-color: #7a6540; }
+        .listCards, .faqGrid, .cosmeticShelf { display: grid; gap: 12px; }
+        .previewHud { border: 2px solid #334437; background: #090d0b; min-height: 240px; padding: 18px; display: grid; align-content: start; gap: 12px; margin-bottom: 18px; }
+        .previewHud span { width: fit-content; border: 1px solid #52664c; background: #141b17; padding: 8px 10px; color: #9cff7d; }
+        .cosmeticShelf { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cosmeticShelf div { min-height: 94px; display: grid; align-content: space-between; }
+        .cosmeticShelf span { color: #f0c76a; font-size: 12px; }
+        .ownerBox { border: 1px solid #7a6540; background: #211a14; padding: 18px; }
+        .ownerBadge { display: inline-block; color: #090b07; background: #f0c76a; padding: 8px 10px; font-weight: 900; margin-bottom: 16px; }
+        .notesList { margin: 0; padding-left: 20px; color: #c9bea9; line-height: 1.9; }
+        .muted { color: #998e7d; }
+        @media (max-width: 860px) {
+          .pageShell { padding: 12px; }
+          .topbar { align-items: flex-start; flex-direction: column; }
+          .contentGrid { grid-template-columns: 1fr; }
+          .sidePanel { border-right: 0; border-bottom: 2px solid #334437; }
+          .twoCol, .moduleGrid, .cosmeticShelf { grid-template-columns: 1fr; }
         }
       `}</style>
     </main>
