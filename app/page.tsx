@@ -1,617 +1,558 @@
+const DISCORD = "https://discord.gg/5HxHgKdfMu";
+
+const mods = [
+  "Fullbright",
+  "Zoom",
+  "Armor HUD",
+  "CPS Counter",
+  "Keystrokes",
+  "Coordinates",
+  "Ping Display",
+  "Toggle Sprint",
+  "Profiles",
+  "Cosmetics",
+  "Badges",
+  "Owner Panel",
+];
+
+const features = [
+  {
+    title: "Clean HUD Tools",
+    text: "Useful overlays like CPS, keystrokes, armor status, coordinates, and ping.",
+  },
+  {
+    title: "Custom Menu",
+    text: "A right-shift client menu built for quick access without extra clutter.",
+  },
+  {
+    title: "Cosmetics & Profiles",
+    text: "Save your setup, customize your look, and switch between presets.",
+  },
+];
+
 export default function Page() {
-  const discord = "https://discord.gg/5HxHgKdfMu";
-
   return (
-    <main className="page">
-      <div className="snow s1" />
-      <div className="snow s2" />
-      <div className="paper">
-        <header className="masthead">
-          <div className="stamp">CHRISTMAS BUILD</div>
-          <p className="smallTop">indie minecraft fabric mod • 1.21.11 • made by snot2</p>
-          <h1>
-            BOOGER
-            <span>CLIENT</span>
-          </h1>
-          <p className="tagline">
-            A weird little Minecraft client project coming back from the dead — cleaner,
-            cozier, and actually being rebuilt piece by piece.
+    <main>
+      <header className="nav">
+        <a className="brand" href="#top">
+          <span className="logo">BC</span>
+          <span>Booger Client</span>
+        </a>
+
+        <nav className="links" aria-label="Main navigation">
+          <a href="#features">Features</a>
+          <a href="#mods">Mods</a>
+          <a href="#versions">Versions</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <a className="navButton" href={DISCORD}>
+          Discord
+        </a>
+      </header>
+
+      <section id="top" className="hero">
+        <div className="heroText">
+          <p className="kicker">Minecraft Fabric 1.21.11</p>
+          <h1>Booger Client</h1>
+          <p className="subhead">
+            A clean Minecraft utility client focused on HUD tools,
+            customization, cosmetics, profiles, and a better everyday playing
+            experience.
           </p>
+
           <div className="heroActions">
-            <a href={discord}>join the discord</a>
-            <span>release window: christmas</span>
+            <a className="primary" href={DISCORD}>
+              Join Discord
+            </a>
+            <a className="secondary" href="#features">
+              View Features
+            </a>
           </div>
-        </header>
 
-        <section className="notice">
-          <div>
-            <b>Current note:</b> the old website is gone. This version is meant to feel like a
-            handmade dev poster instead of another fake polished client landing page.
+          <p className="note">Christmas beta planned. Download will be added when ready.</p>
+        </div>
+
+        <div className="clientMockup" aria-label="Booger Client preview mockup">
+          <div className="mockTop">
+            <span />
+            <span />
+            <span />
           </div>
-        </section>
-
-        <section className="split">
-          <article className="letter">
-            <p className="label">what is this?</p>
-            <h2>Booger Client is not trying to be the “#1 client.”</h2>
-            <p>
-              It is a small Fabric mod/client project focused on a better Right Shift menu,
-              useful HUD tools, cosmetics, profiles, and a cleaner everyday Minecraft setup.
-            </p>
-            <p>
-              The Christmas release window gives the project time to stop feeling like a
-              placeholder and start feeling like something people would actually want open.
-            </p>
-          </article>
-
-          <aside className="statusCard">
-            <div className="statusHeader">build board</div>
-            <div className="statusRow"><span>version</span><b>v6 starter</b></div>
-            <div className="statusRow"><span>menu key</span><b>right shift</b></div>
-            <div className="statusRow"><span>loader</span><b>fabric</b></div>
-            <div className="statusRow"><span>minecraft</span><b>1.21.11</b></div>
-            <div className="statusRow"><span>release</span><b>christmas</b></div>
-            <div className="progress"><i /></div>
-            <p>Polish first. Hype later.</p>
-          </aside>
-        </section>
-
-        <section className="cards">
-          <article>
-            <span>01</span>
-            <h3>Right Shift Menu</h3>
-            <p>A custom menu that should feel simple, readable, and quick to use.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>HUD Tools</h3>
-            <p>CPS, keystrokes, coords, armor display, and small quality-of-life visuals.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Cosmetics</h3>
-            <p>Founder cape, booger cape, slime trail, owner crown, and seasonal ideas.</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>Profiles</h3>
-            <p>Save setups for PvP, screenshots, casual play, and clean recording.</p>
-          </article>
-        </section>
-
-        <section className="devlog">
-          <p className="label">devlog scraps</p>
-          <div className="scraps">
+          <div className="mockHeader">
             <div>
-              <b>picked christmas</b>
-              <p>Christmas gives the client enough time to actually be polished before release.</p>
+              <strong>Booger Client</strong>
+              <p>Right Shift Menu</p>
             </div>
-            <div>
-              <b>rebuilding the mod</b>
-              <p>The focus moved from placeholder panels to real local features and config.</p>
-            </div>
-            <div>
-              <b>next goal</b>
-              <p>Make the GUI feel good at every GUI scale and make buttons actually matter.</p>
-            </div>
+            <b>[OWNER] snot2</b>
           </div>
-        </section>
+          <div className="mockGrid">
+            {mods.slice(0, 8).map((mod, index) => (
+              <div className="mockCard" key={mod}>
+                <span>{mod}</span>
+                <i>{index % 3 === 0 ? "ON" : "OFF"}</i>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <section className="roadmap">
-          <div className="roadTitle">
-            <p className="label">before release</p>
-            <h2>Stuff that has to be real.</h2>
-          </div>
-          <ul>
-            <li><b>fullbright</b><span>local visual module</span></li>
-            <li><b>cps counter</b><span>actual click tracking</span></li>
-            <li><b>keystrokes</b><span>real key display</span></li>
-            <li><b>coords hud</b><span>player position display</span></li>
-            <li><b>cosmetic menu</b><span>equips and previews</span></li>
-            <li><b>owner panel</b><span>snot2-only dev tools</span></li>
-          </ul>
-        </section>
+      <section id="features" className="section">
+        <div className="sectionTitle">
+          <p className="kicker">Features</p>
+          <h2>Everything you need, nothing extra.</h2>
+        </div>
 
-        <section className="faq">
-          <div>
-            <h3>Is there a trailer?</h3>
-            <p>Not yet. The site is built without a video section for now.</p>
-          </div>
-          <div>
+        <div className="featureGrid">
+          {features.map((feature) => (
+            <article className="feature" key={feature.title}>
+              <h3>{feature.title}</h3>
+              <p>{feature.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="fpsBand">
+        <div>
+          <p className="kicker">Performance-minded</p>
+          <h2>Built to feel smooth.</h2>
+          <p>
+            Booger Client is being kept lightweight first. The goal is a clean
+            menu, useful HUD modules, and settings that do not get in your way.
+          </p>
+        </div>
+        <div className="meter">
+          <span />
+        </div>
+      </section>
+
+      <section id="mods" className="section modsSection">
+        <div className="sectionTitle">
+          <p className="kicker">Mod Library</p>
+          <h2>Planned client modules</h2>
+        </div>
+
+        <div className="modsGrid">
+          {mods.map((mod) => (
+            <div className="modBox" key={mod}>
+              {mod}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="versions" className="versions">
+        <div>
+          <p className="kicker">Version Support</p>
+          <h2>Minecraft 1.21.11</h2>
+          <p>
+            Current development target is Fabric 1.21.11. More version support
+            can come later after the main build is stable.
+          </p>
+        </div>
+
+        <div className="versionCards">
+          <span className="activeVersion">1.21.11</span>
+          <span>Fabric</span>
+          <span>Java 21</span>
+        </div>
+      </section>
+
+      <section id="faq" className="section faq">
+        <div className="sectionTitle">
+          <p className="kicker">FAQ</p>
+          <h2>Quick answers</h2>
+        </div>
+
+        <div className="faqGrid">
+          <article>
             <h3>Is it released?</h3>
-            <p>No. The comeback window is Christmas.</p>
-          </div>
-          <div>
+            <p>No. The current plan is a Christmas beta release.</p>
+          </article>
+          <article>
             <h3>Is it a cheat client?</h3>
-            <p>No. The goal is HUD tools, visuals, customization, profiles, and cosmetics.</p>
-          </div>
-        </section>
+            <p>No. It focuses on HUD tools, customization, cosmetics, and quality-of-life features.</p>
+          </article>
+          <article>
+            <h3>How do I follow updates?</h3>
+            <p>Join the Discord for progress posts, screenshots, and testing news.</p>
+          </article>
+        </div>
+      </section>
 
-        <footer>
-          <div>
-            <b>BOOGER CLIENT</b>
-            <span>christmas comeback build</span>
-          </div>
-          <a href={discord}>discord.gg/5HxHgKdfMu</a>
-        </footer>
-      </div>
+      <section className="downloadCta">
+        <h2>Ready for the comeback?</h2>
+        <p>Booger Client returns this Christmas.</p>
+        <a className="primary" href={DISCORD}>
+          Join Discord
+        </a>
+      </section>
+
+      <footer>
+        <span>Booger Client</span>
+        <span>Fabric 1.21.11</span>
+        <a href={DISCORD}>Discord</a>
+      </footer>
 
       <style>{`
         :root {
-          color-scheme: dark;
+          --bg: #06090d;
+          --panel: #0c121a;
+          --panel2: #111a25;
+          --line: rgba(255,255,255,.11);
+          --text: #f4f8ff;
+          --muted: #9aa8bb;
+          --green: #6dff7b;
+          --green2: #1ec94c;
         }
 
-        * {
-          box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
           margin: 0;
-          background: #0a100b;
+          background: var(--bg);
+          color: var(--text);
+          font-family: Inter, Arial, Helvetica, sans-serif;
         }
 
-        .page {
+        main {
           min-height: 100vh;
-          padding: 26px;
-          color: #182015;
           background:
-            radial-gradient(circle at top left, rgba(199, 44, 34, .22), transparent 32%),
-            radial-gradient(circle at bottom right, rgba(119, 171, 85, .25), transparent 30%),
-            linear-gradient(135deg, #081009 0%, #172317 48%, #070907 100%);
-          font-family: Georgia, "Times New Roman", serif;
-          position: relative;
-          overflow-x: hidden;
-        }
-
-        .page:before {
-          content: "";
-          position: fixed;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-          background-size: 24px 24px;
-          opacity: .25;
-          pointer-events: none;
-        }
-
-        .snow {
-          position: fixed;
-          inset: -40px 0 0;
-          pointer-events: none;
-          opacity: .22;
-          background-image:
-            radial-gradient(circle, #fff 1px, transparent 2px),
-            radial-gradient(circle, #fff 1px, transparent 2px);
-          background-size: 90px 90px, 140px 140px;
-          animation: fall 18s linear infinite;
-        }
-
-        .s2 {
-          opacity: .14;
-          background-size: 160px 160px, 220px 220px;
-          animation-duration: 28s;
-        }
-
-        @keyframes fall {
-          from { transform: translateY(-80px); }
-          to { transform: translateY(80px); }
-        }
-
-        .paper {
-          position: relative;
-          z-index: 1;
-          width: min(1120px, 100%);
-          margin: 0 auto;
-          background:
-            linear-gradient(rgba(255,255,255,.15), rgba(255,255,255,0)),
-            #f4e4bd;
-          border: 6px solid #10140e;
-          box-shadow: 12px 12px 0 #000, 0 40px 100px rgba(0,0,0,.5);
+            radial-gradient(circle at 65% 10%, rgba(54, 255, 109, .22), transparent 27%),
+            radial-gradient(circle at 15% 0%, rgba(70, 132, 255, .12), transparent 28%),
+            linear-gradient(180deg, #081018 0%, #06090d 48%, #05070a 100%);
           overflow: hidden;
         }
 
-        .paper:before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background:
-            repeating-linear-gradient(0deg, rgba(0,0,0,.035) 0 1px, transparent 1px 5px),
-            radial-gradient(circle at 20% 10%, rgba(255,255,255,.45), transparent 20%);
-          mix-blend-mode: multiply;
-          pointer-events: none;
+        .nav {
+          height: 76px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+          padding: 0 48px;
+          border-bottom: 1px solid var(--line);
+          background: rgba(6, 9, 13, .78);
+          backdrop-filter: blur(16px);
+          position: sticky;
+          top: 0;
+          z-index: 10;
         }
 
-        .masthead {
-          padding: 42px 42px 32px;
-          border-bottom: 4px solid #10140e;
-          background:
-            linear-gradient(135deg, rgba(122, 164, 80, .22), transparent 45%),
-            linear-gradient(90deg, #f7e9c6, #efd7a7);
-          position: relative;
+        .brand {
+          color: var(--text);
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          text-decoration: none;
+          font-weight: 800;
         }
 
-        .smallTop,
-        .label,
-        .statusHeader,
-        .heroActions,
-        footer,
-        .statusRow,
-        .cards span {
-          font-family: "Courier New", monospace;
-          text-transform: uppercase;
-          letter-spacing: .08em;
+        .logo {
+          width: 38px;
+          height: 38px;
+          display: grid;
+          place-items: center;
+          border-radius: 10px;
+          color: #06100a;
+          background: linear-gradient(135deg, var(--green), #b8ff65);
+          box-shadow: 0 0 28px rgba(109, 255, 123, .28);
+          font-size: 14px;
         }
 
-        .smallTop {
-          margin: 0 0 16px;
+        .links {
+          display: flex;
+          align-items: center;
+          gap: 26px;
+        }
+
+        .links a, footer a {
+          color: var(--muted);
+          text-decoration: none;
+          font-weight: 700;
+          font-size: 14px;
+        }
+
+        .links a:hover, footer a:hover { color: var(--green); }
+
+        .navButton, .primary, .secondary {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 46px;
+          padding: 0 20px;
+          border-radius: 12px;
           font-weight: 900;
-          font-size: 13px;
+          text-decoration: none;
+          border: 1px solid transparent;
         }
 
-        .stamp {
-          position: absolute;
-          right: 34px;
-          top: 30px;
-          padding: 12px 16px;
-          border: 3px solid #b53228;
-          color: #b53228;
-          font: 900 14px "Courier New", monospace;
-          transform: rotate(5deg);
-          background: rgba(255,255,255,.25);
+        .navButton, .primary {
+          color: #06100a;
+          background: linear-gradient(135deg, var(--green), #a8ff5d);
+          box-shadow: 0 15px 45px rgba(30, 201, 76, .24);
         }
+
+        .secondary {
+          color: var(--text);
+          border-color: var(--line);
+          background: rgba(255,255,255,.04);
+        }
+
+        .hero {
+          max-width: 1180px;
+          margin: 0 auto;
+          min-height: calc(100vh - 76px);
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(360px, 480px);
+          align-items: center;
+          gap: 48px;
+          padding: 80px 28px;
+        }
+
+        .kicker {
+          margin: 0 0 14px;
+          color: var(--green);
+          text-transform: uppercase;
+          letter-spacing: .14em;
+          font-size: 12px;
+          font-weight: 900;
+        }
+
+        h1, h2, h3, p { margin-top: 0; }
 
         h1 {
-          margin: 0;
-          color: #10140e;
-          font-size: clamp(60px, 13vw, 158px);
-          line-height: .78;
-          letter-spacing: -.08em;
-          text-transform: uppercase;
+          margin-bottom: 22px;
+          font-size: clamp(56px, 8vw, 108px);
+          line-height: .9;
+          letter-spacing: -5px;
         }
 
-        h1 span {
-          display: block;
-          color: #4b7d37;
-          text-shadow: 4px 4px 0 #10140e;
+        h2 {
+          margin-bottom: 16px;
+          font-size: clamp(32px, 5vw, 58px);
+          line-height: .95;
+          letter-spacing: -3px;
         }
 
-        .tagline {
-          max-width: 760px;
-          margin: 28px 0 0;
-          font-size: clamp(18px, 2vw, 24px);
-          line-height: 1.4;
-          font-weight: 700;
+        h3 {
+          margin-bottom: 10px;
+          font-size: 21px;
+        }
+
+        .subhead {
+          max-width: 650px;
+          color: #c3cfdd;
+          font-size: clamp(18px, 2.1vw, 23px);
+          line-height: 1.55;
         }
 
         .heroActions {
           display: flex;
+          gap: 14px;
           flex-wrap: wrap;
-          gap: 12px;
-          margin-top: 28px;
+          margin: 32px 0 14px;
+        }
+
+        .note, .sectionTitle p, .feature p, .fpsBand p, .versions p, .faq p, .downloadCta p {
+          color: var(--muted);
+          line-height: 1.65;
+        }
+
+        .clientMockup {
+          border: 1px solid rgba(255,255,255,.16);
+          border-radius: 26px;
+          background: linear-gradient(180deg, rgba(17, 26, 37, .96), rgba(8, 13, 19, .96));
+          box-shadow: 0 35px 100px rgba(0,0,0,.55), 0 0 80px rgba(109, 255, 123, .14);
+          overflow: hidden;
+          transform: perspective(900px) rotateY(-7deg) rotateX(3deg);
+        }
+
+        .mockTop {
+          height: 48px;
+          display: flex;
           align-items: center;
-          font-size: 13px;
-          font-weight: 900;
+          gap: 8px;
+          padding: 0 18px;
+          border-bottom: 1px solid var(--line);
+          background: rgba(255,255,255,.03);
         }
 
-        a {
-          color: inherit;
+        .mockTop span {
+          width: 11px;
+          height: 11px;
+          border-radius: 99px;
+          background: rgba(255,255,255,.25);
         }
 
-        .heroActions a,
-        footer a {
-          background: #10140e;
-          color: #f4e4bd;
-          text-decoration: none;
-          padding: 14px 18px;
-          box-shadow: 5px 5px 0 #6e9d4f;
-        }
-
-        .heroActions span {
-          border: 2px dashed #b53228;
-          color: #b53228;
-          padding: 12px 14px;
-          background: #fff0c7;
-        }
-
-        .notice {
-          padding: 18px 42px;
-          border-bottom: 4px solid #10140e;
-          background: #c44736;
-          color: #fff4d6;
-          font-size: 18px;
-          line-height: 1.45;
-        }
-
-        .split {
-          display: grid;
-          grid-template-columns: 1fr 330px;
-          gap: 0;
-          border-bottom: 4px solid #10140e;
-        }
-
-        .letter {
-          padding: 42px;
-          border-right: 4px solid #10140e;
-        }
-
-        .label {
-          margin: 0 0 12px;
-          font-weight: 900;
-          color: #b53228;
-          font-size: 13px;
-        }
-
-        h2 {
-          margin: 0 0 18px;
-          font-size: clamp(32px, 5vw, 64px);
-          line-height: .95;
-          letter-spacing: -.05em;
-        }
-
-        .letter p,
-        .statusCard p,
-        .cards p,
-        .scraps p,
-        .faq p {
-          font-size: 17px;
-          line-height: 1.55;
-        }
-
-        .statusCard {
-          padding: 26px;
-          background: #162112;
-          color: #f4e4bd;
-        }
-
-        .statusHeader {
-          color: #9ee36b;
-          font-weight: 900;
-          margin-bottom: 18px;
-        }
-
-        .statusRow {
+        .mockHeader {
           display: flex;
           justify-content: space-between;
-          gap: 18px;
-          border-bottom: 1px solid rgba(244,228,189,.25);
-          padding: 12px 0;
-          font-size: 12px;
+          gap: 20px;
+          padding: 24px;
+          border-bottom: 1px solid var(--line);
         }
 
-        .statusRow span {
-          color: #c9b98c;
-        }
+        .mockHeader strong { font-size: 23px; }
+        .mockHeader p { margin: 7px 0 0; color: var(--muted); }
+        .mockHeader b { color: #ffe06f; font-size: 13px; }
 
-        .progress {
-          height: 18px;
-          border: 2px solid #f4e4bd;
-          margin: 24px 0 16px;
-          padding: 3px;
-        }
-
-        .progress i {
-          display: block;
-          height: 100%;
-          width: 43%;
-          background: repeating-linear-gradient(90deg, #6fb94d 0 10px, #a4e36d 10px 18px);
-        }
-
-        .cards {
+        .mockGrid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          border-bottom: 4px solid #10140e;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 24px;
         }
 
-        .cards article {
-          min-height: 260px;
+        .mockCard {
+          min-height: 70px;
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          padding: 14px;
+          background: rgba(255,255,255,.04);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .mockCard span { font-weight: 800; }
+        .mockCard i { color: var(--green); font-style: normal; font-size: 12px; font-weight: 900; }
+
+        .section, .fpsBand, .versions, .downloadCta {
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 86px 28px;
+        }
+
+        .sectionTitle {
+          max-width: 720px;
+          margin-bottom: 34px;
+        }
+
+        .featureGrid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 18px;
+        }
+
+        .feature, .faq article {
+          min-height: 210px;
           padding: 28px;
-          border-right: 4px solid #10140e;
-          background: #fff0c7;
+          border-radius: 24px;
+          background: rgba(255,255,255,.045);
+          border: 1px solid var(--line);
         }
 
-        .cards article:nth-child(even) {
-          background: #e6c98f;
+        .feature::before {
+          content: "";
+          display: block;
+          width: 46px;
+          height: 46px;
+          border-radius: 14px;
+          margin-bottom: 28px;
+          background: linear-gradient(135deg, var(--green), #b8ff65);
+          box-shadow: 0 0 38px rgba(109, 255, 123, .18);
         }
 
-        .cards article:last-child {
-          border-right: 0;
-        }
-
-        .cards span {
-          display: inline-grid;
-          place-items: center;
-          width: 42px;
-          height: 42px;
-          background: #10140e;
-          color: #f4e4bd;
-          font-weight: 900;
+        .fpsBand, .versions, .downloadCta {
+          border: 1px solid var(--line);
+          border-radius: 32px;
+          background: linear-gradient(135deg, rgba(20, 32, 45, .82), rgba(8, 13, 19, .92));
+          display: grid;
+          grid-template-columns: 1fr 360px;
+          gap: 34px;
+          align-items: center;
+          padding: 44px;
+          margin-top: 30px;
           margin-bottom: 30px;
         }
 
-        h3 {
-          margin: 0 0 12px;
-          font-size: 31px;
-          line-height: 1;
+        .meter {
+          height: 20px;
+          border-radius: 999px;
+          padding: 4px;
+          background: rgba(0,0,0,.35);
+          border: 1px solid var(--line);
         }
 
-        .devlog {
-          padding: 42px;
-          background: #efe0b7;
-          border-bottom: 4px solid #10140e;
+        .meter span {
+          display: block;
+          width: 72%;
+          height: 100%;
+          border-radius: inherit;
+          background: linear-gradient(90deg, var(--green2), var(--green));
         }
 
-        .scraps {
+        .modsGrid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 14px;
+        }
+
+        .modBox, .versionCards span {
+          min-height: 68px;
+          border-radius: 16px;
+          display: grid;
+          place-items: center;
+          text-align: center;
+          background: rgba(255,255,255,.045);
+          border: 1px solid var(--line);
+          color: #dce8f5;
+          font-weight: 900;
+        }
+
+        .modBox:hover {
+          border-color: rgba(109,255,123,.55);
+          background: rgba(109,255,123,.07);
+        }
+
+        .versionCards {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+
+        .versionCards .activeVersion {
+          color: #06100a;
+          background: linear-gradient(135deg, var(--green), #b8ff65);
+        }
+
+        .faqGrid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 18px;
-          margin-top: 18px;
         }
 
-        .scraps div {
-          background: #fff8db;
-          border: 3px solid #10140e;
-          padding: 22px;
-          box-shadow: 6px 6px 0 rgba(16,20,14,.2);
-          transform: rotate(-1deg);
-        }
-
-        .scraps div:nth-child(2) {
-          transform: rotate(1deg);
-          background: #dce9b4;
-        }
-
-        .scraps div:nth-child(3) {
-          transform: rotate(-.5deg);
-          background: #f0c2ad;
-        }
-
-        .scraps b {
-          display: block;
-          font: 900 15px "Courier New", monospace;
-          text-transform: uppercase;
-          margin-bottom: 10px;
-        }
-
-        .roadmap {
-          display: grid;
-          grid-template-columns: 360px 1fr;
-          border-bottom: 4px solid #10140e;
-        }
-
-        .roadTitle {
-          padding: 42px;
-          background: #10140e;
-          color: #f4e4bd;
-        }
-
-        .roadTitle .label {
-          color: #9ee36b;
-        }
-
-        ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        li {
-          padding: 24px;
-          border-left: 4px solid #10140e;
-          border-bottom: 4px solid #10140e;
-          min-height: 110px;
-          background: #f7e9c6;
-        }
-
-        li:nth-child(3n) {
-          background: #dce9b4;
-        }
-
-        li b {
-          display: block;
-          font-size: 23px;
-          margin-bottom: 8px;
-        }
-
-        li span {
-          font-family: "Courier New", monospace;
-          font-size: 13px;
-          text-transform: uppercase;
-          font-weight: 900;
-          color: #4b7d37;
-        }
-
-        .faq {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          border-bottom: 4px solid #10140e;
-        }
-
-        .faq div {
-          padding: 30px;
-          border-right: 4px solid #10140e;
-          background: #fff0c7;
-        }
-
-        .faq div:last-child {
-          border-right: 0;
+        .downloadCta {
+          grid-template-columns: 1fr auto;
         }
 
         footer {
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 34px 28px 54px;
           display: flex;
           justify-content: space-between;
-          gap: 16px;
-          align-items: center;
-          padding: 24px 42px;
-          background: #162112;
-          color: #f4e4bd;
-          font-size: 13px;
-          font-weight: 900;
-        }
-
-        footer div {
-          display: grid;
-          gap: 6px;
-        }
-
-        footer span {
-          color: #b7c89b;
+          gap: 20px;
+          flex-wrap: wrap;
+          color: var(--muted);
+          border-top: 1px solid var(--line);
         }
 
         @media (max-width: 920px) {
-          .page {
-            padding: 12px;
-          }
+          .nav { padding: 0 18px; }
+          .links { display: none; }
+          .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 58px; }
+          .clientMockup { transform: none; }
+          .featureGrid, .faqGrid, .fpsBand, .versions, .downloadCta { grid-template-columns: 1fr; }
+          .modsGrid { grid-template-columns: repeat(2, 1fr); }
+        }
 
-          .stamp {
-            position: static;
-            display: inline-block;
-            margin-bottom: 18px;
-          }
-
-          .masthead,
-          .notice,
-          .letter,
-          .devlog,
-          .roadTitle,
-          footer {
-            padding: 24px;
-          }
-
-          .split,
-          .roadmap {
-            grid-template-columns: 1fr;
-          }
-
-          .letter {
-            border-right: 0;
-            border-bottom: 4px solid #10140e;
-          }
-
-          .cards,
-          .scraps,
-          .faq,
-          ul {
-            grid-template-columns: 1fr;
-          }
-
-          .cards article,
-          .faq div {
-            border-right: 0;
-            border-bottom: 4px solid #10140e;
-            min-height: auto;
-          }
-
-          li {
-            border-left: 0;
-          }
-
-          footer {
-            align-items: flex-start;
-            flex-direction: column;
-          }
+        @media (max-width: 520px) {
+          h1 { letter-spacing: -3px; }
+          .modsGrid, .mockGrid, .versionCards { grid-template-columns: 1fr; }
+          .fpsBand, .versions, .downloadCta { padding: 26px; border-radius: 22px; }
         }
       `}</style>
     </main>
