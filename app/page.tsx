@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type WindowKey = "welcome" | "features" | "dev" | "cosmetics" | "owner" | "downloads" | "discord";
 
@@ -261,7 +261,7 @@ export default function Home() {
   const [startOpen, setStartOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
 
-  useMemo(() => {
+  useEffect(() => {
     const listener = (event: Event) => {
       const key = (event as CustomEvent<WindowKey>).detail;
       if (key && WINDOWS[key]) {
