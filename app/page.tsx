@@ -1,1125 +1,766 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
-type WindowKey = "welcome" | "features" | "dev" | "cosmetics" | "owner" | "downloads" | "discord";
+type TabKey =
+  | "home"
+  | "download"
+  | "features"
+  | "modules"
+  | "cosmetics"
+  | "owner"
+  | "devlog"
+  | "screenshots"
+  | "faq"
+  | "credits"
+  | "discord";
 
-type WindowData = {
-  title: string;
-  subtitle: string;
+type Tab = {
+  key: TabKey;
+  label: string;
   icon: string;
+};
+
+type ModuleItem = {
+  name: string;
+  status: "Working" | "In progress" | "Planned";
+  desc: string;
+  tag: string;
 };
 
 const DISCORD = "https://discord.gg/5HxHgKdfMu";
 
-const WINDOWS: Record<WindowKey, WindowData> = {
-  welcome: {
-    title: "Welcome.txt",
-    subtitle: "Start here",
-    icon: "📄",
-  },
-  features: {
-    title: "Features",
-    subtitle: "Working modules",
-    icon: "🧰",
-  },
-  dev: {
-    title: "Dev Journal",
-    subtitle: "Build notes",
-    icon: "📓",
-  },
-  cosmetics: {
-    title: "Cosmetics",
-    subtitle: "Style menu",
-    icon: "🎒",
-  },
-  owner: {
-    title: "Owner Panel",
-    subtitle: "snot2 tools",
-    icon: "👑",
-  },
-  downloads: {
-    title: "Release Plan",
-    subtitle: "Christmas",
-    icon: "🎁",
-  },
-  discord: {
-    title: "Discord",
-    subtitle: "Join the server",
-    icon: "💬",
-  },
-};
-
-const desktopIcons: { key: WindowKey; label: string; icon: string }[] = [
-  { key: "welcome", label: "Booger Client", icon: "🟩" },
-  { key: "features", label: "Features", icon: "🧰" },
-  { key: "dev", label: "Dev Journal", icon: "📓" },
-  { key: "cosmetics", label: "Cosmetics", icon: "🎒" },
-  { key: "owner", label: "Owner Panel", icon: "👑" },
-  { key: "downloads", label: "Christmas Release", icon: "🎁" },
-  { key: "discord", label: "Discord", icon: "💬" },
+const tabs: Tab[] = [
+  { key: "home", label: "Home", icon: "⌂" },
+  { key: "download", label: "Download", icon: "⇩" },
+  { key: "features", label: "Features", icon: "✦" },
+  { key: "modules", label: "Modules", icon: "▣" },
+  { key: "cosmetics", label: "Cosmetics", icon: "★" },
+  { key: "owner", label: "Owner Panel", icon: "♛" },
+  { key: "devlog", label: "Devlog", icon: "☰" },
+  { key: "screenshots", label: "Screenshots", icon: "▤" },
+  { key: "faq", label: "FAQ", icon: "?" },
+  { key: "credits", label: "Credits", icon: "♡" },
+  { key: "discord", label: "Discord", icon: "↗" },
 ];
 
-const modules = [
-  ["Right Shift Menu", "The main client menu opens with one clean keybind."],
-  ["Fullbright", "Local brightness control for caves and night builds."],
-  ["CPS Counter", "Tracks clicks so PvP clips look cleaner."],
-  ["Coordinates HUD", "Simple position info without crowding the screen."],
-  ["Keystrokes", "WASD and jump display for recordings."],
-  ["Profiles", "Switch between saved client setups."],
+const modules: ModuleItem[] = [
+  {
+    name: "Right Shift Menu",
+    status: "Working",
+    tag: "Core",
+    desc: "One clean key opens the Booger Client menu. No extra backup keys.",
+  },
+  {
+    name: "Fullbright",
+    status: "In progress",
+    tag: "Visual",
+    desc: "Local brightness settings for caves, builds, and nighttime clips.",
+  },
+  {
+    name: "CPS Counter",
+    status: "In progress",
+    tag: "HUD",
+    desc: "Tracks left and right clicks for PvP and recording overlays.",
+  },
+  {
+    name: "Coordinates HUD",
+    status: "In progress",
+    tag: "HUD",
+    desc: "Shows clean player position without crowding the screen.",
+  },
+  {
+    name: "Keystrokes",
+    status: "Planned",
+    tag: "HUD",
+    desc: "A small WASD, mouse, and spacebar overlay for gameplay videos.",
+  },
+  {
+    name: "Armor HUD",
+    status: "Planned",
+    tag: "HUD",
+    desc: "Shows armor and item status in a cleaner recording-friendly layout.",
+  },
+  {
+    name: "Profiles",
+    status: "In progress",
+    tag: "Config",
+    desc: "Save different setups for PvP, cinematic clips, and normal survival.",
+  },
+  {
+    name: "Cosmetics",
+    status: "Planned",
+    tag: "Style",
+    desc: "Capes, badges, trails, hats, and Christmas-themed unlocks.",
+  },
 ];
 
-const devNotes = [
-  { tag: "Fixed", text: "Right Shift is the only menu key." },
-  { tag: "Fixed", text: "The GUI is being rebuilt to avoid placeholder spam." },
-  { tag: "Next", text: "More modules need real code behind them." },
-  { tag: "Next", text: "Cosmetics need previews and better unlock states." },
-  { tag: "Christmas", text: "Release window chosen so the client can be polished." },
+const devlog = [
+  ["Christmas chosen", "Booger Client is now aimed at a Christmas comeback window."],
+  ["GUI rebuild", "The menu is being rebuilt so it feels real instead of placeholder-only."],
+  ["Right Shift only", "The open key is being locked to Right Shift so controls stay simple."],
+  ["Real features first", "The next builds focus on real local modules before server-wide ranks."],
+  ["Website refresh", "The site is being redesigned with a client-tab style and more pages."],
 ];
 
-function StatusLight({ label, ready }: { label: string; ready: boolean }) {
+function StatusPill({ status }: { status: ModuleItem["status"] }) {
+  return <span className={`status ${status.toLowerCase().replace(" ", "-")}`}>{status}</span>;
+}
+
+function TabButton({ tab, active, onClick }: { tab: Tab; active: boolean; onClick: () => void }) {
   return (
-    <div className="status-light">
-      <span className={ready ? "dot ready" : "dot working"} />
-      <span>{label}</span>
+    <button className={active ? "tab active" : "tab"} onClick={onClick} type="button">
+      <span>{tab.icon}</span>
+      {tab.label}
+    </button>
+  );
+}
+
+function MiniWindow({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="mini-window">
+      <div className="mini-titlebar">
+        <span className="lights"><i /> <i /> <i /></span>
+        <b>{title}</b>
+      </div>
+      <div className="mini-body">{children}</div>
+    </section>
+  );
+}
+
+function HomeTab({ setActive }: { setActive: (tab: TabKey) => void }) {
+  return (
+    <div className="home-grid">
+      <div className="hero-card">
+        <p className="chip">Christmas Release Window</p>
+        <h1>Booger Client is coming back.</h1>
+        <p>
+          A cozy indie Minecraft Fabric mod/client built around a cleaner Right Shift menu,
+          useful HUD tools, customization, cosmetics, and a better everyday Minecraft feel.
+        </p>
+        <div className="hero-buttons">
+          <a href={DISCORD} target="_blank" rel="noreferrer" className="button primary">Join Discord</a>
+          <button className="button" type="button" onClick={() => setActive("features")}>View Features</button>
+          <button className="button ghost" type="button" onClick={() => setActive("devlog")}>Read Devlog</button>
+        </div>
+      </div>
+
+      <MiniWindow title="preview_board.exe">
+        <div className="check-row"><b>Open Key</b><span>Right Shift only</span></div>
+        <div className="check-row"><b>Version</b><span>Fabric 1.21.11</span></div>
+        <div className="check-row"><b>Release</b><span>Christmas</span></div>
+        <div className="check-row"><b>Trailer</b><span>Not yet</span></div>
+      </MiniWindow>
     </div>
   );
 }
 
-function WindowContent({ active }: { active: WindowKey }) {
-  if (active === "welcome") {
-    return (
-      <div className="window-body-grid">
-        <section className="hero-copy">
-          <p className="stamp">Christmas Release Window</p>
-          <h1>Booger Client returns this Christmas.</h1>
-          <p>
-            A cozy indie Minecraft Fabric mod built for cleaner HUD tools, customization,
-            cosmetics, profiles, and a smoother everyday Minecraft experience.
-          </p>
-          <div className="button-row">
-            <a href={DISCORD} className="primary" target="_blank" rel="noreferrer">Join Discord</a>
-            <button onClick={() => document.dispatchEvent(new CustomEvent("booger-open-window", { detail: "features" }))}>
-              View Features
-            </button>
-          </div>
-        </section>
+function DownloadTab() {
+  return (
+    <div className="split">
+      <MiniWindow title="download_center.jar">
+        <h2>Download is not public yet.</h2>
+        <p>
+          Booger Client is still being rebuilt. Public downloads should wait until the core menu,
+          HUD modules, and settings actually work cleanly.
+        </p>
+        <a className="button primary wide" href={DISCORD} target="_blank" rel="noreferrer">Join for beta updates</a>
+      </MiniWindow>
+      <MiniWindow title="install_steps.txt">
+        <ol className="steps">
+          <li>Install Minecraft Java 1.21.11.</li>
+          <li>Install Fabric Loader.</li>
+          <li>Add Fabric API.</li>
+          <li>Put the Booger Client jar in your mods folder.</li>
+          <li>Open with Right Shift in-game.</li>
+        </ol>
+      </MiniWindow>
+    </div>
+  );
+}
 
-        <section className="notice-card">
-          <div className="mini-title">Preview Board</div>
-          <p>The trailer is still cooking. For now, development updates live here.</p>
-          <div className="checklist">
-            <StatusLight label="Right Shift menu" ready />
-            <StatusLight label="Cleaner GUI" ready />
-            <StatusLight label="HUD modules" ready />
-            <StatusLight label="Cosmetics polish" ready={false} />
-            <StatusLight label="Christmas release prep" ready={false} />
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  if (active === "features") {
-    return (
-      <div>
-        <div className="section-head">
-          <p className="eyebrow">Client toolbox</p>
-          <h2>Features that should feel real, not fake.</h2>
-        </div>
-        <div className="feature-grid">
-          {modules.map(([name, desc]) => (
-            <article className="feature-card" key={name}>
-              <div className="feature-card-top">
-                <span>{name}</span>
-                <b>ON</b>
-              </div>
-              <p>{desc}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (active === "dev") {
-    return (
-      <div>
-        <div className="section-head">
-          <p className="eyebrow">Patch notes</p>
-          <h2>Dev journal</h2>
-        </div>
-        <div className="journal-list">
-          {devNotes.map((note) => (
-            <div className="journal-row" key={note.text}>
-              <span>{note.tag}</span>
-              <p>{note.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (active === "cosmetics") {
-    return (
-      <div className="two-col">
-        <section>
-          <p className="eyebrow">Style system</p>
-          <h2>Cosmetics with personality.</h2>
-          <p className="soft-text">
-            Capes, badges, trails, hats, and owner cosmetics are planned for the Christmas build.
-            The goal is cozy Minecraft style, not random placeholder buttons.
-          </p>
-          <div className="tag-wrap">
-            <span>Founder Cape</span>
-            <span>Slime Trail</span>
-            <span>Christmas Badge</span>
-            <span>Owner Crown</span>
-            <span>Beta Tester Cape</span>
-          </div>
-        </section>
-        <section className="preview-card">
-          <div className="avatar-box">🧍</div>
-          <div>
-            <b>[OWNER] snot2</b>
-            <p>Founder cape • gold badge • slime trail</p>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  if (active === "owner") {
-    return (
-      <div>
-        <div className="section-head">
-          <p className="eyebrow">Owner build</p>
-          <h2>Owner panel</h2>
-        </div>
-        <div className="owner-panel">
-          <div>
-            <b>Owner</b>
-            <p>snot2</p>
-          </div>
-          <div>
-            <b>Status</b>
-            <p>Local-only panel for now</p>
-          </div>
-          <div>
-            <b>Rank</b>
-            <p>OWNER</p>
-          </div>
-          <div>
-            <b>Important</b>
-            <p>Global users/ranks need a server plugin or online API later.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (active === "downloads") {
-    return (
-      <div className="two-col">
-        <section>
-          <p className="eyebrow">Release window</p>
-          <h2>Christmas comeback.</h2>
-          <p className="soft-text">
-            Booger Client is planned to return around Christmas so the GUI, working modules,
-            cosmetics, profiles, and owner tools have time to actually feel polished.
-          </p>
-          <div className="release-box">🎄 Christmas 2026</div>
-        </section>
-        <section className="notice-card">
-          <div className="mini-title">Before release</div>
-          <div className="checklist">
-            <StatusLight label="Fix menu polish" ready={false} />
-            <StatusLight label="Finish starter modules" ready={false} />
-            <StatusLight label="Add cosmetic previews" ready={false} />
-            <StatusLight label="Prepare beta testing" ready={false} />
-          </div>
-        </section>
-      </div>
-    );
-  }
+function FeaturesTab() {
+  const cards = [
+    ["Clean Menu", "A Right Shift menu that should feel like a real client, not a messy placeholder panel."],
+    ["HUD Tools", "CPS, coordinates, keystrokes, armor HUD, and recording-friendly overlays."],
+    ["Profiles", "Different saved setups for PvP, cinematic clips, and normal gameplay."],
+    ["Cosmetics", "Capes, badges, trails, and small seasonal items planned for the Christmas build."],
+    ["Owner Panel", "A local owner-only panel for snot2 and development controls."],
+    ["Fair Client", "Focused on visuals, HUD, customization, and quality-of-life tools."],
+  ];
 
   return (
-    <div className="discord-window">
-      <p className="eyebrow">Community</p>
-      <h2>Help shape Booger Client.</h2>
+    <div className="card-grid">
+      {cards.map(([title, text]) => (
+        <article className="glass-card" key={title}>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function ModulesTab() {
+  return (
+    <div className="modules-grid">
+      {modules.map((item) => (
+        <article className="module-card" key={item.name}>
+          <div className="module-top">
+            <span className="tag">{item.tag}</span>
+            <StatusPill status={item.status} />
+          </div>
+          <h3>{item.name}</h3>
+          <p>{item.desc}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function CosmeticsTab() {
+  return (
+    <div className="split cosmetics-split">
+      <MiniWindow title="cosmetics_room.bc">
+        <h2>Indie cosmetics, not random filler.</h2>
+        <p>
+          The cosmetic system should feel like collectible stickers: founder cape, Christmas badge,
+          slime trail, owner crown, beta cape, cozy scarf, and winter particles.
+        </p>
+        <div className="sticker-wall">
+          <span>Founder Cape</span>
+          <span>Christmas Badge</span>
+          <span>Slime Trail</span>
+          <span>Owner Crown</span>
+          <span>Beta Cape</span>
+          <span>Snow Trail</span>
+        </div>
+      </MiniWindow>
+      <MiniWindow title="player_preview.png">
+        <div className="avatar-preview">
+          <div className="avatar-head">☻</div>
+          <b>[OWNER] snot2</b>
+          <p>Founder cape • gold badge • slime trail</p>
+        </div>
+      </MiniWindow>
+    </div>
+  );
+}
+
+function OwnerTab() {
+  return (
+    <div className="split">
+      <MiniWindow title="owner_panel.sys">
+        <h2>Owner Panel</h2>
+        <p>
+          The owner panel is meant for local build testing first. Server-wide users, live ranks,
+          and global permissions need a real backend or server plugin later.
+        </p>
+        <div className="owner-grid">
+          <span>Owner</span><b>snot2</b>
+          <span>Rank</span><b>OWNER</b>
+          <span>Open Key</span><b>Right Shift</b>
+          <span>Mode</span><b>Local testing</b>
+        </div>
+      </MiniWindow>
+      <MiniWindow title="coming_later.txt">
+        <ul className="plain-list">
+          <li>Live mod-user list</li>
+          <li>Rank assigning</li>
+          <li>Online cosmetics database</li>
+          <li>Private beta access list</li>
+        </ul>
+      </MiniWindow>
+    </div>
+  );
+}
+
+function DevlogTab() {
+  return (
+    <div className="journal">
+      {devlog.map(([title, text], index) => (
+        <article className="journal-card" key={title}>
+          <span>#{String(index + 1).padStart(2, "0")}</span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function ScreenshotsTab() {
+  return (
+    <div className="screenshot-grid">
+      {["GUI Preview", "HUD Preview", "Cosmetics Preview", "Christmas Spawn"].map((name) => (
+        <div className="screenshot-card" key={name}>
+          <div className="fake-shot">
+            <span>{name}</span>
+          </div>
+          <p>{name}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FaqTab() {
+  const items = [
+    ["Is Booger Client out?", "Not yet. The Christmas window was chosen so it can be polished first."],
+    ["Is there a video trailer?", "Not yet. The site is being built first, then the trailer can come later."],
+    ["What version?", "Minecraft Java 1.21.11 with Fabric."],
+    ["Why only Right Shift?", "Keeping one keybind makes the client cleaner and easier to debug."],
+    ["Are global ranks real yet?", "Not client-only. That needs a server plugin or online API later."],
+  ];
+
+  return (
+    <div className="faq-list">
+      {items.map(([q, a]) => (
+        <details key={q}>
+          <summary>{q}</summary>
+          <p>{a}</p>
+        </details>
+      ))}
+    </div>
+  );
+}
+
+function CreditsTab() {
+  return (
+    <div className="credits">
+      <MiniWindow title="credits.txt">
+        <h2>Made with personality.</h2>
+        <p>
+          Booger Client is a small Minecraft client/mod project built around the idea of making
+          Minecraft cleaner, cozier, and more customizable.
+        </p>
+        <div className="credit-row"><span>Founder</span><b>snot2</b></div>
+        <div className="credit-row"><span>Release Window</span><b>Christmas</b></div>
+        <div className="credit-row"><span>Theme</span><b>Indie client tabs</b></div>
+      </MiniWindow>
+    </div>
+  );
+}
+
+function DiscordTab() {
+  return (
+    <div className="discord-card">
+      <p className="chip">Community</p>
+      <h2>Help shape the comeback.</h2>
       <p>
-        Join for previews, testing updates, suggestions, and Christmas release news.
+        Join the Discord for progress updates, beta news, suggestions, screenshots,
+        and the Christmas release buildup.
       </p>
-      <a href={DISCORD} target="_blank" rel="noreferrer" className="primary big">Join the Discord</a>
+      <a className="button primary" href={DISCORD} target="_blank" rel="noreferrer">Join Discord</a>
     </div>
   );
 }
 
-export default function Home() {
-  const [active, setActive] = useState<WindowKey>("welcome");
-  const [startOpen, setStartOpen] = useState(false);
-  const [minimized, setMinimized] = useState(false);
+function CurrentTab({ active, setActive }: { active: TabKey; setActive: (tab: TabKey) => void }) {
+  if (active === "home") return <HomeTab setActive={setActive} />;
+  if (active === "download") return <DownloadTab />;
+  if (active === "features") return <FeaturesTab />;
+  if (active === "modules") return <ModulesTab />;
+  if (active === "cosmetics") return <CosmeticsTab />;
+  if (active === "owner") return <OwnerTab />;
+  if (active === "devlog") return <DevlogTab />;
+  if (active === "screenshots") return <ScreenshotsTab />;
+  if (active === "faq") return <FaqTab />;
+  if (active === "credits") return <CreditsTab />;
+  return <DiscordTab />;
+}
 
-  useEffect(() => {
-    const listener = (event: Event) => {
-      const key = (event as CustomEvent<WindowKey>).detail;
-      if (key && WINDOWS[key]) {
-        setActive(key);
-        setMinimized(false);
-        setStartOpen(false);
-      }
-    };
-    document.addEventListener("booger-open-window", listener);
-    return () => document.removeEventListener("booger-open-window", listener);
-  }, []);
-
-  const current = WINDOWS[active];
+export default function Page() {
+  const [active, setActive] = useState<TabKey>("home");
+  const activeTab = useMemo(() => tabs.find((tab) => tab.key === active) ?? tabs[0], [active]);
 
   return (
-    <main className="desktop-shell">
-      <div className="snow" />
-      <div className="wallpaper-glow glow-a" />
-      <div className="wallpaper-glow glow-b" />
+    <main className="site-shell">
+      <div className="grain" />
+      <div className="stars" />
 
-      <section className="desktop-icons" aria-label="Desktop shortcuts">
-        {desktopIcons.map((icon) => (
-          <button
-            className="desktop-icon"
-            key={icon.key}
-            onClick={() => {
-              setActive(icon.key);
-              setMinimized(false);
-            }}
-          >
-            <span>{icon.icon}</span>
-            <small>{icon.label}</small>
-          </button>
-        ))}
+      <section className="client-frame" aria-label="Booger Client website">
+        <header className="topbar">
+          <div className="brand">
+            <div className="logo">B</div>
+            <div>
+              <b>Booger Client</b>
+              <span>indie Fabric client • 1.21.11</span>
+            </div>
+          </div>
+          <nav className="top-links" aria-label="Quick links">
+            <button type="button" onClick={() => setActive("download")}>Download</button>
+            <button type="button" onClick={() => setActive("devlog")}>Devlog</button>
+            <a href={DISCORD} target="_blank" rel="noreferrer">Discord</a>
+          </nav>
+        </header>
+
+        <div className="tab-strip" role="tablist" aria-label="Booger Client tabs">
+          {tabs.map((tab) => (
+            <TabButton key={tab.key} tab={tab} active={active === tab.key} onClick={() => setActive(tab.key)} />
+          ))}
+        </div>
+
+        <section className="content-window">
+          <div className="window-titlebar">
+            <div>
+              <b>{activeTab.icon} {activeTab.label}</b>
+              <span>booger://client/{activeTab.key}</span>
+            </div>
+            <div className="window-actions"><i /><i /><i /></div>
+          </div>
+          <div className="content-body">
+            <CurrentTab active={active} setActive={setActive} />
+          </div>
+        </section>
+
+        <footer className="taskbar">
+          <button type="button" onClick={() => setActive("home")} className="start-button">◆ Start</button>
+          <span>Christmas comeback build</span>
+          <b>Right Shift Menu</b>
+        </footer>
       </section>
 
-      {!minimized && (
-        <section className="app-window" aria-label={current.title}>
-          <div className="title-bar">
-            <div className="window-title">
-              <span>{current.icon}</span>
-              <div>
-                <b>{current.title}</b>
-                <small>{current.subtitle}</small>
-              </div>
-            </div>
-            <div className="window-controls">
-              <button onClick={() => setMinimized(true)} aria-label="Minimize">—</button>
-              <button onClick={() => setActive("welcome")} aria-label="Home">□</button>
-              <button onClick={() => setMinimized(true)} aria-label="Close">×</button>
-            </div>
-          </div>
-
-          <div className="window-toolbar">
-            {desktopIcons.slice(0, 6).map((item) => (
-              <button
-                key={item.key}
-                className={active === item.key ? "selected" : ""}
-                onClick={() => setActive(item.key)}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="window-content">
-            <WindowContent active={active} />
-          </div>
-        </section>
-      )}
-
-      <footer className="taskbar">
-        <button className="start-button" onClick={() => setStartOpen(!startOpen)}>
-          <span>🟩</span> Start
-        </button>
-
-        {startOpen && (
-          <div className="start-menu">
-            <div className="start-head">
-              <span>🟩</span>
-              <div>
-                <b>Booger OS</b>
-                <small>Christmas build</small>
-              </div>
-            </div>
-            <div className="start-list">
-              {desktopIcons.map((item) => (
-                <button
-                  key={item.key}
-                  onClick={() => {
-                    setActive(item.key);
-                    setMinimized(false);
-                    setStartOpen(false);
-                  }}
-                >
-                  <span>{item.icon}</span>
-                  <div>
-                    <b>{item.label}</b>
-                    <small>{WINDOWS[item.key].subtitle}</small>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <a href={DISCORD} target="_blank" rel="noreferrer" className="shutdown">
-              Join Discord →
-            </a>
-          </div>
-        )}
-
-        <button className="task-window" onClick={() => setMinimized(false)}>
-          {current.icon} {current.title}
-        </button>
-
-        <div className="task-status">
-          <span>🎄 Christmas 2026</span>
-          <span>21:18</span>
-        </div>
-      </footer>
-
       <style jsx>{`
-        :global(*) {
-          box-sizing: border-box;
-        }
-
-        :global(html) {
-          scroll-behavior: smooth;
-        }
-
+        :global(*) { box-sizing: border-box; }
+        :global(html) { scroll-behavior: smooth; }
         :global(body) {
           margin: 0;
-          background: #15120f;
-          color: #f7ead2;
-          font-family: ui-rounded, "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
-          overflow: hidden;
+          background: #100f0d;
+          color: #fff5dc;
+          font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
-
-        .desktop-shell {
+        .site-shell {
           min-height: 100vh;
           position: relative;
           overflow: hidden;
+          padding: clamp(16px, 3vw, 42px);
           background:
-            radial-gradient(circle at 22% 18%, rgba(143, 191, 111, 0.32), transparent 28%),
-            radial-gradient(circle at 76% 18%, rgba(196, 91, 77, 0.24), transparent 26%),
-            linear-gradient(180deg, #1b1713 0%, #15120f 45%, #0d1512 100%);
+            radial-gradient(circle at top left, rgba(143, 191, 111, .24), transparent 34%),
+            radial-gradient(circle at 80% 10%, rgba(232, 183, 90, .18), transparent 28%),
+            linear-gradient(135deg, #14110e, #1b1712 45%, #111314);
         }
-
-        .desktop-shell::before {
-          content: "";
-          position: absolute;
+        .grain, .stars {
+          pointer-events: none;
+          position: fixed;
           inset: 0;
-          opacity: 0.22;
+        }
+        .grain {
+          opacity: .17;
           background-image:
-            linear-gradient(rgba(255, 248, 232, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 248, 232, 0.04) 1px, transparent 1px);
-          background-size: 26px 26px;
-          pointer-events: none;
+            linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+            linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+          background-size: 18px 18px;
         }
-
-        .snow {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
+        .stars {
+          opacity: .42;
           background-image:
-            radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1px),
-            radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1px),
-            radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1px);
-          background-size: 120px 120px, 190px 190px, 260px 260px;
-          background-position: 20px 30px, 80px 120px, 140px 60px;
-          opacity: .45;
-          animation: snow-drift 18s linear infinite;
+            radial-gradient(circle, rgba(255,248,232,.45) 1px, transparent 1.5px),
+            radial-gradient(circle, rgba(143,191,111,.42) 1px, transparent 1.6px);
+          background-position: 0 0, 45px 60px;
+          background-size: 140px 140px, 180px 180px;
         }
-
-        @keyframes snow-drift {
-          from { transform: translateY(-30px); }
-          to { transform: translateY(80px); }
-        }
-
-        .wallpaper-glow {
-          position: absolute;
-          border-radius: 999px;
-          filter: blur(28px);
-          opacity: .45;
-          pointer-events: none;
-        }
-
-        .glow-a {
-          width: 300px;
-          height: 300px;
-          left: 56%;
-          top: 12%;
-          background: #8fbf6f;
-        }
-
-        .glow-b {
-          width: 240px;
-          height: 240px;
-          right: 12%;
-          bottom: 18%;
-          background: #e8b75a;
-        }
-
-        .desktop-icons {
-          position: absolute;
-          left: clamp(12px, 2vw, 28px);
-          top: clamp(12px, 3vh, 28px);
-          display: grid;
-          gap: 14px;
-          width: 100px;
-          z-index: 3;
-        }
-
-        .desktop-icon {
-          width: 94px;
-          min-height: 82px;
-          border: 1px solid transparent;
-          background: transparent;
-          color: #fff8e8;
-          text-shadow: 0 2px 8px rgba(0,0,0,.55);
-          border-radius: 12px;
-          cursor: pointer;
-          display: grid;
-          place-items: center;
-          gap: 4px;
-          padding: 8px 6px;
-        }
-
-        .desktop-icon:hover {
-          background: rgba(255, 248, 232, .09);
-          border-color: rgba(255, 248, 232, .18);
-        }
-
-        .desktop-icon span {
-          font-size: 34px;
-          width: 46px;
-          height: 46px;
-          display: grid;
-          place-items: center;
-          border-radius: 12px;
-          background: rgba(33, 27, 22, .64);
-          border: 1px solid rgba(255, 248, 232, .13);
-          box-shadow: inset 0 1px rgba(255,255,255,.08), 0 10px 24px rgba(0,0,0,.2);
-        }
-
-        .desktop-icon small {
-          font-size: 12px;
-          line-height: 1.05;
-          font-weight: 800;
-        }
-
-        .app-window {
-          position: absolute;
-          z-index: 5;
-          left: clamp(126px, 13vw, 180px);
-          right: clamp(14px, 4vw, 56px);
-          top: clamp(18px, 7vh, 70px);
-          bottom: 72px;
-          max-width: 1180px;
+        .client-frame {
+          position: relative;
+          z-index: 1;
+          width: min(1180px, 100%);
+          min-height: calc(100vh - clamp(32px, 6vw, 84px));
           margin: 0 auto;
-          border-radius: 18px;
+          border: 2px solid rgba(255, 245, 220, .18);
+          border-radius: 24px;
           overflow: hidden;
-          border: 2px solid rgba(247, 234, 210, .22);
-          background: rgba(33, 27, 22, .88);
-          box-shadow: 0 28px 90px rgba(0,0,0,.55), inset 0 1px rgba(255,255,255,.12);
-          backdrop-filter: blur(18px);
+          background: rgba(26, 22, 17, .88);
+          box-shadow: 0 24px 80px rgba(0,0,0,.38), inset 0 0 0 1px rgba(255,255,255,.04);
+          backdrop-filter: blur(16px);
+          display: flex;
+          flex-direction: column;
         }
-
-        .title-bar {
-          height: 58px;
+        .topbar, .taskbar {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 12px 0 18px;
-          background: linear-gradient(180deg, #3a2e24, #211b16);
-          border-bottom: 1px solid rgba(247, 234, 210, .14);
+          gap: 16px;
+          padding: 16px 18px;
+          background: rgba(18, 15, 12, .88);
+          border-bottom: 1px solid rgba(255,245,220,.12);
         }
-
-        .window-title {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .window-title span {
-          font-size: 24px;
-        }
-
-        .window-title b {
-          display: block;
-          font-size: 15px;
-        }
-
-        .window-title small {
-          display: block;
-          color: #b8a98e;
-          font-size: 12px;
-          margin-top: 2px;
-        }
-
-        .window-controls {
-          display: flex;
-          gap: 8px;
-        }
-
-        .window-controls button {
-          width: 34px;
-          height: 30px;
-          border-radius: 10px;
-          border: 1px solid rgba(247, 234, 210, .18);
-          color: #f7ead2;
-          background: rgba(255,255,255,.06);
-          cursor: pointer;
-          font-weight: 900;
-        }
-
-        .window-controls button:hover {
-          background: rgba(196, 91, 77, .42);
-        }
-
-        .window-toolbar {
-          height: 48px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 14px;
-          background: rgba(43, 36, 29, .74);
-          border-bottom: 1px solid rgba(247, 234, 210, .11);
-          overflow-x: auto;
-        }
-
-        .window-toolbar button {
-          border: 1px solid rgba(247, 234, 210, .13);
-          color: #f7ead2;
-          background: rgba(255,255,255,.04);
-          padding: 8px 12px;
-          border-radius: 999px;
-          font-size: 12px;
-          font-weight: 900;
-          white-space: nowrap;
-          cursor: pointer;
-        }
-
-        .window-toolbar button:hover,
-        .window-toolbar .selected {
-          background: rgba(143, 191, 111, .22);
-          border-color: rgba(143, 191, 111, .6);
-        }
-
-        .window-content {
-          height: calc(100% - 106px);
-          overflow: auto;
-          padding: clamp(18px, 3vw, 38px);
-          background:
-            linear-gradient(135deg, rgba(255,255,255,.04), transparent 30%),
-            rgba(21, 18, 15, .22);
-        }
-
-        .window-body-grid,
-        .two-col {
+        .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .brand b { display: block; font-size: 18px; letter-spacing: .2px; }
+        .brand span { display: block; color: #b8a98e; font-size: 13px; margin-top: 2px; }
+        .logo {
+          width: 42px;
+          height: 42px;
+          border-radius: 12px;
           display: grid;
-          grid-template-columns: minmax(0, 1.1fr) minmax(250px, .9fr);
-          gap: clamp(16px, 3vw, 32px);
+          place-items: center;
+          font-weight: 900;
+          background: linear-gradient(135deg, #8fbf6f, #d8ff93);
+          color: #10200f;
+          border: 2px solid rgba(255,248,232,.5);
+          box-shadow: 0 0 24px rgba(143,191,111,.32);
+        }
+        .top-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        button, a.button, .top-links a {
+          font: inherit;
+        }
+        .top-links button, .top-links a {
+          border: 1px solid rgba(255,245,220,.16);
+          background: rgba(255,245,220,.06);
+          color: #fff5dc;
+          text-decoration: none;
+          padding: 9px 12px;
+          border-radius: 12px;
+          cursor: pointer;
+        }
+        .top-links button:hover, .top-links a:hover { border-color: rgba(143,191,111,.7); }
+        .tab-strip {
+          display: flex;
+          gap: 8px;
+          padding: 12px;
+          overflow-x: auto;
+          border-bottom: 1px solid rgba(255,245,220,.12);
+          background: rgba(33, 27, 22, .72);
+          scrollbar-width: thin;
+        }
+        .tab {
+          border: 1px solid rgba(255,245,220,.12);
+          color: #d8ccb7;
+          background: rgba(255,255,255,.04);
+          padding: 10px 13px;
+          border-radius: 14px;
+          min-width: fit-content;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          transition: .18s ease;
+        }
+        .tab:hover { transform: translateY(-1px); border-color: rgba(232,183,90,.58); }
+        .tab.active {
+          color: #13210f;
+          background: linear-gradient(135deg, #d8ff93, #8fbf6f);
+          border-color: rgba(255,248,232,.65);
+          box-shadow: 0 8px 24px rgba(143,191,111,.18);
+          font-weight: 800;
+        }
+        .content-window {
+          margin: 18px;
+          flex: 1;
+          border-radius: 20px;
+          overflow: hidden;
+          border: 1px solid rgba(255,245,220,.16);
+          background: rgba(15, 14, 13, .42);
+        }
+        .window-titlebar, .mini-titlebar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 14px;
+          padding: 13px 16px;
+          background: rgba(255,245,220,.07);
+          border-bottom: 1px solid rgba(255,245,220,.12);
+        }
+        .window-titlebar b { display: block; font-size: 16px; }
+        .window-titlebar span { display: block; color: #b8a98e; font-size: 12px; margin-top: 2px; }
+        .window-actions, .lights { display: inline-flex; gap: 6px; align-items: center; }
+        .window-actions i, .lights i {
+          width: 10px;
+          height: 10px;
+          border-radius: 999px;
+          background: #c45b4d;
+        }
+        .window-actions i:nth-child(2), .lights i:nth-child(2) { background: #e8b75a; }
+        .window-actions i:nth-child(3), .lights i:nth-child(3) { background: #8fbf6f; }
+        .content-body {
+          padding: clamp(16px, 3vw, 28px);
+          min-height: 560px;
+        }
+        .home-grid, .split {
+          display: grid;
+          grid-template-columns: minmax(0, 1.45fr) minmax(280px, .8fr);
+          gap: 18px;
           align-items: stretch;
         }
-
-        .stamp {
-          display: inline-flex;
-          width: fit-content;
-          transform: rotate(-2deg);
-          color: #15120f;
-          background: #e8b75a;
-          padding: 8px 12px;
-          border-radius: 6px;
-          box-shadow: 0 8px 24px rgba(0,0,0,.24);
-          font-weight: 1000;
-          letter-spacing: .02em;
-          margin: 0 0 14px;
+        .hero-card, .mini-window, .glass-card, .module-card, .journal-card, .screenshot-card, .discord-card {
+          border: 1px solid rgba(255,245,220,.14);
+          background: linear-gradient(180deg, rgba(255,245,220,.07), rgba(255,245,220,.035));
+          border-radius: 18px;
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
         }
-
-        h1, h2, p {
-          margin-top: 0;
-        }
-
-        h1 {
-          font-size: clamp(34px, 6.8vw, 78px);
-          line-height: .9;
-          letter-spacing: -0.06em;
-          max-width: 780px;
-          margin-bottom: 18px;
-        }
-
-        h2 {
-          font-size: clamp(28px, 4vw, 46px);
-          line-height: .98;
-          letter-spacing: -0.045em;
-          margin-bottom: 12px;
-        }
-
-        .hero-copy p:not(.stamp),
-        .soft-text,
-        .discord-window p,
-        .notice-card p {
-          color: #d7cab3;
-          font-size: clamp(15px, 1.7vw, 19px);
-          line-height: 1.6;
-        }
-
-        .button-row {
+        .hero-card {
+          padding: clamp(22px, 4vw, 44px);
+          min-height: 430px;
           display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-          margin-top: 24px;
+          flex-direction: column;
+          justify-content: center;
+          background:
+            radial-gradient(circle at 80% 22%, rgba(143,191,111,.22), transparent 34%),
+            linear-gradient(180deg, rgba(255,245,220,.08), rgba(255,245,220,.035));
         }
-
-        .button-row a,
-        .button-row button,
-        .primary,
-        .shutdown {
-          text-decoration: none;
+        .chip, .tag {
+          display: inline-flex;
+          align-items: center;
+          width: fit-content;
+          color: #13210f;
+          background: #d8ff93;
+          border: 1px solid rgba(255,255,255,.32);
+          border-radius: 999px;
+          padding: 7px 10px;
+          font-size: 12px;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: .08em;
+        }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 {
+          max-width: 780px;
+          margin: 18px 0 16px;
+          font-size: clamp(42px, 7vw, 78px);
+          line-height: .92;
+          letter-spacing: -0.06em;
+        }
+        h2 { font-size: clamp(24px, 3vw, 38px); line-height: 1; letter-spacing: -0.04em; margin-bottom: 12px; }
+        h3 { font-size: 20px; margin-bottom: 8px; }
+        p { color: #c9bca4; line-height: 1.65; }
+        .hero-card p { max-width: 700px; font-size: 17px; }
+        .hero-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+        .button {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          border: 1px solid rgba(247, 234, 210, .2);
-          color: #f7ead2;
-          background: rgba(255,255,255,.06);
-          padding: 12px 16px;
+          min-height: 44px;
           border-radius: 14px;
+          padding: 0 16px;
+          border: 1px solid rgba(255,245,220,.18);
+          background: rgba(255,245,220,.06);
+          color: #fff5dc;
+          text-decoration: none;
           cursor: pointer;
-          font-weight: 1000;
-          box-shadow: inset 0 1px rgba(255,255,255,.08), 0 12px 30px rgba(0,0,0,.18);
-        }
-
-        .button-row .primary,
-        .primary {
-          color: #15120f;
-          background: linear-gradient(180deg, #a7df82, #8fbf6f);
-          border-color: rgba(255,255,255,.2);
-        }
-
-        .big {
-          margin-top: 18px;
-          padding: 14px 18px;
-        }
-
-        .notice-card,
-        .preview-card,
-        .owner-panel,
-        .release-box {
-          border-radius: 22px;
-          border: 1px solid rgba(247, 234, 210, .16);
-          background: rgba(43, 36, 29, .78);
-          box-shadow: inset 0 1px rgba(255,255,255,.07), 0 18px 42px rgba(0,0,0,.22);
-        }
-
-        .notice-card {
-          padding: clamp(18px, 3vw, 28px);
-          min-height: 300px;
-        }
-
-        .mini-title,
-        .eyebrow {
-          color: #e8b75a;
-          text-transform: uppercase;
-          letter-spacing: .14em;
-          font-size: 12px;
-          font-weight: 1000;
-          margin-bottom: 12px;
-        }
-
-        .checklist {
-          display: grid;
-          gap: 10px;
-          margin-top: 18px;
-        }
-
-        .status-light {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          color: #fff8e8;
           font-weight: 800;
-          padding: 10px 12px;
-          border: 1px solid rgba(247, 234, 210, .12);
-          border-radius: 14px;
-          background: rgba(0,0,0,.16);
         }
-
-        .dot {
-          width: 11px;
-          height: 11px;
-          border-radius: 999px;
-          box-shadow: 0 0 16px currentColor;
+        .button.primary {
+          background: linear-gradient(135deg, #8fbf6f, #d8ff93);
+          color: #13210f;
+          border-color: rgba(255,248,232,.62);
         }
-
-        .ready {
-          color: #8fbf6f;
-          background: #8fbf6f;
-        }
-
-        .working {
-          color: #e8b75a;
-          background: #e8b75a;
-        }
-
-        .feature-grid {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 14px;
-        }
-
-        .feature-card {
-          min-height: 130px;
-          padding: 18px;
-          border: 1px solid rgba(247, 234, 210, .14);
-          border-radius: 18px;
-          background: rgba(43, 36, 29, .7);
-        }
-
-        .feature-card-top {
+        .button.ghost { color: #e8b75a; }
+        .button.wide { width: 100%; margin-top: 12px; }
+        .mini-window { overflow: hidden; }
+        .mini-titlebar { justify-content: flex-start; }
+        .mini-body { padding: 18px; }
+        .check-row, .credit-row {
           display: flex;
-          align-items: center;
           justify-content: space-between;
           gap: 12px;
-          margin-bottom: 12px;
+          padding: 13px 0;
+          border-bottom: 1px dashed rgba(255,245,220,.14);
         }
-
-        .feature-card-top span {
-          font-size: 17px;
-          font-weight: 1000;
-        }
-
-        .feature-card-top b {
-          color: #15120f;
-          background: #8fbf6f;
-          border-radius: 999px;
-          padding: 5px 8px;
-          font-size: 10px;
-        }
-
-        .feature-card p,
-        .journal-row p,
-        .preview-card p,
-        .owner-panel p {
-          color: #b8a98e;
-          line-height: 1.45;
-          margin: 0;
-        }
-
-        .journal-list {
+        .check-row:last-child, .credit-row:last-child { border-bottom: 0; }
+        .check-row b, .credit-row b { color: #fff5dc; }
+        .check-row span, .credit-row span { color: #b8a98e; }
+        .card-grid, .modules-grid, .journal, .screenshot-grid {
           display: grid;
-          gap: 12px;
-        }
-
-        .journal-row {
-          display: grid;
-          grid-template-columns: 110px 1fr;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 14px;
-          align-items: center;
-          padding: 14px 16px;
-          border-radius: 16px;
-          border: 1px solid rgba(247, 234, 210, .13);
-          background: rgba(43, 36, 29, .74);
         }
-
-        .journal-row span {
-          color: #15120f;
-          background: #e8b75a;
-          border-radius: 999px;
-          padding: 7px 10px;
-          text-align: center;
-          font-size: 11px;
-          font-weight: 1000;
-        }
-
-        .tag-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-          margin-top: 20px;
-        }
-
-        .tag-wrap span {
-          border: 1px solid rgba(247, 234, 210, .14);
-          background: rgba(255,255,255,.05);
-          color: #fff8e8;
-          padding: 10px 12px;
-          border-radius: 999px;
-          font-weight: 900;
-          font-size: 13px;
-        }
-
-        .preview-card {
-          padding: 22px;
-          display: grid;
-          place-items: center;
-          text-align: center;
-          gap: 16px;
-        }
-
-        .avatar-box {
-          width: min(210px, 48vw);
-          aspect-ratio: 1;
-          border-radius: 28px;
-          display: grid;
-          place-items: center;
-          font-size: 72px;
-          background:
-            linear-gradient(135deg, rgba(143, 191, 111, .24), rgba(232, 183, 90, .16)),
-            rgba(0,0,0,.18);
-          border: 1px solid rgba(247, 234, 210, .14);
-        }
-
-        .owner-panel {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 14px;
-          padding: 18px;
-        }
-
-        .owner-panel div {
-          padding: 16px;
-          border-radius: 16px;
-          background: rgba(0,0,0,.18);
-          border: 1px solid rgba(247, 234, 210, .11);
-        }
-
-        .release-box {
-          width: fit-content;
-          margin-top: 18px;
-          padding: 18px 22px;
-          color: #15120f;
-          background: linear-gradient(180deg, #fff8e8, #e8b75a);
-          font-weight: 1000;
-          font-size: 22px;
-        }
-
-        .discord-window {
-          max-width: 720px;
-        }
-
-        .taskbar {
-          position: absolute;
-          z-index: 20;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          height: 54px;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 7px 10px;
-          border-top: 1px solid rgba(247, 234, 210, .14);
-          background: rgba(27, 23, 19, .95);
-          box-shadow: 0 -14px 30px rgba(0,0,0,.3);
-          backdrop-filter: blur(16px);
-        }
-
-        .start-button,
-        .task-window {
-          height: 38px;
-          border-radius: 12px;
-          border: 1px solid rgba(247, 234, 210, .16);
-          color: #f7ead2;
-          background: rgba(255,255,255,.07);
-          font-weight: 1000;
-          cursor: pointer;
-          padding: 0 14px;
-        }
-
-        .start-button {
-          color: #15120f;
-          background: linear-gradient(180deg, #a7df82, #8fbf6f);
-          min-width: 104px;
-        }
-
-        .task-window {
-          min-width: min(240px, 35vw);
-          text-align: left;
-          overflow: hidden;
+        .glass-card, .module-card, .journal-card, .screenshot-card, .discord-card { padding: 18px; }
+        .glass-card h3, .module-card h3, .journal-card h3 { color: #fff5dc; }
+        .module-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
+        .status {
           white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-
-        .task-status {
-          margin-left: auto;
-          display: flex;
-          gap: 10px;
-          color: #d7cab3;
-          font-weight: 900;
           font-size: 12px;
+          font-weight: 900;
+          border-radius: 999px;
+          padding: 7px 10px;
+          border: 1px solid rgba(255,245,220,.16);
         }
-
-        .task-status span {
-          border: 1px solid rgba(247, 234, 210, .12);
-          background: rgba(0,0,0,.16);
-          padding: 9px 10px;
+        .status.working { color: #10200f; background: #8fbf6f; }
+        .status.in-progress { color: #2b1b08; background: #e8b75a; }
+        .status.planned { color: #fff5dc; background: rgba(255,245,220,.09); }
+        .steps { color: #c9bca4; line-height: 1.9; padding-left: 22px; }
+        .sticker-wall { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+        .sticker-wall span {
+          padding: 9px 11px;
           border-radius: 12px;
+          color: #fff5dc;
+          background: rgba(255,245,220,.07);
+          border: 1px dashed rgba(232,183,90,.55);
+          transform: rotate(-1deg);
         }
-
-        .start-menu {
-          position: absolute;
-          left: 10px;
-          bottom: 58px;
-          width: min(340px, calc(100vw - 20px));
-          border-radius: 20px;
-          overflow: hidden;
-          background: rgba(33, 27, 22, .96);
-          border: 1px solid rgba(247, 234, 210, .2);
-          box-shadow: 0 24px 70px rgba(0,0,0,.55);
-        }
-
-        .start-head {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 16px;
-          background: linear-gradient(180deg, #3a2e24, #211b16);
-          border-bottom: 1px solid rgba(247, 234, 210, .12);
-        }
-
-        .start-head span {
-          font-size: 28px;
-        }
-
-        .start-head b,
-        .start-head small {
-          display: block;
-        }
-
-        .start-head small,
-        .start-list small {
-          color: #b8a98e;
-        }
-
-        .start-list {
-          padding: 8px;
-          display: grid;
-          gap: 4px;
-          max-height: 380px;
-          overflow: auto;
-        }
-
-        .start-list button {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          width: 100%;
-          text-align: left;
-          color: #f7ead2;
-          background: transparent;
-          border: 0;
-          border-radius: 14px;
-          padding: 10px;
-          cursor: pointer;
-        }
-
-        .start-list button:hover {
-          background: rgba(143, 191, 111, .18);
-        }
-
-        .start-list button > span {
-          width: 34px;
-          height: 34px;
-          border-radius: 10px;
+        .sticker-wall span:nth-child(even) { transform: rotate(1.2deg); }
+        .avatar-preview { text-align: center; display: grid; place-items: center; gap: 10px; min-height: 270px; }
+        .avatar-head {
+          width: 150px;
+          height: 150px;
           display: grid;
           place-items: center;
-          background: rgba(255,255,255,.06);
-          border: 1px solid rgba(247, 234, 210, .12);
+          border-radius: 32px;
+          font-size: 76px;
+          background: linear-gradient(135deg, #31281f, #1a1511);
+          border: 1px solid rgba(255,245,220,.16);
         }
-
-        .start-list b,
-        .start-list small {
-          display: block;
+        .owner-grid {
+          display: grid;
+          grid-template-columns: 120px 1fr;
+          gap: 10px;
+          margin-top: 18px;
         }
-
-        .shutdown {
-          margin: 8px;
+        .owner-grid span { color: #b8a98e; }
+        .plain-list { color: #c9bca4; line-height: 2; padding-left: 20px; }
+        .journal-card span { color: #8fbf6f; font-weight: 900; }
+        .fake-shot {
+          height: 180px;
+          border-radius: 14px;
+          display: grid;
+          place-items: center;
+          color: #d8ff93;
+          background:
+            linear-gradient(135deg, rgba(143,191,111,.12), rgba(232,183,90,.08)),
+            repeating-linear-gradient(45deg, rgba(255,245,220,.05), rgba(255,245,220,.05) 8px, transparent 8px, transparent 16px);
+          border: 1px solid rgba(255,245,220,.13);
         }
-
-        @media (max-width: 760px) {
-          :global(body) {
-            overflow: auto;
-          }
-
-          .desktop-shell {
-            min-height: 100svh;
-            overflow: hidden;
-          }
-
-          .desktop-icons {
-            left: 8px;
-            top: 8px;
-            grid-template-columns: repeat(4, 72px);
-            width: auto;
-            gap: 8px;
-          }
-
-          .desktop-icon {
-            width: 72px;
-            min-height: 66px;
-            padding: 5px;
-          }
-
-          .desktop-icon span {
-            width: 36px;
-            height: 36px;
-            font-size: 24px;
-          }
-
-          .desktop-icon small {
-            font-size: 10px;
-          }
-
-          .app-window {
-            left: 8px;
-            right: 8px;
-            top: 86px;
-            bottom: 64px;
-            border-radius: 15px;
-          }
-
-          .title-bar {
-            height: 54px;
-            padding-left: 12px;
-          }
-
-          .window-controls button {
-            width: 30px;
-          }
-
-          .window-toolbar {
-            height: 44px;
-            padding: 7px;
-          }
-
-          .window-toolbar button {
-            padding: 7px 9px;
-            font-size: 11px;
-          }
-
-          .window-content {
-            height: calc(100% - 98px);
-            padding: 16px;
-          }
-
-          .window-body-grid,
-          .two-col,
-          .feature-grid,
-          .owner-panel {
-            grid-template-columns: 1fr;
-          }
-
-          .journal-row {
-            grid-template-columns: 1fr;
-          }
-
-          .task-status span:first-child {
-            display: none;
-          }
+        .faq-list { display: grid; gap: 12px; }
+        details {
+          border-radius: 16px;
+          border: 1px solid rgba(255,245,220,.14);
+          background: rgba(255,245,220,.055);
+          padding: 16px 18px;
+        }
+        summary { cursor: pointer; font-weight: 900; color: #fff5dc; }
+        details p { margin: 12px 0 0; }
+        .discord-card { max-width: 760px; margin: 40px auto; text-align: center; padding: clamp(24px, 5vw, 52px); }
+        .discord-card .chip { margin: 0 auto 16px; }
+        .taskbar {
+          border-top: 1px solid rgba(255,245,220,.12);
+          border-bottom: 0;
+          color: #b8a98e;
+          margin-top: auto;
+        }
+        .start-button {
+          color: #13210f;
+          background: #d8ff93;
+          border: 0;
+          border-radius: 12px;
+          padding: 10px 14px;
+          font-weight: 900;
+          cursor: pointer;
+        }
+        .taskbar b { color: #e8b75a; }
+        @media (max-width: 980px) {
+          .home-grid, .split { grid-template-columns: 1fr; }
+          .card-grid, .modules-grid, .journal, .screenshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .content-body { min-height: auto; }
+        }
+        @media (max-width: 660px) {
+          .site-shell { padding: 10px; }
+          .client-frame { border-radius: 18px; min-height: calc(100vh - 20px); }
+          .topbar, .taskbar { align-items: flex-start; flex-direction: column; }
+          .brand b { font-size: 16px; }
+          .content-window { margin: 10px; border-radius: 16px; }
+          .card-grid, .modules-grid, .journal, .screenshot-grid { grid-template-columns: 1fr; }
+          .window-titlebar { align-items: flex-start; }
+          .hero-card { min-height: 360px; }
+          h1 { font-size: clamp(38px, 15vw, 58px); }
         }
       `}</style>
     </main>
