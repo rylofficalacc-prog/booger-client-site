@@ -1,0 +1,14 @@
+Upload this whole project to a new GitHub repo, or copy these folders/files into your existing repo root:
+
+app/
+public/
+package.json
+next.config.ts
+tsconfig.json
+next-env.d.ts
+
+Important:
+- The app folder must be at the root of the repo.
+- Do not upload the zip file itself to GitHub as the project.
+- In Vercel, the deployment must turn green or the live website will stay unchanged.
+- The integrated modules card shows module information when you hover/focus module icons.
