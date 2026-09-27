@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Booger Client",
-  description: "A cleaner Minecraft Fabric client built for smoother gameplay.",
+  description: "Booger Client: a Minecraft 1.21.11 Fabric client with 17 modules, 3D cosmetics, 19 emotes and its own launcher.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
