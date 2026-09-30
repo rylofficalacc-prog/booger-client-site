@@ -13,7 +13,7 @@ const LINKS = [
   { href: "/emotes", label: "Emotes" },
   { href: "/changelog", label: "Changelog" },
   { href: "/roadmap", label: "Roadmap" },
-  { href: "/ranks", label: "Ranks" },
+  { href: "/support", label: "Support" },
 ];
 
 export default function Nav({ members }: { members: number | null }) {
