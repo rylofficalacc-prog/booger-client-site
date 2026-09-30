@@ -7,6 +7,8 @@ export default function Footer() {
       <img src="/images/booger-logo.png" alt="" />
       <span>Booger Client · Not affiliated with Mojang or Microsoft.</span>
       <nav className="footerLinks">
+        <Link href="/support">Support & Feedback</Link>
+        <Link href="/performance">Performance</Link>
         <Link href="/faq">FAQ</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/ranks">Team</Link>

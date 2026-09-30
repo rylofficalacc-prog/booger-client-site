@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "../components/PageHeader";
+import CosmeticStudio from "../components/CosmeticStudio";
 import { cosmetics, looks } from "../data";
 
 export const metadata: Metadata = { title: "Cosmetics" };
@@ -8,6 +9,7 @@ export default function CosmeticsPage() {
   return (
     <>
       <PageHeader eyebrow="Cosmetics" title="Real 3D Cosmetics" sub="Animated 3D models on your player, not particles. All screenshots are taken in game." />
+      <CosmeticStudio />
       <section className="section tight">
         <div className="cosPhotoGrid">
           {cosmetics.map((c) => (

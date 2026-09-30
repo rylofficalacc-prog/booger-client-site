@@ -113,6 +113,9 @@ export const roadmap: { status: "Done" | "In Progress" | "Planned"; color: strin
     { title: "Code signing", desc: "So Windows stops warning about the installer." },
   ] },
   { status: "Planned", color: "#26bdf2", items: [
+    { title: "Automatic performance presets", desc: "Low-End PC, Balanced and Visual Quality profiles. The website currently provides manual starting settings." },
+    { title: "Client profile sharing", desc: "Import and export HUD layouts, keybinds and settings. Website look sharing is separate." },
+    { title: "Launcher diagnostics", desc: "Clearer errors and reviewed diagnostic exports inside the launcher." },
     { title: "Friends list", desc: "See when your friends are online." },
     { title: "Waypoints and minimap", desc: "Mark places and find your way back." },
     { title: "See other players' cosmetics", desc: "Your cosmetics and emotes visible to other Booger Client users." },
