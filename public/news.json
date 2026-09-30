@@ -1,0 +1,155 @@
+{
+  "items": [
+    {
+      "version": "Launcher 2.0",
+      "title": "One-click installer",
+      "tag": "LAUNCHER",
+      "color": "blue",
+      "date": "2026-09-29",
+      "text": "BoogerInstaller.exe, automatic Booger Client updates with rollback, Safe Mode and clearer errors.",
+      "changes": [
+        "Install like any Windows app, with Start Menu and Desktop shortcuts",
+        "Booger Client updates itself, verified, with one-click rollback",
+        "Safe Mode and Repair when something goes wrong",
+        "Automatic memory, and Java 21 managed for you"
+      ]
+    },
+    {
+      "version": "V25",
+      "title": "Booger online",
+      "tag": "UPDATE",
+      "color": "green",
+      "date": "2026-09-29",
+      "text": "The Booger logo shows next to Booger players, and colored badges for the team.",
+      "changes": [
+        "Booger logo next to Booger players in the tab list and name tags",
+        "Badges color your name and logo",
+        "In-game announcements"
+      ]
+    },
+    {
+      "version": "V24",
+      "title": "Cosmetics that move with you",
+      "tag": "COSMETIC",
+      "color": "pink",
+      "date": "2026-09-29",
+      "text": "Cape physics, reactive wings, trails, loadouts and favorite emotes.",
+      "changes": [
+        "Cape physics: Off, Simple, Smooth and Advanced",
+        "Wings react to sprinting, jumping, falling and flying",
+        "Trails: stars, hearts, embers, snow and more",
+        "Cosmetic loadouts and categories",
+        "Favorite and recent emotes"
+      ]
+    },
+    {
+      "version": "V23",
+      "title": "A cleaner look",
+      "tag": "UPDATE",
+      "color": "gold",
+      "date": "2026-09-29",
+      "text": "New design everywhere, themes, notifications and a hold-to-pick emote wheel.",
+      "changes": [
+        "New icons and calmer menu design",
+        "Themes: Booger Dark, Pure Black, Midnight",
+        "Notifications for keybinds and screenshots",
+        "Emote wheel: hold B, point, release"
+      ]
+    },
+    {
+      "version": "V21",
+      "title": "Booger Performance",
+      "tag": "UPDATE",
+      "color": "blue",
+      "date": "2026-09-28",
+      "text": "Performance tab, frame-time graph, Dynamic FPS, presets and Sodium support.",
+      "changes": [
+        "Performance presets and Adaptive Performance",
+        "Frame-time graph and live stats",
+        "Dynamic FPS and Distance Culling"
+      ]
+    },
+    {
+      "version": "V20",
+      "title": "Booger Client V20",
+      "tag": "UPDATE",
+      "color": "green",
+      "date": "2026-09-27",
+      "text": "Low Fire, Low Shield, 6 cape designs, Top Hat, Devil Horns and Fox Tail.",
+      "changes": [
+        "New: Low Fire - lowers the burning overlay",
+        "New: Low Shield - lowers your shield in first person",
+        "Fixed: Booger Cape was hidden for most players",
+        "New: 6 cape designs (Booger Logo, Slime Drip, Galaxy, Flame, Midnight, Rainbow)",
+        "New cosmetics: Top Hat, Devil Horns, Fox Tail"
+      ]
+    },
+    {
+      "version": "V19",
+      "title": "Emotes 2.0",
+      "tag": "EMOTES",
+      "color": "pink",
+      "date": "2026-09-27",
+      "text": "19 emotes with smooth blending, whole-body motion and a paged emote wheel.",
+      "changes": [
+        "19 emotes including Backflip, Spin, Sit, Robot and Jumping Jacks",
+        "Emotes blend in and out smoothly",
+        "Whole-body motion: jumps, spins and flips",
+        "Paged emote wheel with 1-8 quick picks"
+      ]
+    },
+    {
+      "version": "V18",
+      "title": "Player Pet",
+      "tag": "COSMETIC",
+      "color": "blue",
+      "date": "2026-09-27",
+      "text": "A mini player that walks beside you, wearing your skin or any username's skin.",
+      "changes": [
+        "New: Player Pet - type any username to change its skin",
+        "Fixed: the cosmetics list now scrolls"
+      ]
+    },
+    {
+      "version": "V17",
+      "title": "Emotes, Pet Morph and more",
+      "tag": "UPDATE",
+      "color": "gold",
+      "date": "2026-09-27",
+      "text": "First emotes, Pet Morph, Booger Cape and Bunny Ears.",
+      "changes": [
+        "New: Emote wheel (B)",
+        "New: Pet Morph - turn into animals",
+        "New cosmetics: Booger Cape, Bunny Ears",
+        "Halo sparkles and a blinking Shoulder Slime"
+      ]
+    },
+    {
+      "version": "V16",
+      "title": "Profiles and new modules",
+      "tag": "UPDATE",
+      "color": "green",
+      "date": "2026-09-26",
+      "text": "Profiles, Potion Effects, Combo Counter, Reach Display, Crosshair, Freelook and Auto Respawn.",
+      "changes": [
+        "New: Profiles tab",
+        "New modules: Potion Effects, Combo Counter, Reach Display, Crosshair, Freelook, Auto Respawn",
+        "New cosmetics: Slime Halo, Slime Crown, Shoulder Slime"
+      ]
+    },
+    {
+      "version": "V15",
+      "title": "Booger Client V15",
+      "tag": "UPDATE",
+      "color": "green",
+      "date": "2026-09-26",
+      "text": "Rebuilt for 1.21.11 with a new menu, a full HUD editor and every module working.",
+      "changes": [
+        "New Right Shift menu",
+        "Full HUD editor",
+        "Real 3D Neon Slime Wings",
+        "All HUD modules fixed for 1.21.11"
+      ]
+    }
+  ]
+}
