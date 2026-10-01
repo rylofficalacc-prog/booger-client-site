@@ -5,16 +5,20 @@ import { CATEGORIES, modules, type Category } from "../data";
 
 export default function ModulesExplorer() {
   const [filter, setFilter] = useState<"All" | Category>("All");
-  const shown = filter === "All" ? modules : modules.filter((m) => m.tag === filter);
+  const [query, setQuery] = useState("");
+  const shown = modules.filter(m => (filter === "All" || m.tag === filter) && `${m.name} ${m.desc} ${m.key ?? ""}`.toLowerCase().includes(query.trim().toLowerCase()));
   return (
     <>
-      <div className="chips" role="tablist" aria-label="Filter modules">
+      <label className="catalogSearch moduleSearch"><span>Search modules</span><input type="search" placeholder="Find a module or keybind…" value={query} onChange={e => setQuery(e.target.value)} /></label>
+      <div className="chips" role="group" aria-label="Filter modules">
         {CATEGORIES.map((c) => (
-          <button key={c} type="button" className={filter === c ? "chip active" : "chip"} onClick={() => setFilter(c)}>
+          <button key={c} type="button" aria-pressed={filter === c} className={filter === c ? "chip active" : "chip"} onClick={() => setFilter(c)}>
             {c} <em>{c === "All" ? modules.length : modules.filter((m) => m.tag === c).length}</em>
           </button>
         ))}
       </div>
+      <p className="catalogCount" role="status">{shown.length} of {modules.length} modules</p>
+      {shown.length === 0 && <div className="emptyCatalog"><h3>No modules found.</h3><button type="button" onClick={() => { setQuery(""); setFilter("All"); }}>Clear filters</button></div>}
       <div className="modGrid">
         {shown.map((m) => (
           <article className="modCard" key={m.name}>
