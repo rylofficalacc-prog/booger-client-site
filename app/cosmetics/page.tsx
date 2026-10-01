@@ -1,30 +1,18 @@
 import type { Metadata } from "next";
 import PageHeader from "../components/PageHeader";
 import CosmeticStudio from "../components/CosmeticStudio";
-import { cosmetics, looks } from "../data";
+import CosmeticsExplorer from "../components/CosmeticsExplorer";
+import { looks } from "../data";
 
 export const metadata: Metadata = { title: "Cosmetics" };
 
 export default function CosmeticsPage() {
   return (
     <>
-      <PageHeader eyebrow="Cosmetics" title="Real 3D Cosmetics" sub="Animated 3D models on your player, not particles. All screenshots are taken in game." />
+      <PageHeader eyebrow="Cosmetics" title="Real 3D Cosmetics" sub="80 cosmetics: 30 capes, 17 trails, 23 accessories, wings, pets and more. All free. Screenshots below are taken in game." />
+      <div className="pageQuickLinks"><a href="#studio">Try your skin →</a><a href="#catalog">Browse the showcase →</a></div>
       <CosmeticStudio />
-      <section className="section tight">
-        <div className="cosPhotoGrid">
-          {cosmetics.map((c) => (
-            <article className="cosPhoto" key={c.name} style={{ ["--c" as string]: c.color }}>
-              {c.image
-                ? <img src={c.image} alt={`${c.name} cosmetic in game`} loading="lazy" />
-                : <div className="cosPhotoIcon"><img className="ico" src={`/icons/${c.icon}.svg`} alt="" /></div>}
-              <div className="cosPhotoText">
-                <h3>{c.name}</h3>
-                <p>{c.desc}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      <section className="section tight"><CosmeticsExplorer /></section>
       <section className="section">
         <div className="sectionHead">
           <p>Showcase</p>
