@@ -2,6 +2,9 @@
 export type Category = "HUD" | "Visual" | "Utility" | "Player";
 export type Module = { name: string; icon: string; tag: Category; desc: string; key?: string };
 
+/** Total cosmetics in the client (the Cosmetics page only shows photos of some). */
+export const COSMETIC_COUNT = 80;
+
 export const DISCORD = "https://discord.gg/5HxHgKdfMu";
 export const CATEGORIES: ("All" | Category)[] = ["All", "HUD", "Visual", "Utility", "Player"];
 
@@ -95,6 +98,7 @@ export const keybinds = [
   { key: "V", action: "Toggle Sprint on / off" },
   { key: "Left Alt", action: "Freelook (hold) - look around while walking straight" },
   { key: "B", action: "Emote wheel: hold, point, release" },
+  { key: "N", action: "Create a waypoint at your current location" },
   { key: "F5", action: "Third person - see your cosmetics" },
 ];
 
@@ -102,22 +106,20 @@ export type RoadmapItem = { title: string; desc: string };
 export const roadmap: { status: "Done" | "In Progress" | "Planned"; color: string; items: RoadmapItem[] }[] = [
   { status: "Done", color: "#7dff67", items: [
     { title: "19 modules", desc: "HUD, zoom, freelook, crosshair, low fire, low shield and more." },
-    { title: "11 real 3D cosmetics", desc: "Wings, capes, pets, hats, horns, tail and a halo." },
+    { title: "80 cosmetics", desc: "30 capes, 17 trails and 23 accessories, plus wings, pets and more." },
     { title: "19 emotes", desc: "Smooth blending and whole-body moves." },
     { title: "Profiles and HUD editor", desc: "Separate setups and drag-and-drop HUD." },
     { title: "Installer and launcher", desc: "One installer; Java, Fabric and updates are automatic." },
     { title: "Booger online", desc: "Booger logo next to Booger players, colored badges, announcements." },
+    { title: "Waypoints", desc: "Mark places and find your way back." },
   ] },
   { status: "In Progress", color: "#ffd84a", items: [
     { title: "Public release", desc: "Booger Client launches Friday, October 2." },
     { title: "Code signing", desc: "So Windows stops warning about the installer." },
   ] },
   { status: "Planned", color: "#26bdf2", items: [
-    { title: "Automatic performance presets", desc: "Low-End PC, Balanced and Visual Quality profiles. The website currently provides manual starting settings." },
-    { title: "Client profile sharing", desc: "Import and export HUD layouts, keybinds and settings. Website look sharing is separate." },
-    { title: "Launcher diagnostics", desc: "Clearer errors and reviewed diagnostic exports inside the launcher." },
     { title: "Friends list", desc: "See when your friends are online." },
-    { title: "Waypoints and minimap", desc: "Mark places and find your way back." },
+    { title: "Minimap", desc: "A small map in the corner." },
     { title: "See other players' cosmetics", desc: "Your cosmetics and emotes visible to other Booger Client users." },
     { title: "More cosmetics and emotes", desc: "Based on what the community asks for." },
   ] },
