@@ -14,6 +14,7 @@ const LINKS = [
   { href: "/changelog", label: "Changelog" },
   { href: "/roadmap", label: "Roadmap" },
   { href: "/support", label: "Support" },
+  { href: "/donate", label: "Donate" },
 ];
 
 export default function Nav({ members }: { members: number | null }) {
