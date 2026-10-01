@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
-import { keybinds, launcherDownload } from "../data";
+import { keybinds, launcherDownload, DISCORD } from "../data";
 
 export const metadata: Metadata = { title: "Get Started", description: "Install Booger Client on Minecraft 1.21.11 Fabric and learn the keybinds." };
 
 const steps = [
   { title: "Download", body: <>Get <b>BoogerInstaller.exe</b> from the <Link href="/download">Download page</Link>.</> },
-  { title: "Install", body: <>Run the official installer and follow its prompts. If Windows blocks it, keep your security protections enabled and <Link href="/support">contact support</Link> with the warning.</> },
+  { title: "Install", body: <>Run the official installer and follow its prompts. Check its source and publisher; if an installation warning is unclear, ask in the Discord before continuing.</> },
   { title: "Sign in", body: <>Open Booger Client from your Desktop, click <b>Sign in</b> and enter the code on Microsoft&apos;s page. Booger never sees your password.</> },
-  { title: "Play", body: <>Press <b>Play</b>. The first launch downloads Minecraft and Java, so give it a few minutes. Later launches reuse the downloaded files.</> },
+  { title: "Play", body: <>Press <b>Play</b>. The first launch downloads Minecraft and Java, so give it a few minutes. Later launches reuse downloaded files.</> },
   { title: "Open the menu", body: <>In game, press <kbd>Right Shift</kbd> for modules, cosmetics and settings.</> },
 ];
 
@@ -18,7 +18,7 @@ export default function GetStartedPage() {
     <>
       <PageHeader eyebrow="Get Started" title="Get Playing In 5 Steps" sub="No Fabric installer, no mods folder, no Java setup. The launcher handles all of it." />
       <section className="section tight">
-        {!launcherDownload.ready && <p className="releaseNotice"><b>Early access begins Friday, October 2.</b> These steps are for release day. The installer is not available yet; check the <Link href="/download">Download page</Link> for its status.</p>}
+        {!launcherDownload.ready && <div className="releaseNotice"><strong>Before you begin</strong><p>The Windows installer is coming {launcherDownload.releaseDate}. You can explore the studio now or <a href={DISCORD}>join Discord for the release notice</a>.</p></div>}
         <ol className="steps">
           {steps.map((s, i) => (
             <li key={s.title}>
@@ -28,7 +28,8 @@ export default function GetStartedPage() {
           ))}
         </ol>
       </section>
-      <section className="section"><div className="toolActions"><Link href="/performance">Compare performance settings →</Link><Link href="/support#bug-report">Trouble launching? Report a bug →</Link></div>
+      <section className="section"><div className="toolCard knownIssues"><span className="eyebrow">Early access notes</span><h2>Know before you launch</h2><ul><li>Windows launcher; Minecraft: Java Edition is required.</li><li>Initial setup downloads game files and Java, so it needs an internet connection.</li><li>Code signing is still in progress, according to the current roadmap.</li><li>The website studio uses simplified models and does not change your game profile.</li></ul><Link className="supportLink" href="/support">Troubleshooting & bug reports →</Link></div></section>
+      <section className="section">
         <div className="sectionHead">
           <p>Cheat Sheet</p>
           <h2>Default Keybinds</h2>
