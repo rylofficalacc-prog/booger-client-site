@@ -38,7 +38,7 @@ export const modules: Module[] = [
 
 export const cosmetics: { name: string; color: string; icon: string; image?: string; desc: string }[] = [
   { name: "Neon Slime Wings", color: "#7dff67", icon: "sparkles", image: "/images/shots/wings.jpg", desc: "Glowing, translucent 3D wings that flap as you walk and tuck in when you sneak." },
-  { name: "Booger Cape", color: "#26bdf2", icon: "sparkles", image: "/images/shots/cape.jpg", desc: "Six designs: Booger Logo, Slime Drip, Galaxy, Flame, Midnight and Rainbow." },
+  { name: "Booger Cape", color: "#26bdf2", icon: "sparkles", image: "/images/shots/cape.jpg", desc: "30 cape designs, including Booger Logo, Slime Drip, Galaxy, Flame, Midnight and Rainbow." },
   { name: "Shoulder Slime", color: "#7dff67", icon: "sparkles", image: "/images/shots/shoulder-slime.jpg", desc: "A tiny slime pet on your shoulder that hops, squishes and blinks." },
   { name: "Player Pet", color: "#26bdf2", icon: "sparkles", image: "/images/shots/player-pet.jpg", desc: "A mini player walks beside you. Your skin, or type any username to wear theirs." },
   { name: "Slime Crown", color: "#ffd84a", icon: "sparkles", image: "/images/shots/crown.jpg", desc: "A crown with glowing slime gems. Pick the metal and gem colors." },
