@@ -2,6 +2,22 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 const options = ["Wings", "Cape", "Shoulder Slime", "Player Pet", "Crown", "Top Hat", "Devil Horns", "Bunny Ears", "Fox Tail", "Halo"];
+const categories = {
+  All: options,
+  Back: ["Wings", "Cape"],
+  Headwear: ["Crown", "Top Hat", "Devil Horns", "Bunny Ears", "Halo"],
+  Companions: ["Shoulder Slime", "Player Pet"],
+  Accessories: ["Fox Tail"],
+};
+const poses = ["Idle", "Wave", "T-Pose", "Spin", "Dance"];
+type Look = { type: "booger-website-look-v1"; cosmetics: string[]; color: string; pose: string };
+type SavedOutfit = { id: string; name: string; look: Look };
+const storageKey = "booger-website-outfits-v1";
+function parseLook(value: unknown): Look {
+  const v = value as { type?: string; cosmetics?: unknown; color?: unknown; pose?: unknown };
+  if (!v || v.type !== "booger-website-look-v1" || !Array.isArray(v.cosmetics) || v.cosmetics.length > 10 || !v.cosmetics.every(x => typeof x === "string" && options.includes(x)) || typeof v.color !== "string" || !/^#[0-9a-f]{6}$/i.test(v.color) || v.cosmetics.filter(x => headwear.includes(x)).length > 1 || (v.pose !== undefined && (typeof v.pose !== "string" || !poses.includes(v.pose)))) throw new Error("This is not a valid Booger website look.");
+  return { type: "booger-website-look-v1", cosmetics: [...new Set(v.cosmetics)], color: v.color, pose: typeof v.pose === "string" ? v.pose : "Idle" };
+}
 const headwear = ["Crown", "Top Hat", "Bunny Ears"];
 const faces = ["front", "back", "left", "right", "top", "bottom"] as const;
 type FaceTextures = Partial<Record<typeof faces[number], string>>;
@@ -25,6 +41,11 @@ function skinFaces(atlas: HTMLCanvasElement, slim: boolean, overlay: boolean) {
   return result;
 }
 export default function CosmeticStudio() {
+  const [category, setCategory] = useState<keyof typeof categories>("All");
+  const [outfitName, setOutfitName] = useState("");
+  const [saved, setSaved] = useState<SavedOutfit[]>([]);
+  const [savedReady, setSavedReady] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const [selected, setSelected] = useState<string[]>(["Wings", "Halo"]);
   const [color, setColor] = useState("#5dea77");
   const [angle, setAngle] = useState(-25);
@@ -50,25 +71,52 @@ export default function CosmeticStudio() {
   }
   const has = (id: string) => selected.includes(id);
   function loadLook(value: unknown) {
-    const v = value as { type?: string; cosmetics?: unknown; color?: unknown };
-    if (!v || v.type !== "booger-website-look-v1" || !Array.isArray(v.cosmetics) || v.cosmetics.length > 10 || !v.cosmetics.every(x => typeof x === "string" && options.includes(x)) || typeof v.color !== "string" || !/^#[0-9a-f]{6}$/i.test(v.color) || v.cosmetics.filter(x => headwear.includes(x)).length > 1) throw new Error("This is not a valid Booger website look.");
-    setSelected([...new Set(v.cosmetics)]); setColor(v.color);
+    const v = parseLook(value);
+    setSelected(v.cosmetics); setColor(v.color); setPose(v.pose); setPlaying(true);
   }
   useEffect(() => { const raw = new URLSearchParams(window.location.hash.slice(1)).get("look"); if (raw) { try { loadLook(JSON.parse(raw)); setMessage("Shared look loaded."); } catch { setMessage("That shared look could not be loaded."); } } }, []);
-  const look = () => ({ type: "booger-website-look-v1", cosmetics: selected, color });
+  const look = (): Look => ({ type: "booger-website-look-v1", cosmetics: selected, color, pose });
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        if (raw.length > 30000) throw Error("Saved outfits could not be read.");
+        const entries: unknown = JSON.parse(raw);
+        if (!Array.isArray(entries) || entries.length > 12) throw Error("Saved outfits could not be read.");
+        setSaved(entries.map((entry: unknown) => {
+          const item = entry as SavedOutfit;
+          if (!item || typeof item.id !== "string" || item.id.length > 100 || typeof item.name !== "string" || !item.name.trim() || item.name.length > 40) throw Error("Saved outfits could not be read.");
+          return { id: item.id, name: item.name, look: parseLook(item.look) };
+        }));
+      }
+    } catch { setMessage("Saved outfits are unavailable. You can still export looks."); }
+    setSavedReady(true);
+  }, []);
+  useEffect(() => {
+    if (!savedReady) return;
+    try { localStorage.setItem(storageKey, JSON.stringify(saved)); }
+    catch { setMessage("Browser storage is unavailable. Export your look to keep it."); }
+  }, [saved, savedReady]);
+  function saveOutfit() {
+    const name = outfitName.trim();
+    if (!name) { setMessage("Name your outfit before saving."); return; }
+    if (saved.length >= 12) { setMessage("You have 12 saved outfits. Remove one or export your look."); return; }
+    setSaved(items => [...items, { id: crypto.randomUUID(), name, look: look() }]);
+    setOutfitName(""); setMessage(`Saved ${name} in this browser.`);
+  }
   function toggle(id: string) { setSelected(s => s.includes(id) ? s.filter(x => x !== id) : [...s.filter(x => !headwear.includes(id) || !headwear.includes(x)), id]); }
   async function share() { const url = `${location.origin}/cosmetics#${new URLSearchParams({ look: JSON.stringify(look()) })}`; try { await navigator.clipboard.writeText(url); setMessage("Look link copied."); } catch { setMessage("Copy this look link:"); setShareUrl(url); } }
   const [shareUrl, setShareUrl] = useState("");
   function exportLook() { const url = URL.createObjectURL(new Blob([JSON.stringify(look(), null, 2)], { type: "application/json" })); const a = document.createElement("a"); a.href = url; a.download = "booger-website-look.json"; a.click(); URL.revokeObjectURL(url); setMessage("Website look exported."); }
   return <section className="section tight" id="studio">
-    <div className="sectionHead"><p>Try It On</p><h2>Your Look. Your Slime.</h2><span>Rotate the player, mix cosmetics, and share your favorite combination.</span></div>
+    <div className="sectionHead"><p>Try It On</p><h2>Your Look. Your Slime.</h2><span>Browse accessories, preview poses, and save your favorite outfits.</span></div>
     <div className="studioLayout">
       <div className="studioPreview">
         <div className="studioBadge">Interactive 3D preview</div>
         <div className="modelStage" role="img" aria-label={`Player wearing ${selected.join(", ") || "no cosmetics"}. ${pose} pose.`} onPointerDown={e => { e.currentTarget.setPointerCapture(e.pointerId); setDrag({ x: e.clientX, angle }); }} onPointerMove={e => { if (drag) setAngle(((drag.angle + (e.clientX - drag.x) * .6 + 180) % 360 + 360) % 360 - 180); }} onPointerUp={() => setDrag(null)} onPointerCancel={() => setDrag(null)}>
           <div className="studioFloor" />
           <div className="modelOrbit" style={{ transform: `rotateX(-8deg) rotateY(${angle}deg) scale(${zoom})` }}>
-            <div className={`playerModel pose${pose.replace(/\s/g, "")}`}>
+            <div className={`playerModel pose${pose.replace(/\s/g, "")} ${playing ? "" : "previewPaused"}`}>
               <Box name="head" w={64} h={64} d={64} x={-32} y={-154} texture={textures.head} />
               <Box name="torso" w={64} h={96} d={32} x={-32} y={-90} color="#9ea5ac" texture={textures.torso} />
               <div className={`modelArm armLeft ${slim?"slimArm":""}`}><Box name="arm" w={slim?24:32} h={96} d={32} x={slim?8:0} y={0} texture={textures.rightArm} /></div>
@@ -87,14 +135,16 @@ export default function CosmeticStudio() {
             </div>
           </div>
         </div>
+        <div className="viewButtons" role="group" aria-label="Player view">{[["Front",0],["Back",180],["Left",90],["Right",-90]].map(([label,value])=><button type="button" key={label} aria-pressed={angle===value} onClick={()=>setAngle(Number(value))}>{label}</button>)}</div>
         <div className="studioSliders"><label>Rotate <input aria-label="Rotate player" type="range" min="-180" max="180" value={angle} onChange={e=>setAngle(Number(e.target.value))}/></label><label>Zoom <input aria-label="Zoom player" type="range" min="0.7" max="1.2" step="0.05" value={zoom} onChange={e=>setZoom(Number(e.target.value))}/></label></div>
         <p className="smallNote">Drag to rotate. These are simplified website models; see the in-game screenshots below for actual cosmetic details.</p>
         <div className="skinControls"><h4>Try your own skin</h4><div className="toolActions"><label className="fileButton">Upload skin PNG<input type="file" accept="image/png,.png" onChange={async e=>{const file=e.target.files?.[0];if(file)await uploadSkin(file);e.target.value="";}}/></label>{skinName&&<button type="button" onClick={()=>{skinAtlas.current=null;setTextures({});setSkinName("");setMessage("Returned to the plain model.");}}>Remove skin</button>}</div><p className="skinFileName">{skinName||"Plain player model"}</p><label className="fieldLabel">Arm style<select value={slim?"slim":"classic"} onChange={e=>setSlim(e.target.value==="slim")}><option value="classic">Classic · 4 pixel arms</option><option value="slim">Slim · 3 pixel arms</option></select></label><label className="skinOverlay"><input type="checkbox" checked={overlay} onChange={e=>setOverlay(e.target.checked)}/> Show skin overlay layer</label><p className="smallNote">Use a 64 × 64 skin PNG or square HD skin. It stays in this browser and is not included in shared links or look files.</p></div>
       </div>
-      <div className="studioControls"><h3>Build your look</h3><p>Select accessories. Hats share one slot.</p><div className="cosmeticToggles">{options.map(id=><button type="button" key={id} aria-pressed={has(id)} className={has(id)?"selected":""} onClick={()=>toggle(id)}>{id}<span>{has(id)?"✓":"+"}</span></button>)}</div>
+      <div className="studioControls"><h3>Build your look</h3><p>{selected.length} equipped · hats share one slot.</p><div className="wardrobeCategories" role="group" aria-label="Wardrobe category">{(Object.keys(categories) as (keyof typeof categories)[]).map(c=><button type="button" key={c} aria-pressed={category===c} onClick={()=>setCategory(c)}>{c} <small>{categories[c].length}</small></button>)}</div><div className="cosmeticToggles">{categories[category].map(id=><button type="button" key={id} aria-pressed={has(id)} className={has(id)?"selected":""} onClick={()=>toggle(id)}>{id}<span>{has(id)?"✓":"+"}</span></button>)}</div>
 
         <label className="colorPicker">Accent color <input aria-label="Cosmetic accent color" type="color" value={color} onChange={e=>setColor(e.target.value)}/></label>
-        <label className="fieldLabel">Animation preview<select value={pose} onChange={e=>setPose(e.target.value)}>{["Idle","Wave","T-Pose","Spin"].map(p=><option key={p}>{p}</option>)}</select></label><p className="smallNote">Simple pose studies, not the client&apos;s exact emote animations. Pet Morph is shown in the client rather than on this player.</p>
+        <label className="fieldLabel">Animation preview<select value={pose} onChange={e=>setPose(e.target.value)}>{poses.map(p=><option key={p}>{p}</option>)}</select></label><button className="previewPlayback" type="button" aria-pressed={!playing} onClick={()=>setPlaying(!playing)}>{playing ? "Pause animation" : "Play animation"}</button><p className="smallNote">Simple pose studies, not the client&apos;s exact emote animations. Pet Morph is shown in the client rather than on this player.</p>
+        <div className="savedWardrobe"><h4>Saved outfits <span>{saved.length}/12</span></h4><label className="fieldLabel">Outfit name<input maxLength={40} value={outfitName} onChange={e=>setOutfitName(e.target.value)} placeholder="My slime setup" /></label><button className="saveOutfitButton" type="button" disabled={!savedReady||saved.length>=12} onClick={saveOutfit}>Save this outfit</button>{saved.length===0?<p className="smallNote">No saved outfits yet. Build a look and give it a name.</p>:<ul className="savedOutfits">{saved.map(item=><li key={item.id}><span className="outfitSwatch" style={{background:item.look.color}}/><div><strong>{item.name}</strong><small>{item.look.cosmetics.length} accessories · {item.look.pose}</small></div><button type="button" aria-label={`Load ${item.name}`} onClick={()=>{loadLook(item.look);setMessage(`Loaded ${item.name}.`);}}>Load</button><button type="button" aria-label={`Remove ${item.name}`} onClick={()=>{setSaved(items=>items.filter(x=>x.id!==item.id));setMessage(`Removed ${item.name}.`);}}>Remove</button></li>)}</ul>}<p className="smallNote">Saved on this device in this browser. Skin uploads are not saved. Export a look to keep a separate copy.</p></div>
         <div className="toolActions"><button type="button" onClick={share}>Share look</button><button type="button" onClick={exportLook}>Export look</button><label className="fileButton">Import look<input type="file" accept=".json,application/json" onChange={async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>10000)throw Error("Look file is too large.");loadLook(JSON.parse(await f.text()));setMessage("Website look imported.");}catch(err){setMessage(err instanceof Error?err.message:"Could not import look.");}e.target.value="";}}/></label><button type="button" onClick={()=>{setSelected([]);setAngle(-25);setZoom(1);setPose("Idle");setColor("#5dea77");setMessage("Look reset.");}}>Reset</button></div><p className="smallNote">Look files are for this website preview. They do not change your game profile.</p><p role="status">{message}</p>{shareUrl&&<input aria-label="Share look URL" readOnly value={shareUrl}/>}
       </div>
     </div>
