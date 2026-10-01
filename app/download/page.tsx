@@ -12,13 +12,13 @@ export default function DownloadPage() {
       <PageHeader eyebrow="Download" title="Booger Client Launcher"
         sub={d.ready ? `Version ${d.version} for Windows 10 and 11.` : <>Releasing <b className="testing">{d.releaseDate}</b>. The download appears here and in the Discord.</>} />
       <section className="section tight launcherSection">
-        <p className="releaseNotice">Early access begins Friday, October 2. <Link href="/support#bug-report">Report a bug</Link> · <Link href="/get-started">Setup instructions</Link></p>
+        <div className="releaseNotice"><strong>Early access · {d.releaseDate}, 2026</strong><p>{d.ready ? "The Windows installer is available below." : "The installer is not published yet. This page will link to it once it is available."} <Link href="/support">Need help or want to report a bug? →</Link></p></div>
         <div className="downloadBox">
           {d.ready ? (
             <>
               <a className="bigButton downloadBtn" href={d.url}>Download for Windows</a>
               <span className="downloadMeta">Version {d.version}{d.size && ` · ${d.size}`} · Windows 10/11 (64-bit) · Needs Minecraft: Java Edition</span>
-              <span className="downloadMeta">Download only from this official page. If Windows blocks the installer, check the file source and contact support. <Link href="/get-started">Full install steps</Link></span>
+              <span className="downloadMeta">Check the release source and publisher before running an installer. <Link href="/get-started">Full install steps</Link></span>
             </>
           ) : (
             <>

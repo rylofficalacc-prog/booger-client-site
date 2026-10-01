@@ -5,7 +5,7 @@ import { discordMemberCount } from "./discord";
 import { SITE_URL } from "./data";
 import "./globals.css";
 
-const DESCRIPTION = "A Minecraft 1.21.11 Fabric client with 19 modules, real 3D cosmetics, 19 emotes and its own launcher.";
+const DESCRIPTION = "A Minecraft 1.21.11 Fabric client with 19 modules, 80 cosmetics, 19 emotes and its own launcher.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -29,11 +29,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <body>
-        <main className="page">
+        <a className="skipLink" href="#main-content">Skip to content</a>
+        <div className="page">
           <Nav members={members} />
-          {children}
+          <main id="main-content">{children}</main>
           <Footer />
-        </main>
+        </div>
       </body>
     </html>
   );

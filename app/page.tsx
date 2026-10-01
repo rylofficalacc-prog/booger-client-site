@@ -1,95 +1,47 @@
 import Link from "next/link";
-import ModulePreviewCard from "./components/ModulePreviewCard";
-import { DISCORD, cosmetics, emotes, modules } from "./data";
-
-const pages = [
-  { href: "/modules", title: "Modules", icon: "◇", desc: `${modules.length} built-in modules: HUD, zoom, freelook, crosshair and more.`, image: "/images/shots/menu-hud.jpg" },
-  { href: "/cosmetics", title: "Cosmetics", icon: "❦", desc: `${cosmetics.length} real 3D cosmetics: wings, capes, pets, hats and more.`, image: "/images/shots/wings.jpg" },
-  { href: "/emotes", title: "Emotes", icon: "✦", desc: `${emotes.length} animated emotes, from Twerk to a full Backflip.`, image: "" },
-  { href: "/download", title: "Launcher", icon: "▶", desc: "One click installs everything and launches the game.", image: "/images/launcher-home.png" },
-];
+import { DISCORD, modules, emotes, COSMETIC_COUNT, launcherDownload } from "./data";
+import news from "../public/news.json";
 
 export default function Home() {
-  return (
-    <>
-      <section className="hero" id="top">
-        <div className="heroBg" />
-        <div className="shade" />
-        <div className="orb orbOne" />
-        <div className="orb orbTwo" />
-
-        <img className="heroRender heroLeft" src="/images/render-goose-cut.png" alt="Golden goose Minecraft render" />
-        <img className="heroRender heroRightTop" src="/images/render-king-cut.png" alt="Booger Client crown render" />
-        <img className="heroRender heroRightBottom" src="/images/render-purple-cut.png" alt="Purple cosmetic Minecraft render" />
-        <img className="heroRender heroTiny" src="/images/render-bloom-cut.png" alt="Dark Minecraft render" />
-
-        <div className="heroCenter">
-          <img className="heroLogo" src="/images/booger-logo.png" alt="Booger Client slime logo" />
-          <h1><span>Booger</span> Client</h1>
-          <p>A cleaner Minecraft Fabric client with {modules.length} modules, {cosmetics.length} cosmetics, {emotes.length} emotes and its own launcher.</p>
-          <div className="heroTags">
-            <span>{modules.length} Modules</span>
-            <i />
-            <span>3D Cosmetics</span>
-            <i />
-            <span>1.21.11 Fabric</span>
-          </div>
-          <div className="heroButtons">
-            <a className="bigButton" href={DISCORD}>Join Beta</a>
-            <Link className="bigButton dark" href="/get-started">Get Started</Link>
-          </div>
+  return <div className="homeV9">
+    <section className="launchHero">
+      <div className="launchCopy">
+        <span className="launchLabel"><i /> Early access · October 2, 2026</span>
+        <h1>Your world.<br />Your rules.<br /><span>Your Booger.</span></h1>
+        <p>A Minecraft client with personality. Make your HUD yours, find your favorite look, and bring a little slime to every session.</p>
+        <div className="launchButtons">
+          <Link className="bigButton" href="/download">{launcherDownload.ready ? "Download for Windows" : "Get ready for Friday"} <span aria-hidden="true">↗</span></Link>
+          <Link className="textButton" href="/cosmetics#studio">Build your look <span aria-hidden="true">→</span></Link>
         </div>
-
-        <section className="featureRow" aria-label="Client highlights">
-          <article className="featureCard performance">
-            <div className="featureIcon"><img className="ico" src="/icons/zap.svg" alt="" /></div>
-            <h3>Built To Actually Work</h3>
-            <p>Every button, toggle and slider does something real. Settings, keybinds and HUD layouts save automatically.</p>
-            <div className="bars">
-              <span className="bar hot" />
-              <span className="bar medium" />
-              <span className="bar small" />
-            </div>
-          </article>
-          <ModulePreviewCard />
-          <article className="featureCard version">
-            <div className="featureIcon cube"><img className="ico" src="/icons/monitor.svg" alt="" /></div>
-            <h3>Version Support</h3>
-            <h2>1.21.11<br />Fabric</h2>
-            <p>Focused on one version first so the client can actually become stable.</p>
-          </article>
-        </section>
-      </section>
-
-      <section className="section">
-        <div className="sectionHead">
-          <p>Explore</p>
-          <h2>What&apos;s Inside</h2>
-        </div>
-        <div className="exploreGrid">
-          {pages.map((p) => (
-            <Link className="exploreCard" href={p.href} key={p.href}>
-              {p.image ? <img src={p.image} alt="" /> : <div className="exploreTile">{emotes.slice(0, 6).map((e) => <span key={e}>{e}</span>)}</div>}
-              <div>
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-                <em>Open {p.title} →</em>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="section release">
-        <div className="releaseBox">
-          <div>
-            <p>Release Window</p>
-            <h2>Releasing Friday, October 2</h2>
-            <span>One installer, sign in with Microsoft, press Play. Join the Discord to get pinged the moment it&apos;s out.</span>
-          </div>
-          <a className="bigButton" href={DISCORD}>Join the Discord</a>
-        </div>
-      </section>
-    </>
-  );
+        <div className="launchCompatibility"><img src="/icons/boxes.svg" alt="" /> Minecraft Java · 1.21.11 Fabric · Windows launcher</div>
+      </div>
+      <div className="launchArtwork">
+        <span className="artLabel">A LITTLE SLIME. A LOT OF STYLE.</span>
+        <div className="artGrid" />
+        <img className="launchCharacter" src="/images/render-goose-cut.png" alt="Minecraft player with bright golden cosmetics" fetchPriority="high" />
+        <div className="lookSticker"><img src="/icons/sparkles.svg" alt="" /><div><strong>Make it yours</strong><span>Skins. Cosmetics. Emotes.</span></div></div>
+        <Link className="artLink" href="/cosmetics#studio">Enter the cosmetic studio <span>↗</span></Link>
+      </div>
+    </section>
+    <section className="launchStats" aria-label="Client highlights">
+      <div><strong>{modules.length}</strong><span>built-in modules</span></div>
+      <div><strong>{COSMETIC_COUNT}</strong><span>cosmetics in the client</span></div>
+      <div><strong>{emotes.length}</strong><span>emotes to express yourself</span></div>
+      <div><strong>100%</strong><span>free cosmetics</span></div>
+    </section>
+    <section className="homeSection">
+      <div className="homeHeading"><div><p>PLAY YOUR WAY</p><h2>A setup that feels like you.</h2></div><Link href="/modules">Explore all modules ↗</Link></div>
+      <div className="homeBento">
+        <Link href="/modules" className="bentoCard bentoHud"><div><span className="microLabel">01 / YOUR SETUP</span><h3>Less clutter.<br />More control.</h3><p>Move your HUD, customize keybinds, and build a setup for the way you play.</p></div><img src="/images/shots/menu-hud.jpg" alt="Booger Client HUD module menu" loading="lazy" /><span className="bentoArrow" aria-hidden="true">↗</span></Link>
+        <Link href="/cosmetics#studio" className="bentoCard bentoStyle"><div><span className="microLabel">02 / YOUR STYLE</span><h3>Find your signature look.</h3><p>Upload your skin and mix accessories in our interactive website studio.</p></div><img src="/images/render-purple-cut.png" alt="Purple Minecraft cosmetic look" loading="lazy" /><span className="bentoArrow" aria-hidden="true">↗</span></Link>
+        <Link href="/performance" className="bentoCard bentoPerformance"><img src="/icons/gauge.svg" alt="" /><span className="microLabel">03 / YOUR PACE</span><h3>Find your balance.</h3><p>Compare Low-End, Balanced, and Visual Quality settings before your next session.</p><span className="bentoArrow" aria-hidden="true">↗</span></Link>
+      </div>
+    </section>
+    <section className="homeSection launcherSpotlight"><div><p className="microLabel">ONE PLACE TO START</p><h2>Meet your<br /><span>new launcher.</span></h2><p>Sign in through Microsoft, manage your setup, and get into the game. The Windows download will appear here when early access opens.</p><Link className="textButton" href="/get-started">See the setup guide →</Link></div><Link href="/download"><img src="/images/launcher-home.png" alt="Booger Client launcher home screen" loading="lazy" /></Link></section>
+    <section className="homeSection">
+      <div className="homeHeading"><div><p>FRESH FROM DEVELOPMENT</p><h2>What&apos;s new?</h2></div><Link href="/changelog">Full changelog ↗</Link></div>
+      <div className="latestGrid">{news.items.slice(0,3).map(n=><Link href="/changelog" className="latestCard" key={n.version}><div><span>{n.tag}</span><time dateTime={n.date}>{new Date(n.date+"T12:00:00Z").toLocaleDateString("en-US",{month:"short",day:"numeric",timeZone:"UTC"})}</time></div><strong>{n.version}</strong><h3>{n.title}</h3><p>{n.text}</p><span className="latestArrow">Read update →</span></Link>)}</div>
+    </section>
+    <section className="homeSection"><div className="communityBand"><div><p className="microLabel">BUILDING THIS TOGETHER</p><h2>Be here for the first drop.</h2><p>Early access starts Friday, October 2. Join the community for release news, share feedback, and help shape what comes next.</p></div><div className="communityActions"><a className="bigButton" href={DISCORD}>Join the Discord ↗</a><Link href="/roadmap">See what&apos;s next →</Link><Link href="/support">Report a bug or suggest a feature →</Link></div></div></section>
+  </div>;
 }

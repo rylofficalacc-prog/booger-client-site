@@ -10,7 +10,6 @@ export default function EmotesPage() {
       <PageHeader eyebrow="Emotes" title={`${emotes.length} Emotes`}
         sub={<>Press <kbd>B</kbd> for the emote wheel. Emotes blend in smoothly, and some move your whole body - jumps, spins and a full backflip.</>} />
       <section className="section tight">
-        <p className="releaseNotice">Try simple Wave, T-Pose and Spin studies in the <a href="/cosmetics#studio">interactive player studio →</a></p>
         <div className="emoteGrid">
           {emotes.map((e) => <span className="emote" key={e}>{e}</span>)}
         </div>
