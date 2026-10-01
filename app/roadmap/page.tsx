@@ -9,7 +9,7 @@ export default function RoadmapPage() {
     <>
       <PageHeader eyebrow="Roadmap" title="What's Next" sub="Planned items aren't promises or dates - they're what we're working toward. Follow progress in the Discord." />
       <section className="section tight">
-        <p className="releaseNotice">Have an idea? <a href="/support#feedback">Browse feature requests and vote →</a></p>
+        <p className="releaseNotice">Have an idea? <a href="/support#feedback">Suggest a feature and vote →</a></p>
         <div className="roadmap">
           {roadmap.map((col) => (
             <div className="roadCol" key={col.status} style={{ ["--c" as string]: col.color }}>
