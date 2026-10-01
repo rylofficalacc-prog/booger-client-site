@@ -1,6 +1,35 @@
 {
   "items": [
     {
+      "version": "V26.2",
+      "title": "Waypoints",
+      "tag": "UPDATE",
+      "color": "blue",
+      "date": "2026-09-30",
+      "text": "Press N to mark a spot and see its name and distance on screen.",
+      "changes": [
+        "Press N to drop a waypoint where you stand",
+        "Name and distance on screen, edge markers when it's behind you",
+        "A Death waypoint where you last died",
+        "Saved per server, world and dimension",
+        "Rename, recolor, hide or delete them"
+      ]
+    },
+    {
+      "version": "V26",
+      "title": "80 cosmetics",
+      "tag": "COSMETIC",
+      "color": "pink",
+      "date": "2026-09-30",
+      "text": "30 capes, 17 trails and 23 accessories - every cape is now its own cosmetic.",
+      "changes": [
+        "30 capes, each its own cosmetic (Galaxy, Lava, Aurora, Vaporwave, Dark Matter and more)",
+        "17 trails: stars, hearts, soul flame, enchant, totem, firework and more",
+        "23 accessories: beanie, cowboy hat, wizard hat, headphones, sunglasses, scarf, jetpack and more",
+        "New cosmetics menu: grid with categories"
+      ]
+    },
+    {
       "version": "Launcher 2.0",
       "title": "One-click installer",
       "tag": "LAUNCHER",
