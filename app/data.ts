@@ -3,7 +3,7 @@ export type Category = "HUD" | "Visual" | "Utility" | "Player";
 export type Module = { name: string; icon: string; tag: Category; desc: string; key?: string };
 
 /** Total cosmetics in the client (the Cosmetics page only shows photos of some). */
-export const COSMETIC_COUNT = 80;
+export const COSMETIC_COUNT = 110;
 
 export const DISCORD = "https://discord.gg/5HxHgKdfMu";
 export const CATEGORIES: ("All" | Category)[] = ["All", "HUD", "Visual", "Utility", "Player"];
@@ -38,7 +38,7 @@ export const modules: Module[] = [
 
 export const cosmetics: { name: string; color: string; icon: string; image?: string; desc: string }[] = [
   { name: "Neon Slime Wings", color: "#7dff67", icon: "sparkles", image: "/images/shots/wings.jpg", desc: "Glowing, translucent 3D wings that flap as you walk and tuck in when you sneak." },
-  { name: "Booger Cape", color: "#26bdf2", icon: "sparkles", image: "/images/shots/cape.jpg", desc: "30 cape designs, including Booger Logo, Slime Drip, Galaxy, Flame, Midnight and Rainbow." },
+  { name: "Booger Cape", color: "#26bdf2", icon: "sparkles", image: "/images/shots/cape.jpg", desc: "50 cape designs, including Booger Logo, Slime Drip, Galaxy, Flame, Midnight and Rainbow." },
   { name: "Shoulder Slime", color: "#7dff67", icon: "sparkles", image: "/images/shots/shoulder-slime.jpg", desc: "A tiny slime pet on your shoulder that hops, squishes and blinks." },
   { name: "Player Pet", color: "#26bdf2", icon: "sparkles", image: "/images/shots/player-pet.jpg", desc: "A mini player walks beside you. Your skin, or type any username to wear theirs." },
   { name: "Slime Crown", color: "#ffd84a", icon: "sparkles", image: "/images/shots/crown.jpg", desc: "A crown with glowing slime gems. Pick the metal and gem colors." },
@@ -78,13 +78,13 @@ export const clientFeatures = [
 
 
 /** Flip ready to true and fill in url + version when the launcher installer is published. */
-// On release day: set ready to true and replace YOUR-GITHUB-NAME/booger-launcher with your launcher releases repo.
+// Set ready to true only after the release asset is publicly available.
 // "releases/latest/download" always points at the newest BoogerInstaller.exe, so you never have to edit this again.
 export const launcherDownload = {
   ready: false,
-  url: "https://github.com/YOUR-GITHUB-NAME/booger-launcher/releases/latest/download/BoogerInstaller.exe",
+  url: "https://github.com/rylofficalacc-prog/booger-launcher/releases/latest/download/BoogerInstaller.exe",
   version: "2.0",
-  size: "about 110 MB",
+  size: "114.5 MB",
   releaseDate: "Friday, October 2",
 };
 
@@ -106,7 +106,7 @@ export type RoadmapItem = { title: string; desc: string };
 export const roadmap: { status: "Done" | "In Progress" | "Planned"; color: string; items: RoadmapItem[] }[] = [
   { status: "Done", color: "#7dff67", items: [
     { title: "19 modules", desc: "HUD, zoom, freelook, crosshair, low fire, low shield and more." },
-    { title: "80 cosmetics", desc: "30 capes, 17 trails and 23 accessories, plus wings, pets and more." },
+    { title: "110 cosmetics", desc: "50 capes, 27 trails and 23 accessories, plus wings, pets and more." },
     { title: "19 emotes", desc: "Smooth blending and whole-body moves." },
     { title: "Profiles and HUD editor", desc: "Separate setups and drag-and-drop HUD." },
     { title: "Installer and launcher", desc: "One installer; Java, Fabric and updates are automatic." },

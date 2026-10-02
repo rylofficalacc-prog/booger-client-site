@@ -5,7 +5,7 @@ import { discordMemberCount } from "./discord";
 import { SITE_URL } from "./data";
 import "./globals.css";
 
-const DESCRIPTION = "A Minecraft 1.21.11 Fabric client with 19 modules, 80 cosmetics, 19 emotes and its own launcher.";
+const DESCRIPTION = "A Minecraft 1.21.11 Fabric client with 19 modules, 110 cosmetics, 19 emotes and its own launcher.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
