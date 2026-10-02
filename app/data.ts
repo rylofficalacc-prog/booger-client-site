@@ -81,7 +81,7 @@ export const clientFeatures = [
 // Set ready to true only after the release asset is publicly available.
 // "releases/latest/download" always points at the newest BoogerInstaller.exe, so you never have to edit this again.
 export const launcherDownload = {
-  ready: false,
+  ready: true,
   url: "https://github.com/rylofficalacc-prog/booger-launcher/releases/latest/download/BoogerInstaller.exe",
   version: "2.0",
   size: "114.5 MB",
@@ -105,6 +105,7 @@ export const keybinds = [
 export type RoadmapItem = { title: string; desc: string };
 export const roadmap: { status: "Done" | "In Progress" | "Planned"; color: string; items: RoadmapItem[] }[] = [
   { status: "Done", color: "#7dff67", items: [
+    { title: "Public early access", desc: "The Windows installer is available from October 2, 2026." },
     { title: "19 modules", desc: "HUD, zoom, freelook, crosshair, low fire, low shield and more." },
     { title: "110 cosmetics", desc: "50 capes, 27 trails and 23 accessories, plus wings, pets and more." },
     { title: "19 emotes", desc: "Smooth blending and whole-body moves." },
@@ -114,7 +115,6 @@ export const roadmap: { status: "Done" | "In Progress" | "Planned"; color: strin
     { title: "Waypoints", desc: "Mark places and find your way back." },
   ] },
   { status: "In Progress", color: "#ffd84a", items: [
-    { title: "Public release", desc: "Booger Client launches Friday, October 2." },
     { title: "Code signing", desc: "So Windows stops warning about the installer." },
   ] },
   { status: "Planned", color: "#26bdf2", items: [
@@ -124,3 +124,4 @@ export const roadmap: { status: "Done" | "In Progress" | "Planned"; color: strin
     { title: "More cosmetics and emotes", desc: "Based on what the community asks for." },
   ] },
 ];
+
