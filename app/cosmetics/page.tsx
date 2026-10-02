@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Cosmetics" };
 export default function CosmeticsPage() {
   return (
     <>
-      <PageHeader eyebrow="Cosmetics" title="Real 3D Cosmetics" sub="80 cosmetics: 30 capes, 17 trails, 23 accessories, wings, pets and more. All free. Screenshots below are taken in game." />
+      <PageHeader eyebrow="Cosmetics" title="Real 3D Cosmetics" sub="110 cosmetics: 50 capes, 27 trails, 23 accessories, wings, pets and more. All free. Screenshots below are taken in game." />
       <div className="pageQuickLinks"><a href="#studio">Try your skin →</a><a href="#catalog">Browse the showcase →</a></div>
       <CosmeticStudio />
       <section className="section tight"><CosmeticsExplorer /></section>
