@@ -1,6 +1,20 @@
 {
   "items": [
     {
+      "version": "V27",
+      "title": "New menu and 110 cosmetics",
+      "tag": "UPDATE",
+      "color": "green",
+      "date": "2026-10-02",
+      "text": "A redesigned menu with a side rail, search and favorites, plus 30 more cosmetics.",
+      "changes": [
+        "New menu: side rail, page titles and search",
+        "Favorite your mods with the heart - they stay on top",
+        "Cosmetics store: big cards with real cape artwork",
+        "20 new capes and 10 new trails - 110 cosmetics in total"
+      ]
+    },
+    {
       "version": "V26.2",
       "title": "Waypoints",
       "tag": "UPDATE",
