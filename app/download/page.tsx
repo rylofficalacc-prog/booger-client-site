@@ -10,7 +10,7 @@ export default function DownloadPage() {
   return (
     <>
       <PageHeader eyebrow="Download" title="Booger Client Launcher"
-        sub={d.ready ? `Version ${d.version} for Windows 10 and 11.` : <>Releasing <b className="testing">{d.releaseDate}</b>. The download appears here and in the Discord.</>} />
+        sub={d.ready ? `Version ${d.version} for Windows 10 and 11.` : <>Releasing <b className="testing">{d.releaseDate}</b>. The installer is being prepared. Check here or join Discord for availability.</>} />
       <section className="section tight launcherSection">
         <div className="releaseNotice"><strong>Early access · {d.releaseDate}, 2026</strong><p>{d.ready ? "The Windows installer is available below." : "The installer is not published yet. This page will link to it once it is available."} <Link href="/support">Need help or want to report a bug? →</Link></p></div>
         <div className="downloadBox">
@@ -22,7 +22,7 @@ export default function DownloadPage() {
             </>
           ) : (
             <>
-              <span className="bigButton downloadBtn disabled" aria-disabled="true">Coming Soon</span>
+              <span className="bigButton downloadBtn disabled" aria-disabled="true">Installer coming soon</span>
               <span className="downloadMeta">Join the <a href={DISCORD}>Discord</a> to get pinged on release day.</span>
             </>
           )}
