@@ -1,0 +1,11 @@
+{
+  "channel": "stable",
+  "boogerVersion": "28.0.0",
+  "minecraftVersion": "1.21.11",
+  "fabricLoaderVersion": "0.19.5",
+  "javaVersion": 21,
+  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.0.0/boogerclient-28.0.0.jar",
+  "clientSha256": "9cab273e370f82f0006d33b694c05888c458e8efa0a5004451cdbf08fc84a348",
+  "released": "2026-10-09",
+  "notes": "Minimap, smoother emotes, 6 new emotes, Clock, Speedometer, Ping, Memory"
+}
