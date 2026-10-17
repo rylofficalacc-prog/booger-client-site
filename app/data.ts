@@ -83,9 +83,9 @@ export const clientFeatures = [
 export const launcherDownload = {
   ready: true,
   url: "https://github.com/rylofficalacc-prog/booger-launcher/releases/latest/download/BoogerInstaller.exe",
-  version: "2.0",
-  size: "114.5 MB",
-  releaseDate: "Friday, October 2",
+  version: "2.2",
+  size: "114.6 MB",
+  releaseDate: "Saturday, October 17",
 };
 
 export const DISCORD_INVITE_CODE = "5HxHgKdfMu";
