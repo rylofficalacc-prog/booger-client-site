@@ -1,11 +1,11 @@
 {
   "channel": "beta",
-  "boogerVersion": "28.1.1",
+  "boogerVersion": "28.2.0",
   "minecraftVersion": "1.21.11",
   "fabricLoaderVersion": "0.19.5",
   "javaVersion": 21,
-  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.1.1/boogerclient-28.1.1.jar",
-  "clientSha256": "b5026dd79f1eda14f0f27d710da687cc53ffe63f4d109c8bc91244e82bfa03dd",
+  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.2.0/boogerclient-28.2.0.jar",
+  "clientSha256": "d7a4fe61ae1c126d514854d74ae38e7ebe278200aa675be3091b3de7e32f5361",
   "released": "2026-10-17",
-  "notes": "Fix: emotes now animate with FPS Reducer and other FPS-limiter mods"
+  "notes": "Halloween update: spooky cosmetics and emotes, October menu look, new minimap"
 }
