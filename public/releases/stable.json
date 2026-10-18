@@ -1,11 +1,11 @@
 {
   "channel": "stable",
-  "boogerVersion": "28.3.0",
+  "boogerVersion": "28.3.1",
   "minecraftVersion": "1.21.11",
   "fabricLoaderVersion": "0.19.5",
   "javaVersion": 21,
-  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.3.0/boogerclient-28.3.0.jar",
-  "clientSha256": "7f134999f3cb851f6c356835caa91e3567ef8efb50b5cd2ec775523acb6ad815",
+  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.3.1/boogerclient-28.3.1.jar",
+  "clientSha256": "9f0d582c8120a9714c5f84e687c5be1d3956c89995446fee6fa8ef46c325503d",
   "released": "2026-10-17",
-  "notes": "Chat+, coloured hitboxes, compact F3, item tweaks with shulker previews, Discord status, a nicer menu with 3D cosmetic previews, more detailed hats and better emotes"
+  "notes": "Discord Status turned on, plus Chat+, coloured hitboxes, compact F3, item tweaks, 3D cosmetic previews, detailed hats and better emotes"
 }
