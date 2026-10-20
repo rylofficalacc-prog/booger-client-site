@@ -1,8 +1,10 @@
 import Link from "next/link";
+import PlayerPhotos from "./components/PlayerPhotos";
 import { DISCORD } from "./data";
 
 export default function Home() {
   return (
+    <>
     <section className="hauntHero" aria-labelledby="intro-title">
       <div className="hauntScenery" aria-hidden="true" />
       <div className="hauntHeroInner">
@@ -21,6 +23,8 @@ export default function Home() {
           <div className="hauntOrbit" /><div className="hauntMoon" />
           <span className="hauntBat batOne" /><span className="hauntBat batTwo" /><span className="hauntBat batThree" />
           <div className="hauntWorldGlow" />
+          <img className="hauntFriend hauntFriendGoose" src="/images/render-goose-cut.png" alt="" fetchPriority="high" />
+          <img className="hauntFriend hauntFriendBloom" src="/images/render-bloom-cut.png" alt="" fetchPriority="high" />
           <img className="hauntCharacter" src="/images/render-purple-cut.png" alt="" fetchPriority="high" />
           <div className="hauntPedestal"><i /><i /><i /></div>
           <img className="hauntVoxelPumpkin pumpkinOne" src="/images/halloween-pumpkin.svg" alt="" />
@@ -30,5 +34,7 @@ export default function Home() {
         </div>
       </div>
     </section>
+    <PlayerPhotos />
+    </>
   );
 }
