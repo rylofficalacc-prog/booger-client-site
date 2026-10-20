@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import { discordMemberCount } from "./discord";
 import { SITE_URL } from "./data";
 import "./globals.css";
+import "./halloween.css";
 
-const DESCRIPTION = "A Minecraft 1.21.11 Fabric client with 19 modules, 110 cosmetics, 19 emotes and its own launcher.";
+const DESCRIPTION = "Make Minecraft yours with Booger Client. Download the Windows launcher and join our Discord.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -22,16 +22,15 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "Booger Client", description: DESCRIPTION, images: ["/og.png"] },
 };
 
-export const viewport: Viewport = { themeColor: "#7dff67" };
+export const viewport: Viewport = { themeColor: "#100d16" };
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const members = await discordMemberCount();
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="halloweenSite">
         <a className="skipLink" href="#main-content">Skip to content</a>
         <div className="page">
-          <Nav members={members} />
+          <Nav />
           <main id="main-content">{children}</main>
           <Footer />
         </div>

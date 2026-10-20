@@ -1,51 +1,26 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import PageHeader from "../components/PageHeader";
 import { DISCORD, launcherDownload } from "../data";
 
-export const metadata: Metadata = { title: "Download", description: "Download the Booger Client launcher." };
+export const metadata: Metadata = { title: "Download", description: "Download the Booger Client launcher for Windows." };
 
 export default function DownloadPage() {
   const d = launcherDownload;
   return (
-    <>
-      <PageHeader eyebrow="Download" title="Booger Client Launcher"
-        sub={d.ready ? `Version ${d.version} for Windows 10 and 11.` : <>Releasing <b className="testing">{d.releaseDate}</b>. The installer is being prepared. Check here or join Discord for availability.</>} />
-      <section className="section tight launcherSection">
-        <div className="releaseNotice"><strong>Early access · {d.releaseDate}, 2026</strong><p>{d.ready ? "The Windows installer is available below." : "The installer is not published yet. This page will link to it once it is available."} <Link href="/support">Need help or want to report a bug? →</Link></p></div>
-        <div className="downloadBox">
-          {d.ready ? (
-            <>
-              <a className="bigButton downloadBtn" href={d.url}>Download for Windows</a>
-              <span className="downloadMeta">Version {d.version}{d.size && ` · ${d.size}`} · Windows 10/11 (64-bit) · Needs Minecraft: Java Edition</span>
-              <span className="downloadMeta">Check the release source and publisher before running an installer. <Link href="/get-started">Full install steps</Link></span>
-            </>
-          ) : (
-            <>
-              <span className="bigButton downloadBtn disabled" aria-disabled="true">Installer coming soon</span>
-              <span className="downloadMeta">Join the <a href={DISCORD}>Discord</a> to get pinged on release day.</span>
-            </>
-          )}
-        </div>
-        <div className="launcherBox">
-          <div className="launcherText">
-            <h2>One Click To Play</h2>
-            <ul>
-              <li>One installer: Java, Minecraft 1.21.11 and Booger Client are set up for you</li>
-              <li>Updates itself and Booger Client automatically</li>
-              <li>Official Microsoft sign-in - your password never touches the launcher</li>
-              <li>Turn mods on or off before you launch</li>
-              <li>3D skin viewer that shows your cosmetics</li>
-              <li>Multiple accounts, skins, server list and screenshots</li>
-            </ul>
-            <p className="smallNote">See our <Link href="/privacy">privacy page</Link> for exactly what the launcher stores.</p>
-          </div>
-          <div className="launcherShots">
-            <img className="shotMain" src="/images/launcher-home.png" alt="Booger Client launcher home screen" />
-            <img className="shotSide" src="/images/launcher-mods.png" alt="Booger Client launcher mods page" />
-          </div>
-        </div>
-      </section>
-    </>
+    <section className="hauntDownload" aria-labelledby="download-title">
+      <div className="hauntDownloadCopy">
+        <p className="hauntSeason">Your next session starts here</p>
+        <h1 id="download-title">LET’S PLAY<span>MINECRAFT.</span></h1>
+        <p className="hauntDescription">Install the Booger Client launcher, sign in with Microsoft, and make yourself at home.</p>
+        {d.ready ? <a className="hauntButton hauntPrimary" href={d.url}>Download for Windows <span aria-hidden="true">↓</span></a> : <p className="hauntDescription">The installer is coming soon. Join Discord for availability.</p>}
+        <p className="hauntCompatibility">{d.ready && <>Launcher {d.version}{d.size && ` · ${d.size}`}<br /></>}Windows 10 / 11 (64-bit) · Minecraft: Java Edition required</p>
+        <ol className="hauntSteps">
+          <li><span>01</span>Download and open the installer.</li>
+          <li><span>02</span>Sign in with your Microsoft account.</li>
+          <li><span>03</span>Launch Booger Client and play.</li>
+        </ol>
+        <p className="hauntHelp">Need a hand? <a href={DISCORD}>Ask us on Discord ↗</a></p>
+      </div>
+      <figure className="hauntLauncher"><img src="/images/launcher-home.png" alt="Booger Client launcher home screen" fetchPriority="high" /><figcaption>The Booger Client launcher</figcaption></figure>
+    </section>
   );
 }
