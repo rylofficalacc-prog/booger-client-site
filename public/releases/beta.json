@@ -1,11 +1,55 @@
 {
   "channel": "beta",
-  "boogerVersion": "28.3.3",
+  "boogerVersion": "28.5.0",
   "minecraftVersion": "1.21.11",
   "fabricLoaderVersion": "0.19.5",
   "javaVersion": 21,
-  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.3.3/boogerclient-28.3.3.jar",
-  "clientSha256": "ba25685dd7c2eefcde5507aba6a4016c27599162c95c2bd630a4f610a8d001a1",
-  "released": "2026-10-17",
-  "notes": "Discord Status turned on, plus Chat+, coloured hitboxes, compact F3, item tweaks, 3D cosmetic previews, detailed hats and better emotes"
+  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.5.0/boogerclient-28.5.0%2Bmc1.21.11.jar",
+  "clientSha256": "372cbd8dc07a053105d949e9cf17f47fd7d7e950130eeb81434ff247ff3d093f",
+  "released": "2026-10-23",
+  "notes": "New: Auras - Energy Shield, Fire Tornado, Magic Circle and Orbiting Orbs, free for everyone. Other Booger players now see your cosmetics (turn off with Show others). New Keyboard Overlay HUD: keyboard and mouse that light up what you hold. Works on Minecraft 1.21.11 through 26.3 - pick your version in the launcher.",
+  "builds": [
+    {
+      "minecraftVersion": "26.3",
+      "fabricLoaderVersion": "0.19.5",
+      "javaVersion": 25,
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.5.0/boogerclient-28.5.0%2Bmc26.3.jar",
+      "clientSha256": "9cb9cd1ccfa99046be8516d706e188fd3cf733ad160b4f807733eba4bb00a0d0"
+    },
+    {
+      "minecraftVersion": "26.2",
+      "fabricLoaderVersion": "0.19.5",
+      "javaVersion": 25,
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.5.0/boogerclient-28.5.0%2Bmc26.2.jar",
+      "clientSha256": "22288fe88e6e9ed99face2f07c25fcce6ba7296ad511f27a4bec8a595fbb0891"
+    },
+    {
+      "minecraftVersion": "26.1.2",
+      "fabricLoaderVersion": "0.19.5",
+      "javaVersion": 25,
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.5.0/boogerclient-28.5.0%2Bmc26.1.2.jar",
+      "clientSha256": "7170a4ccd4d7692a7ea11c027c882c273d2bf4620e9dbbb0393e59cbdf660d37"
+    },
+    {
+      "minecraftVersion": "26.1.1",
+      "fabricLoaderVersion": "0.19.5",
+      "javaVersion": 25,
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.5.0/boogerclient-28.5.0%2Bmc26.1.1.jar",
+      "clientSha256": "b980d2480fa433e04abac960b224773af6e8df52c66e74088954f99aafcb79be"
+    },
+    {
+      "minecraftVersion": "26.1",
+      "fabricLoaderVersion": "0.19.5",
+      "javaVersion": 25,
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.5.0/boogerclient-28.5.0%2Bmc26.1.jar",
+      "clientSha256": "67f5d6c72163d344143e5e408ff97b8e1b35d69e905b7e22996adb1dac7626e3"
+    },
+    {
+      "minecraftVersion": "1.21.11",
+      "fabricLoaderVersion": "0.19.5",
+      "javaVersion": 21,
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.5.0/boogerclient-28.5.0%2Bmc1.21.11.jar",
+      "clientSha256": "372cbd8dc07a053105d949e9cf17f47fd7d7e950130eeb81434ff247ff3d093f"
+    }
+  ]
 }
