@@ -1,6 +1,60 @@
 {
   "items": [
     {
+      "version": "V28.6",
+      "title": "Brand-new main menu",
+      "tag": "UPDATE",
+      "color": "green",
+      "date": "2026-10-23",
+      "text": "Booger has its own title screen: your 3D skin runs around behind the buttons while snot2 watches.",
+      "changes": [
+        "Black title screen with the new Booger Client logo",
+        "Your own 3D skin, wearing your cosmetics, runs all over the screen",
+        "snot2 sits in the corner and follows you with his head",
+        "Switch to the Minecraft background, or turn the menu off in settings"
+      ]
+    },
+    {
+      "version": "Launcher 2.4",
+      "title": "Pick your version on the Play button",
+      "tag": "LAUNCHER",
+      "color": "blue",
+      "date": "2026-10-23",
+      "text": "Choose your Minecraft version right on the Play button, and join your servers from the new Quick play panel.",
+      "changes": [
+        "The version sits on the Play button: click it to switch",
+        "Quick play: your saved servers with live player counts and a Join button",
+        "Each version keeps its own mods, settings and worlds"
+      ]
+    },
+    {
+      "version": "V28.5",
+      "title": "Auras and shared cosmetics",
+      "tag": "COSMETIC",
+      "color": "pink",
+      "date": "2026-10-23",
+      "text": "Four glowing auras, free for everyone, and other Booger players can now see your cosmetics.",
+      "changes": [
+        "Auras: Energy Shield, Fire Tornado, Magic Circle and Orbiting Orbs",
+        "Pick an aura colour and glow strength",
+        "See other Booger players’ cosmetics, and they see yours",
+        "New Keyboard Overlay HUD: a keyboard and mouse that light up what you press"
+      ]
+    },
+    {
+      "version": "V28.4",
+      "title": "Play on any version",
+      "tag": "UPDATE",
+      "color": "gold",
+      "date": "2026-10-23",
+      "text": "Booger Client now runs on Minecraft 1.21.11, 26.1, 26.1.1, 26.1.2, 26.2 and 26.3.",
+      "changes": [
+        "Six Minecraft versions from one Booger Client",
+        "The launcher sets up the right Java for each version",
+        "Your mods and settings stay separate per version"
+      ]
+    },
+    {
       "version": "V27",
       "title": "New menu and 110 cosmetics",
       "tag": "UPDATE",
