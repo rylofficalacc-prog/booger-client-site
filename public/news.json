@@ -1,6 +1,19 @@
 {
   "items": [
     {
+      "version": "V28.6.2",
+      "title": "Sharper badges",
+      "tag": "UPDATE",
+      "color": "gold",
+      "date": "2026-10-24",
+      "text": "The Booger logo in front of names is now 128x128, so badges look crisp in the tab list, on name tags and in chat.",
+      "changes": [
+        "Badge logo 128x128, up from 16x16",
+        "Made from the full-size Booger emblem: outline, eyes and drips stay sharp",
+        "Every badge colour works as before, and names don’t move"
+      ]
+    },
+    {
       "version": "V28.6.1",
       "title": "High-resolution capes",
       "tag": "COSMETIC",
