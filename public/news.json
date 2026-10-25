@@ -1,6 +1,19 @@
 {
   "items": [
     {
+      "version": "V28.6.3",
+      "title": "Owner bans",
+      "tag": "UPDATE",
+      "color": "red",
+      "date": "2026-10-24",
+      "text": "Owners can ban players from Booger online for an hour, a day, a week or for good.",
+      "changes": [
+        "New Bans section in the owner panel, with time left on every ban",
+        "A banned player is signed out of Booger online at once",
+        "Banned players see why instead of a connection error"
+      ]
+    },
+    {
       "version": "V28.6.2",
       "title": "Sharper badges",
       "tag": "UPDATE",
