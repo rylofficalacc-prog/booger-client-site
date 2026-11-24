@@ -1,55 +1,55 @@
 {
   "channel": "beta",
-  "boogerVersion": "28.6.3",
+  "boogerVersion": "28.7.0",
   "minecraftVersion": "1.21.11",
   "fabricLoaderVersion": "0.19.5",
   "javaVersion": 21,
-  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.6.3/boogerclient-28.6.3%2Bmc1.21.11.jar",
-  "clientSha256": "f796185bd4a03afc5a56b79bdc1c31c1a7c378432f7d0edc2c01e4e0020cd0ca",
-  "released": "2026-10-25",
-  "notes": "Owner tools: ban players from Booger online for an hour, a day, a week or permanently, from the owner panel. Banned players see why. Plus everything in 28.6.2: sharper badges, HD capes and the new main menu.",
+  "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.7.0/boogerclient-28.7.0%2Bmc1.21.11.jar",
+  "clientSha256": "1911260fcb97a3b8570948df05f5e2d0cb57c52fe156d2c639c880f3d61b638c",
+  "released": "2026-11-24",
+  "notes": "GuavaMC x Booger: the GuavaMC Cape, Guava Buddy (a shoulder pet) and the Eat Guava emote, free for everyone under the new GuavaMC chip. Every emote now bends at the elbows and knees, and held items stay in your hand. The Booger Cape shows the real Booger logo. New main menu top bar with your profile, icons for every Booger page, and Flashback replays.",
   "builds": [
     {
       "minecraftVersion": "26.3",
       "fabricLoaderVersion": "0.19.5",
       "javaVersion": 25,
-      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.6.3/boogerclient-28.6.3%2Bmc26.3.jar",
-      "clientSha256": "547dfaf0eb937440795eb1ae962e259b3f7c9bd3477d36ce45f603831918ed63"
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.7.0/boogerclient-28.7.0%2Bmc26.3.jar",
+      "clientSha256": "ca741eb77ae4d3feae6ee926e2f5d5a5c79aea92365ba4ce8c57920cefc733cf"
     },
     {
       "minecraftVersion": "26.2",
       "fabricLoaderVersion": "0.19.5",
       "javaVersion": 25,
-      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.6.3/boogerclient-28.6.3%2Bmc26.2.jar",
-      "clientSha256": "2192329a048cebf0d75eea3bbf34a77bc20b3b11e81d8be899747b46c22a3746"
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.7.0/boogerclient-28.7.0%2Bmc26.2.jar",
+      "clientSha256": "40184e214bb6764bcb38fd44f5ea9b5605744dd338957a5fb805c7f882c2d51e"
     },
     {
       "minecraftVersion": "26.1.2",
       "fabricLoaderVersion": "0.19.5",
       "javaVersion": 25,
-      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.6.3/boogerclient-28.6.3%2Bmc26.1.2.jar",
-      "clientSha256": "8f90ac63c9533ee6731e44d1d1169ea889ee8cba3fb70ccbe983ed6d75e61d2a"
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.7.0/boogerclient-28.7.0%2Bmc26.1.2.jar",
+      "clientSha256": "8f53db1b3d82632304fe573094ff4a9fd9522db2c90ad719fd7dd1b18fd96a27"
     },
     {
       "minecraftVersion": "26.1.1",
       "fabricLoaderVersion": "0.19.5",
       "javaVersion": 25,
-      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.6.3/boogerclient-28.6.3%2Bmc26.1.1.jar",
-      "clientSha256": "e255f8eada9ee594c9466c114d0bdeb7ca85331f1052decd44a1346548e0bd43"
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.7.0/boogerclient-28.7.0%2Bmc26.1.1.jar",
+      "clientSha256": "0a9d5a2b85513bfb13ba13ba8f5e00f1404b2992d92777c06a63f6c349cec3b3"
     },
     {
       "minecraftVersion": "26.1",
       "fabricLoaderVersion": "0.19.5",
       "javaVersion": 25,
-      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.6.3/boogerclient-28.6.3%2Bmc26.1.jar",
-      "clientSha256": "3bdb556150584f65524ad9c102ceec589c74c1c723411fb72cd3272c187f4dc6"
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.7.0/boogerclient-28.7.0%2Bmc26.1.jar",
+      "clientSha256": "b56c811de604659c888ae917d0392207862825d32a62cf43ec9b848baf5072ad"
     },
     {
       "minecraftVersion": "1.21.11",
       "fabricLoaderVersion": "0.19.5",
       "javaVersion": 21,
-      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.6.3/boogerclient-28.6.3%2Bmc1.21.11.jar",
-      "clientSha256": "f796185bd4a03afc5a56b79bdc1c31c1a7c378432f7d0edc2c01e4e0020cd0ca"
+      "clientUrl": "https://github.com/rylofficalacc-prog/booger-client-site/releases/download/client-v28.7.0/boogerclient-28.7.0%2Bmc1.21.11.jar",
+      "clientSha256": "1911260fcb97a3b8570948df05f5e2d0cb57c52fe156d2c639c880f3d61b638c"
     }
   ]
 }
