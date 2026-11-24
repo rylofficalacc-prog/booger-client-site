@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "version": "V28.7.0",
+      "title": "GuavaMC x Booger",
+      "tag": "COSMETIC",
+      "color": "green",
+      "date": "2026-11-24",
+      "text": "Booger and GuavaMC have partnered: three free GuavaMC cosmetics, and every emote now bends at the elbows and knees.",
+      "changes": [
+        "GuavaMC Cape, in HD, with GuavaMC’s guava on their green",
+        "Guava Buddy: a little guava that rides on your shoulder, bobs and blinks",
+        "Eat Guava emote: eat a GuavaMC guava bite by bite (other Booger players see it)",
+        "All emotes bend at the elbows and knees, and held items stay in your hand",
+        "The Booger Cape now shows the real Booger logo",
+        "Main menu top bar: your profile, every Booger page, and Flashback replays"
+      ]
+    },
+    {
       "version": "V28.6.3",
       "title": "Owner bans",
       "tag": "UPDATE",
