@@ -1,6 +1,24 @@
 {
   "items": [
     {
+      "version": "V28.8.0",
+      "title": "The Community Update",
+      "tag": "UPDATE",
+      "color": "green",
+      "date": "2026-11-26",
+      "text": "Play together: Booger Parties, group emotes, achievements, match history and your own public profile. All free.",
+      "changes": [
+        "Booger Parties: make a party, invite friends or share a join code, party chat (/bp), and see which server everyone is on",
+        "Group emotes: Conga and Wave Line, plus any emote done together by 3 to 8 party members",
+        "Achievements, checked by Booger online, with community challenges, event codes and a leaderboard",
+        "Achievers Halo: a gold halo for players with a legendary achievement",
+        "Match history and stats for Hypixel Bed Wars, SkyWars and Duels, synced to your account",
+        "HUD Widget Designer: build your own HUD widgets and share them with a code",
+        "Public player profiles in game and at booger-client-site.vercel.app/player/<name>",
+        "Fixed: the version on the main menu showed V28.6.3"
+      ]
+    },
+    {
       "version": "V28.7.0",
       "title": "GuavaMC x Booger",
       "tag": "COSMETIC",

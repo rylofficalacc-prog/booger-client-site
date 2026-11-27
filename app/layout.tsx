@@ -3,7 +3,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import { SITE_URL } from "./data";
 import "./globals.css";
-import "./halloween.css";
+import "./theme.css";
 
 const DESCRIPTION = "Make Minecraft yours with Booger Client. Download the Windows launcher and join our Discord.";
 
@@ -27,7 +27,7 @@ export const viewport: Viewport = { themeColor: "#100d16" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="halloweenSite">
+      <body className="boogerSite">
         <a className="skipLink" href="#main-content">Skip to content</a>
         <div className="page">
           <Nav />
