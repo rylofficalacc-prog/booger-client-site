@@ -1,6 +1,22 @@
 {
   "items": [
     {
+      "version": "Launcher 2.6",
+      "title": "A new look for the launcher",
+      "tag": "LAUNCHER",
+      "color": "blue",
+      "date": "2026-11-26",
+      "text": "Your character on the home screen, a big Launch button, your friends and the news, all on one screen.",
+      "changes": [
+        "Your character stands in the Booger forest scene, under your name",
+        "Big Launch button with the Minecraft version switch beside it",
+        "Quick play bar: join your servers in one click",
+        "Friends: see who is online and where, and join them in one click",
+        "News on the home screen, with Show all for the full changelog",
+        "A slim icon bar on the left, and your account in the top-right corner"
+      ]
+    },
+    {
       "version": "V28.8.0",
       "title": "The Community Update",
       "tag": "UPDATE",
